@@ -1,19 +1,67 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Sortir.com Groupe 3{% endblock %}</title>
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset("css/style.css") }}">
+    {% endblock %}
+
+    {% block javascripts %}
+        {#{{ encore_entry_script_tags('app') }}#}
+    {% endblock %}
+</head>
+
+<body>
+<header>
+    <div class="header_blockleft">
+        <img src="{{ asset("images/bucketList1.png") }}">
+
+        {# ********************************************* #}
+        <h1>
+            {% block Pagetitle %}
+                //Titre de la page ici
+            {% endblock %}
+        </h1>
+        {# ********************************************* #}
+    </div>
+
+    <nav>
+        <ul>
+            {% block NavMenu %}
+                <li><a href="{{ url('#') }}">Accueil</a></li>
+                <li><a href="{{ url('#') }}">About us</a></li>
+                <li><a href="{{ url('#') }}">Liste des sorties</a></li>
+                <li><a href="{{ url('#') }}">Ajouter une sorties</a></li>
+            {% endblock %}
+        </ul>
+    </nav>
+
+</header>
+
+{# ********************************************* #}
+<main>
+    {% block main %}
+        //Corps de la page ici
+    {% endblock %}
+</main>
+{# ********************************************* #}
+
+<footer>
+    <p>&copy; Sortir.com 2021</p>
+    <p>
+        By Awesome Group 3 (https://github.com/julietteVarga/ProjetPHPGroupe3.git)
+    </p>
+    <p>
+        <ul>
+        <li>Juliette Varga</li>
+        <li>Antoine Le Tallec</li>
+        <li>Emilie Giré</li>
+    </ul>
+    </p>
+</footer>
+
+</body>
+
 </html>
