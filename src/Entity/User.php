@@ -37,10 +37,6 @@ class User
      */
     private $email;
 
-    /**
-     * @ORM\Column(type="Role")
-     */
-    private $roles;
 
     /**
      * @ORM\Column(type="boolean")
