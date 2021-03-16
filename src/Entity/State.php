@@ -22,6 +22,11 @@ class State
      */
     private $label;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy="state")
+     */
+    private Outing $outings;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -38,4 +43,22 @@ class State
 
         return $this;
     }
+
+    /**
+     * @return Outing
+     */
+    public function getOutings(): Outing
+    {
+        return $this->outings;
+    }
+
+    /**
+     * @param Outing $outings
+     */
+    public function setOutings(Outing $outings): void
+    {
+        $this->outings = $outings;
+    }
+
+
 }

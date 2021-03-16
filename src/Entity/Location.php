@@ -37,6 +37,16 @@ class Location
      */
     private $longitude;
 
+    /**
+     * @ORM\OneToMany (targetEntity="App\Entity\Outing", mappedBy="location")
+     */
+    private Outing $outings;
+
+    /**
+     * @ORM\ManyToOne (targetEntity="App\Entity\City", inversedBy="locations")
+     */
+    private City $city;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,4 +99,38 @@ class Location
 
         return $this;
     }
+
+    /**
+     * @return Outing
+     */
+    public function getOutings(): Outing
+    {
+        return $this->outings;
+    }
+
+    /**
+     * @param Outing $outings
+     */
+    public function setOutings(Outing $outings): void
+    {
+        $this->outings = $outings;
+    }
+
+    /**
+     * @return City
+     */
+    public function getCity(): City
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param City $city
+     */
+    public function setCity(City $city): void
+    {
+        $this->city = $city;
+    }
+
+
 }

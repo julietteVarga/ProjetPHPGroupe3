@@ -48,9 +48,29 @@ class Outing
     private $outingInfos;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="outingsParticipants")
      */
-    private $state = [];
+    private User $participants;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="outingsOrganizer")
+     */
+    private User $organizer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Campus", inversedBy="outingsCampus")
+     */
+    private Campus $campusOrganizer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\State", inversedBy="outings")
+     */
+    private State $state;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="outings")
+     */
+    private Location $location;
 
     public function getId(): ?int
     {
@@ -140,4 +160,70 @@ class Outing
 
         return $this;
     }
+
+    /**
+     * @return User
+     */
+    public function getParticipants(): User
+    {
+        return $this->participants;
+    }
+
+    /**
+     * @param User $participants
+     */
+    public function setParticipants(User $participants): void
+    {
+        $this->participants = $participants;
+    }
+
+    /**
+     * @return User
+     */
+    public function getOrganizer(): User
+    {
+        return $this->organizer;
+    }
+
+    /**
+     * @param User $organizer
+     */
+    public function setOrganizer(User $organizer): void
+    {
+        $this->organizer = $organizer;
+    }
+
+    /**
+     * @return Campus
+     */
+    public function getCampusOrganizer(): Campus
+    {
+        return $this->campusOrganizer;
+    }
+
+    /**
+     * @param Campus $campusOrganizer
+     */
+    public function setCampusOrganizer(Campus $campusOrganizer): void
+    {
+        $this->campusOrganizer = $campusOrganizer;
+    }
+
+    /**
+     * @return Location
+     */
+    public function getLocation(): Location
+    {
+        return $this->location;
+    }
+
+    /**
+     * @param Location $location
+     */
+    public function setLocation(Location $location): void
+    {
+        $this->location = $location;
+    }
+
+
 }

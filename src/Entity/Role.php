@@ -22,6 +22,11 @@ class Role
      */
     private $isAdmin;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy= "role")
+     */
+    private User $users;
+
      public function getId(): ?int
     {
         return $this->id;
@@ -38,5 +43,38 @@ class Role
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIsAdmin()
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param mixed $isAdmin
+     */
+    public function setIsAdmin($isAdmin): void
+    {
+        $this->isAdmin = $isAdmin;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUsers(): User
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param User $users
+     */
+    public function setUsers(User $users): void
+    {
+        $this->users = $users;
+    }
+
 
 }
