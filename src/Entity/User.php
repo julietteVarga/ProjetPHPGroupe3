@@ -37,6 +37,16 @@ class User
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="Role")
+     */
+    private $roles;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
+
     public function getId(): ?int
     {
         return $this->id;

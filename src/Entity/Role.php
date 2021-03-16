@@ -20,39 +20,23 @@ class Role
     /**
      * @ORM\Column(type="boolean")
      */
-    private $admin;
+    private $isAdmin;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $user;
-
-    public function getId(): ?int
+     public function getId(): ?int
     {
         return $this->id;
     }
 
     public function getAdmin(): ?bool
     {
-        return $this->admin;
+        return $this->isAdmin;
     }
 
-    public function setAdmin(bool $admin): self
+    public function setAdmin(bool $isAdmin): self
     {
-        $this->admin = $admin;
+        $this->isAdmin = $isAdmin;
 
         return $this;
     }
 
-    public function getUser(): ?bool
-    {
-        return $this->user;
-    }
-
-    public function setUser(bool $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 }
