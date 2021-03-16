@@ -20,6 +20,11 @@ class User
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $pseudo;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $name;
 
     /**
@@ -37,8 +42,7 @@ class User
      */
     private $email;
 
-
-    /**
+     /**
      * @ORM\Column(type="boolean")
      */
     private $isActive;
