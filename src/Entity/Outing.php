@@ -43,7 +43,7 @@ class Outing
     private $maxNumberRegistration;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $outingInfos;
 
