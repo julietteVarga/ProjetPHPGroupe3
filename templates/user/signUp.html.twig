@@ -1,0 +1,65 @@
+{% extends('./base.html.twig') %}
+
+ {% block Pagetitle %}
+     Bienvenue sur Sortir.com !<br>
+     <em>Sortez en sécurité, sortez masqués !</em>
+ {% endblock %}
+
+ {% block main %}
+
+     <h2>Inscrivez-vous :</h2>
+
+     <div class="form">
+         {{ form_start (newUserForm) }}
+         <div class="form_groupe">
+             {#
+             {{ form_label (newUserForm.name) }}
+             {{ form_widget (newUserForm.name) }}
+             {{ form_errors (newUserForm.name) }}
+             #}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label (newUserForm.surname) }}
+             {{ form_widget (newUserForm.surname) }}
+             {{ form_errors (newUserForm.surname) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label (newUserForm.pseudo) }}
+             {{ form_widget (newUserForm.pseudo) }}
+             {{ form_errors (newUserForm.pseudo) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label (newUserForm.password) }}
+             {{ form_widget (newUserForm.password) }}
+             {{ form_errors (newUserForm.password) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label (newUserForm.tel) }}
+             {{ form_widget (newUserForm.tel) }}
+             {{ form_errors (newUserForm.tel) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label (newUserForm.email) }}
+             {{ form_widget (newUserForm.email) }}
+             {{ form_errors (newUserForm.email) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label (newUserForm.campus) }}
+             {{ form_widget (newUserForm.campus) }}
+             {{ form_errors (newUserForm.campus) }}
+         </div>
+
+         <br>
+         <button type="submit">Envoyer !</button>
+         {{ form_end (newUserForm) }}
+
+     </div>
+
+
+ {% endblock %}

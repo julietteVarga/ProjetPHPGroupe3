@@ -2,17 +2,21 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\SignInType;
+use App\Form\SignUpType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
-    #[Route('/main', name: 'main')]
+    #[Route('/', name: 'main_index')]
     public function index(): Response
     {
-        return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
-        ]);
+        return $this->render('main/index.html.twig');
     }
+
+
+
 }

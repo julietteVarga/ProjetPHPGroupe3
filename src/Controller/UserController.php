@@ -2,17 +2,70 @@
 
 namespace App\Controller;
 
+use App\Entity\Role;
+use App\Entity\User;
+use App\Form\SignInType;
+use App\Form\SignUpType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
 {
-    #[Route('/user', name: 'user')]
-    public function index(): Response
+
+    #[Route('/signup', name: 'user_signUp')]
+    public function signUp(Request $request, EntityManagerInterface $em): Response
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+        $newUser = new User();
+        $newUserForm = $this->createForm(SignUpType::class, $newUser);
+        $newUserForm->handleRequest($request);
+
+        if ($newUserForm->isSubmitted() && $newUserForm->isValid()) {
+            $newUser->setIsActive(false);
+            $userRole = new Role();
+            $userRole->setIsAdmin(false);
+            $newUser->setRole($userRole);
+
+            // tell Doctrine you want to eventually save the product (no queries yet) :
+            $em->persist($newUser);
+            // actually executes the queries (i.e. the INSERT query)
+            $em->flush();
+
+            $this->addFlash("success", "New User successfully saved !");
+            return $this->redirectToRoute("user_home", ["id" => $newUser->getId()]);
+        }
+
+        return $this->render('user/signUp.html.twig', [
+            "newUserForm" => $newUserForm->createView()
         ]);
     }
+
+    #[Route('/signin', name: 'user_signIn')]
+    public function signin(AuthenticationUtils $utils): Response
+    {
+        $registeredUser = new User();
+        $registeredUserForm = $this->createForm(SignInType::class, $registeredUser);
+        return $this->render('user/signIn.html.twig', [
+            "registeredUserForm" => $registeredUserForm->createView(),
+            'loginError' => $utils->getLastAuthenticationError(),
+            'loginUsername' => $utils->getLastUsername(),
+        ]);
+    }
+
+    #[Route('/logout', name: 'user_signOut')]
+    public function signout()
+    {
+        throw new \Exception('Don\'t forget to activate logout in security.yaml');
+    }
+
+    #[Route('/home', name: 'user_home')]
+    public function home(): Response
+    {
+        return $this->render('user/homeSignedIn.html.twig');
+    }
+
+
 }

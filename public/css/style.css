@@ -50,3 +50,22 @@ footer {
     justify-content: space-evenly;
     flex-direction: row;
 }
+
+.group_buttons_index {
+    display: flex;
+}
+
+.button {
+    display: flex;
+    background-color: black;
+    color: white;
+    margin: 5px;
+    height: 5vh;
+    width: 200px;
+    align-items: center;
+}
+
+.button a {
+    text-decoration: none;
+    color: white;
+}

@@ -20,7 +20,7 @@ class Campus
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $campusName;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy= "campus")

@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -16,6 +17,11 @@ class User
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -72,7 +78,10 @@ class User
         return $this->id;
     }
 
-    public function getName(): ?string
+    /**
+     * @inheritDoc
+     */
+    public function getUsername()
     {
         return $this->name;
     }
@@ -121,6 +130,14 @@ class User
     }
 
     /**
+     * @inheritDoc
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
      * @return mixed
      */
     public function getPseudo()
@@ -153,11 +170,12 @@ class User
     }
 
     /**
+     * @inheritDoc
      * @return Role
      */
-    public function getRole(): Role
+    public function getRoles()
     {
-        return $this->role;
+       return $this->role;
     }
 
     /**
@@ -216,5 +234,24 @@ class User
         $this->campus = $campus;
     }
 
+
+
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+
+
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {    }
 
 }
