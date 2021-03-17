@@ -25,9 +25,6 @@ class UserController extends AbstractController
 
         if ($newUserForm->isSubmitted() && $newUserForm->isValid()) {
             $newUser->setIsActive(false);
-            $userRole = new Role();
-            $userRole->setIsAdmin(false);
-            $newUser->setRole($userRole);
 
             // tell Doctrine you want to eventually save the product (no queries yet) :
             $em->persist($newUser);
@@ -48,7 +45,7 @@ class UserController extends AbstractController
     {
         $registeredUser = new User();
         $registeredUserForm = $this->createForm(SignInType::class, $registeredUser);
-        return $this->render('user/signIn.html.twig', [
+        return $this->render('security/login.html.twig', [
             "registeredUserForm" => $registeredUserForm->createView(),
             'loginError' => $utils->getLastAuthenticationError(),
             'loginUsername' => $utils->getLastUsername(),

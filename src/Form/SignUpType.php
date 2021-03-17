@@ -22,10 +22,10 @@ class SignUpType extends AbstractType
             ->add('surname')
             ->add('tel')
             ->add('email')
-            ->add('campus', EntityType::class, [
-                'class' => Campus::class,
-                'choice_label' => 'campusName',
-            ])
+            //->add('campus', EntityType::class, [
+            //    'class' => Campus::class,
+            //    'choice_label' => 'campusName',
+            //])
         ;
     }
 

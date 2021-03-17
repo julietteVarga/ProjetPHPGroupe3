@@ -17,7 +17,7 @@ class SignInType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class)
-            ->add('pseudo', TextType::class)
+            ->add('username', TextType::class)
             ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'first_options' => array('label' => 'Password'),
