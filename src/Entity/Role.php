@@ -21,12 +21,12 @@ class Role
      * @ORM\Column(type="boolean")
      */
     private $isAdmin;
-
+/*
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy= "role")
-     */
+     *
     private User $users;
-
+*/
      public function getId(): ?int
     {
         return $this->id;
@@ -59,10 +59,10 @@ class Role
     {
         $this->isAdmin = $isAdmin;
     }
-
+/*
     /**
      * @return User
-     */
+     *
     public function getUsers(): User
     {
         return $this->users;
@@ -70,11 +70,11 @@ class Role
 
     /**
      * @param User $users
-     */
+     *
     public function setUsers(User $users): void
     {
         $this->users = $users;
     }
-
+*/
 
 }

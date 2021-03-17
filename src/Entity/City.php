@@ -26,12 +26,12 @@ class City
      * @ORM\Column(type="string", length=5)
      */
     private $postalCode;
-
+/*
     /**
      * @ORM\OneToMany (targetEntity="App\Entity\Location", mappedBy="city")
-     */
+     *
     private Location $locations;
-
+*/
     public function getId(): ?int
     {
         return $this->id;
@@ -60,10 +60,10 @@ class City
 
         return $this;
     }
-
+/*
     /**
      * @return Location
-     */
+     *
     public function getLocations(): Location
     {
         return $this->locations;
@@ -71,11 +71,11 @@ class City
 
     /**
      * @param Location $locations
-     */
+     *
     public function setLocations(Location $locations): void
     {
         $this->locations = $locations;
     }
-
+*/
 
 }

@@ -35,7 +35,7 @@ class UserController extends AbstractController
             $em->flush();
 
             $this->addFlash("success", "New User successfully saved !");
-            return $this->redirectToRoute("user_home", ["id" => $newUser->getId()]);
+            return $this->redirectToRoute("user_profile", ["id" => $newUser->getId()]);
         }
 
         return $this->render('user/signUp.html.twig', [
@@ -61,10 +61,26 @@ class UserController extends AbstractController
         throw new \Exception('Don\'t forget to activate logout in security.yaml');
     }
 
-    #[Route('/home', name: 'user_home')]
-    public function home(): Response
+    #[Route('/home/{id}', name: 'user_home', requirements: ['id' => '\d+'])]
+    public function home(EntityManagerInterface $em, int $id): Response
     {
-        return $this->render('user/homeSignedIn.html.twig');
+        $repository = $em->getRepository(User::class);
+        $newUser  = $repository->find($id);
+        dump($newUser);
+        return $this->render('user/homeSignedIn.html.twig', [
+            'newUser' => $newUser
+        ]);
+    }
+
+    #[Route('/myprofile/{id}', name: 'user_profile', requirements: ['id' => '\d+'])]
+    public function myProfile(EntityManagerInterface $em, int $id): Response
+    {
+        $repository = $em->getRepository(User::class);
+        $newUser  = $repository->find($id);
+        dump($newUser);
+        return $this->render('user/myProfile.html.twig', [
+            'newUser' => $newUser
+        ]);
     }
 
 

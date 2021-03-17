@@ -1,8 +1,7 @@
 {% extends('./base.html.twig') %}
 
  {% block Pagetitle %}
-     Bienvenue sur Sortir.com !<br>
-     <em>Sortez en sécurité, sortez masqués !</em>
+    Bienvenue !
  {% endblock %}
 
  {% block main %}
@@ -12,11 +11,11 @@
      <div class="form">
          {{ form_start (newUserForm) }}
          <div class="form_groupe">
-             {#
+
              {{ form_label (newUserForm.name) }}
              {{ form_widget (newUserForm.name) }}
              {{ form_errors (newUserForm.name) }}
-             #}
+
          </div>
 
          <div class="form_groupe">
@@ -26,9 +25,9 @@
          </div>
 
          <div class="form_groupe">
-             {{ form_label (newUserForm.pseudo) }}
-             {{ form_widget (newUserForm.pseudo) }}
-             {{ form_errors (newUserForm.pseudo) }}
+             {{ form_label (newUserForm.username) }}
+             {{ form_widget (newUserForm.username) }}
+             {{ form_errors (newUserForm.username) }}
          </div>
 
          <div class="form_groupe">
@@ -48,13 +47,13 @@
              {{ form_widget (newUserForm.email) }}
              {{ form_errors (newUserForm.email) }}
          </div>
-
+{#
          <div class="form_groupe">
              {{ form_label (newUserForm.campus) }}
              {{ form_widget (newUserForm.campus) }}
              {{ form_errors (newUserForm.campus) }}
          </div>
-
+#}
          <br>
          <button type="submit">Envoyer !</button>
          {{ form_end (newUserForm) }}

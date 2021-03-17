@@ -46,32 +46,32 @@ class Outing
      * @ORM\Column(type="text")
      */
     private $outingInfos;
-
+/*
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="outingsParticipants")
-     */
+     *
     private User $participants;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="outingsOrganizer")
-     */
+     *
     private User $organizer;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Campus", inversedBy="outingsCampus")
-     */
+     *
     private Campus $campusOrganizer;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\State", inversedBy="outings")
-     */
+     *
     private State $state;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="outings")
-     */
+     *
     private Location $location;
-
+*/
     public function getId(): ?int
     {
         return $this->id;
@@ -148,7 +148,7 @@ class Outing
 
         return $this;
     }
-
+/*
     public function getState(): ?array
     {
         return $this->state;
@@ -163,7 +163,7 @@ class Outing
 
     /**
      * @return User
-     */
+     *
     public function getParticipants(): User
     {
         return $this->participants;
@@ -171,7 +171,7 @@ class Outing
 
     /**
      * @param User $participants
-     */
+     *
     public function setParticipants(User $participants): void
     {
         $this->participants = $participants;
@@ -179,7 +179,7 @@ class Outing
 
     /**
      * @return User
-     */
+     *
     public function getOrganizer(): User
     {
         return $this->organizer;
@@ -187,7 +187,7 @@ class Outing
 
     /**
      * @param User $organizer
-     */
+     *
     public function setOrganizer(User $organizer): void
     {
         $this->organizer = $organizer;
@@ -195,7 +195,7 @@ class Outing
 
     /**
      * @return Campus
-     */
+     *
     public function getCampusOrganizer(): Campus
     {
         return $this->campusOrganizer;
@@ -203,7 +203,7 @@ class Outing
 
     /**
      * @param Campus $campusOrganizer
-     */
+     *
     public function setCampusOrganizer(Campus $campusOrganizer): void
     {
         $this->campusOrganizer = $campusOrganizer;
@@ -211,7 +211,7 @@ class Outing
 
     /**
      * @return Location
-     */
+     *
     public function getLocation(): Location
     {
         return $this->location;
@@ -219,11 +219,11 @@ class Outing
 
     /**
      * @param Location $location
-     */
+     *
     public function setLocation(Location $location): void
     {
         $this->location = $location;
     }
-
+*/
 
 }

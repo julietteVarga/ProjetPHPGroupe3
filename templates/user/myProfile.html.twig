@@ -1,1 +1,14 @@
 {% extends 'base.html.twig' %}
+
+{% block Pagetitle %}
+    Profil de {{ newUser.getUsername() }}
+{% endblock %}
+
+ {% block main %}
+     <p>  Pseudo : {{ newUser.getUsername() }} </p>
+     <p>  Prénom : {{ newUser.getName() }} </p>
+     <p>  Tel : {{ newUser.getTel() }} </p>
+     <p>  Email : {{ newUser.getEmail() }} </p>
+
+
+ {% endblock %}

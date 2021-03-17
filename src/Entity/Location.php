@@ -36,17 +36,17 @@ class Location
      * @ORM\Column(type="float")
      */
     private $longitude;
-
+/*
     /**
      * @ORM\OneToMany (targetEntity="App\Entity\Outing", mappedBy="location")
-     */
+     *
     private Outing $outings;
 
     /**
      * @ORM\ManyToOne (targetEntity="App\Entity\City", inversedBy="locations")
-     */
+     *
     private City $city;
-
+*/
     public function getId(): ?int
     {
         return $this->id;
@@ -99,10 +99,10 @@ class Location
 
         return $this;
     }
-
+/*
     /**
      * @return Outing
-     */
+     *
     public function getOutings(): Outing
     {
         return $this->outings;
@@ -110,7 +110,7 @@ class Location
 
     /**
      * @param Outing $outings
-     */
+     *
     public function setOutings(Outing $outings): void
     {
         $this->outings = $outings;
@@ -118,7 +118,7 @@ class Location
 
     /**
      * @return City
-     */
+     *
     public function getCity(): City
     {
         return $this->city;
@@ -126,11 +126,11 @@ class Location
 
     /**
      * @param City $city
-     */
+     *
     public function setCity(City $city): void
     {
         $this->city = $city;
     }
-
+*/
 
 }

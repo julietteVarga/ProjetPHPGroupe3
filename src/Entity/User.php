@@ -26,7 +26,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $pseudo;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -52,36 +52,36 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isActive;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy= "users")
-     */
+    /*
+        /**
+         * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy= "users", cascade={"persist"})
+         *
     private Role $role;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Outing", inversedBy="participants")
-     */
+     * @ORM\ManyToMany(targetEntity="App\Entity\Outing", inversedBy="participants", cascade={"persist", "remove"})
+     *
     private Outing $outingsParticipants;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy= "organizer")
-     */
+     *
     private Outing $outingsOrganizer;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Campus", inversedBy= "students")
-     */
+     *
     private Campus $campus;
 
     public function getId(): ?int
     {
         return $this->id;
     }
-
+*/
     /**
      * @inheritDoc
      */
-    public function getUsername()
+    public function getName()
     {
         return $this->name;
     }
@@ -137,20 +137,25 @@ class User implements UserInterface
         return $this->password;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPseudo()
+    public function setPassword($password): void
     {
-        return $this->pseudo;
+        $this->password = $password;
     }
 
     /**
-     * @param mixed $pseudo
+     * @return mixed
      */
-    public function setPseudo($pseudo): void
+    public function getUsername()
     {
-        $this->pseudo = $pseudo;
+        return $this->username;
+    }
+
+    /**
+     * @param mixed $username
+     */
+    public function setUsername($username): void
+    {
+        $this->username = $username;
     }
 
     /**
@@ -189,7 +194,7 @@ class User implements UserInterface
     /**
      * @return Outing
      */
-    public function getOutingsParticipants(): Outing
+    public function getOutingsParticipants(): ?Outing
     {
         return $this->outingsParticipants;
     }
