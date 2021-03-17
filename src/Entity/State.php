@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\StateRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,12 +22,13 @@ class State
      * @ORM\Column(type="string", length=255)
      */
     private $label;
-/*
+
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy="state")
-     *
-    private Outing $outings;
-*/
+     */
+    private $outings;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -43,22 +45,20 @@ class State
 
         return $this;
     }
-/*
-    /**
-     * @return Outing
-     *
-    public function getOutings(): Outing
+
+    public function getOutings(): ArrayCollection
     {
         return $this->outings;
     }
 
-    /**
-     * @param Outing $outings
-     *
-    public function setOutings(Outing $outings): void
+    public function setOutings(ArrayCollection $outings): void
     {
         $this->outings = $outings;
     }
-*/
+
+    public function __toString(): string
+    {
+        return $this->getLabel();
+    }
 
 }

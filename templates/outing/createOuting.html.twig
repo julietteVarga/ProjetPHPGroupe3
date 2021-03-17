@@ -1,1 +1,14 @@
 {% extends 'base.html.twig' %}
+
+
+{% block main %}
+    <h1>Créer une nouvelle sortie</h1>
+
+
+    {{ form_start(outingForm) }}
+    {{ form_widget(outingForm) }}
+    <input type="submit" value="Valider">
+    {{ form_end(outingForm) }}
+
+{% endblock %}
+
