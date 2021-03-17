@@ -26,12 +26,19 @@ class City
      * @ORM\Column(type="string", length=5)
      */
     private $postalCode;
-/*
+
     /**
-     * @ORM\OneToMany (targetEntity="App\Entity\Location", mappedBy="city")
-     *
-    private Location $locations;
-*/
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="usersCity", cascade={"persist", "remove"})
+     */
+    private $users;
+
+
+    /*
+        /**
+         * @ORM\OneToMany (targetEntity="App\Entity\Location", mappedBy="city")
+         *
+        private Location $locations;
+    */
     public function getId(): ?int
     {
         return $this->id;
@@ -77,5 +84,10 @@ class City
         $this->locations = $locations;
     }
 */
+
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
 
 }

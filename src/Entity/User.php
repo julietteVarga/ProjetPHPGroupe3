@@ -52,6 +52,28 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isActive;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\City", inversedBy="users", cascade={"persist", "remove"})
+     */
+    private $usersCity;
+
+    /**
+     * @return mixed
+     */
+    public function getUsersCity()
+    {
+        return $this->usersCity;
+    }
+
+    /**
+     * @param mixed $usersCity
+     */
+    public function setUsersCity($usersCity): void
+    {
+        $this->usersCity = $usersCity;
+    }
+
     /*
         /**
          * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy= "users", cascade={"persist"})

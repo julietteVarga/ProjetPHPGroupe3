@@ -1,14 +1,57 @@
 {% extends 'base.html.twig' %}
+{% block main %}
 
-{% block Pagetitle %}
-    Profil de {{ newUser.getUsername() }}
+    <div class="form">
+        {{ form_start (userModifyForm) }}
+        <div class="form_groupe">
+            {{ form_label (userModifyForm.name) }}
+            {{ form_widget (userModifyForm.name) }}
+
+            <!--{{ form_errors (userModifyForm.name) }}-->
+        </div>
+        <div class="form_groupe">
+            {{ form_label (userModifyForm.surname) }}
+            {{ form_widget (userModifyForm.surname) }}
+           <!-- {{ form_errors (userModifyForm.surname) }}-->
+        </div>
+        <div class="form_groupe">
+           {{ form_label (userModifyForm.username) }}
+            {{ form_widget (userModifyForm.username) }}
+           <!-- {{ form_errors (userModifyForm.username) }}-->
+        </div>
+        <div class="form_groupe">
+            {{ form_row(userModifyForm.password.first) }}
+            {{ form_row(userModifyForm.password.second) }}
+        </div>
+
+        <div class="form_groupe">
+            {{ form_label (userModifyForm.tel) }}
+            {{ form_widget (userModifyForm.tel) }}
+            <!--{{ form_errors (userModifyForm.tel) }}-->
+        </div>
+        <div class="form_groupe">
+            {{ form_label (userModifyForm.email) }}
+            {{ form_widget (userModifyForm.email) }}
+          <!--  {{ form_errors (userModifyForm.email) }}-->
+        </div>
+
+        <div class="form_groupe">
+            {{ form_label (userModifyForm.usersCity,'ville de rattachement') }}
+            {{ form_widget (userModifyForm.usersCity) }}
+            <!--  {{ form_errors (userModifyForm.email) }}-->
+        </div>
+
+        {#
+        <div class="form_groupe">
+            {{ form_label (newUserForm.campus) }}
+            {{ form_widget (newUserForm.campus) }}
+            {{ form_errors (newUserForm.campus) }}
+        </div>
+        #}
+        <br>
+        <button type="submit">Envoyer !</button>
+        {{ form_end (userModifyForm) }}
+    </div>
+
 {% endblock %}
 
- {% block main %}
-     <p>  Pseudo : {{ newUser.getUsername() }} </p>
-     <p>  Prénom : {{ newUser.getName() }} </p>
-     <p>  Tel : {{ newUser.getTel() }} </p>
-     <p>  Email : {{ newUser.getEmail() }} </p>
-
-
- {% endblock %}
