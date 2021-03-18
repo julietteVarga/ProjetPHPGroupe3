@@ -184,7 +184,7 @@ class User implements UserInterface
     /**
      * @inheritDoc
      */
-    public function getRoles()
+    public function getRoles():array
     {
        return $this->roles;
     }
