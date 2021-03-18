@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CampusRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,28 +27,37 @@ class Campus
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy= "campus")
      *
     private User $students;
+*/
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy= "campusOrganizer")
-     *
-    private Outing $outingsCampus;
-*/
+     */
+    private $outingsCampus;
+
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    /**
+     * @return mixed
+     */
+    public function getCampusName()
     {
-        return $this->name;
+        return $this->campusName;
     }
 
-    public function setName(string $name): self
+    /**
+     * @param mixed $campusName
+     */
+    public function setCampusName($campusName): void
     {
-        $this->name = $name;
-
-        return $this;
+        $this->campusName = $campusName;
     }
+
+
 /*
     /**
      * @return User
@@ -64,22 +74,21 @@ class Campus
     {
         $this->students = $students;
     }
+*/
 
-    /**
-     * @return Outing
-     *
-    public function getOutingsCampus(): Outing
+    public function getOutingsCampus(): ArrayCollection
     {
         return $this->outingsCampus;
     }
 
-    /**
-     * @param Outing $outingsCampus
-     *
-    public function setOutingsCampus(Outing $outingsCampus): void
+    public function setOutingsCampus(ArrayCollection $outingsCampus): void
     {
         $this->outingsCampus = $outingsCampus;
     }
 
-*/
+    public function __toString(): string
+    {
+        return $this->getCampusName();
+    }
+
 }

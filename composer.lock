@@ -460,11 +460,11 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "2.2.3",
+            "version": "2.2.4",
             "dist": {
                 "type": "zip",
-                "url": "http://nexus.depot-eni.fr:8081/repository/composer-proxy-packagist.org/doctrine/doctrine-bundle/2.2.3/doctrine-doctrine-bundle-2.2.3.zip",
-                "reference": "015fdd490074d4daa891e2d1df998dc35ba54924",
+                "url": "http://nexus.depot-eni.fr:8081/repository/composer-proxy-packagist.org/doctrine/doctrine-bundle/2.2.4/doctrine-doctrine-bundle-2.2.4.zip",
+                "reference": "708ed6f99c3d0142e15a8b05022946367cfcc075",
                 "shasum": ""
             },
             "require": {
@@ -556,7 +556,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-19T20:29:53+00:00"
+            "time": "2021-02-25T11:33:34+00:00"
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
