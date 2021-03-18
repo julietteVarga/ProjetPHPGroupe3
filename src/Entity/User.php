@@ -54,7 +54,7 @@ class User implements UserInterface
     private $isActive;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\City", inversedBy="users", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\City", inversedBy="users")
      */
     private $usersCity;
 

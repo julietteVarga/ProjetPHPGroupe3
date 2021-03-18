@@ -28,7 +28,7 @@ class City
     private $postalCode;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="usersCity", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="usersCity")
      */
     private $users;
 
