@@ -81,14 +81,14 @@ class User implements UserInterface
     /**
      * @inheritDoc
      */
-    public function getName()
+    public function getUsername()
     {
-        return $this->name;
+        return $this->username;
     }
 
-    public function setName(string $name): self
+    public function setUsername(string $username): self
     {
-        $this->name = $name;
+        $this->username = $username;
 
         return $this;
     }
@@ -145,17 +145,17 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getUsername()
+    public function getName()
     {
-        return $this->username;
+        return $this->name;
     }
 
     /**
-     * @param mixed $username
+     * @param mixed $name
      */
-    public function setUsername($username): void
+    public function setName($name): void
     {
-        $this->username = $username;
+        $this->name = $name;
     }
 
     /**
