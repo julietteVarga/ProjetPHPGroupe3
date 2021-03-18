@@ -53,11 +53,26 @@ class User implements UserInterface
      */
     private $isActive;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Campus", inversedBy= "students")
+     */
+    private Campus $campus;
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+    /*
         /**
-         * @ORM\Column(type="json")
-         */
-    private $roles = [];
-/*
+         * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy= "users", cascade={"persist"})
+         *
+    private Role $role;
+
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Outing", inversedBy="participants", cascade={"persist", "remove"})
      *
@@ -67,28 +82,30 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy= "organizer")
      *
     private Outing $outingsOrganizer;
-*/
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Campus", inversedBy= "students")
-     */
+     *
     private Campus $campus;
 
     public function getId(): ?int
     {
         return $this->id;
     }
+*/
+
 
     /**
      * @inheritDoc
      */
-    public function getUsername()
+    public function getName()
     {
-        return $this->username;
+        return $this->name;
     }
 
-    public function setUsername(string $username): self
+    public function setName(string $name): self
     {
-        $this->username = $username;
+        $this->name = $name;
 
         return $this;
     }
@@ -145,17 +162,17 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getName()
+    public function getUsername()
     {
-        return $this->name;
+        return $this->username;
     }
 
     /**
-     * @param mixed $name
+     * @param mixed $username
      */
-    public function setName($name): void
+    public function setUsername($username): void
     {
-        $this->name = $name;
+        $this->username = $username;
     }
 
     /**
@@ -178,13 +195,9 @@ class User implements UserInterface
      * @inheritDoc
      * @return Role
      */
-    public function getRoles(): array
+    public function getRoles()
     {
-       $roles = $this->roles;
-       //Par défaut ROLE_USER :
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+       return $this->role;
     }
 
     /**
@@ -194,10 +207,10 @@ class User implements UserInterface
     {
         $this->role = $role;
     }
-/*
+
     /**
      * @return Outing
-     *
+     */
     public function getOutingsParticipants(): ?Outing
     {
         return $this->outingsParticipants;
@@ -205,7 +218,7 @@ class User implements UserInterface
 
     /**
      * @param Outing $outingsParticipants
-     *
+     */
     public function setOutingsParticipants(Outing $outingsParticipants): void
     {
         $this->outingsParticipants = $outingsParticipants;
@@ -213,7 +226,7 @@ class User implements UserInterface
 
     /**
      * @return Outing
-     *
+     */
     public function getOutingsOrganizer(): Outing
     {
         return $this->outingsOrganizer;
@@ -221,16 +234,16 @@ class User implements UserInterface
 
     /**
      * @param Outing $outingsOrganizer
-     *
+     */
     public function setOutingsOrganizer(Outing $outingsOrganizer): void
     {
         $this->outingsOrganizer = $outingsOrganizer;
-    }*/
+    }
 
     /**
      * @return Campus
      */
-    public function getCampus(): Campus
+    public function getCampus(): ?Campus
     {
         return $this->campus;
     }
@@ -238,7 +251,7 @@ class User implements UserInterface
     /**
      * @param Campus $campus
      */
-    public function setCampus(Campus $campus): void
+    public function setCampus(Campus $campus): self
     {
         $this->campus = $campus;
     }
