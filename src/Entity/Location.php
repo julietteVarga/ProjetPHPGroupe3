@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\LocationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,12 +37,13 @@ class Location
      * @ORM\Column(type="float")
      */
     private $longitude;
-/*
-    /**
-     * @ORM\OneToMany (targetEntity="App\Entity\Outing", mappedBy="location")
-     *
-    private Outing $outings;
 
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany (targetEntity="App\Entity\Outing", mappedBy="location")
+     */
+    private $outings;
+/*
     /**
      * @ORM\ManyToOne (targetEntity="App\Entity\City", inversedBy="locations")
      *
@@ -99,22 +101,24 @@ class Location
 
         return $this;
     }
-/*
+
     /**
      * @return Outing
-     *
-    public function getOutings(): Outing
+     */
+    public function getOutings(): ArrayCollection
     {
         return $this->outings;
     }
 
     /**
      * @param Outing $outings
-     *
-    public function setOutings(Outing $outings): void
+     */
+    public function setOutings(ArrayCollection $outings): void
     {
         $this->outings = $outings;
     }
+
+    /*
 
     /**
      * @return City
@@ -132,5 +136,10 @@ class Location
         $this->city = $city;
     }
 */
+
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
 
 }
