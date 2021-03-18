@@ -67,12 +67,12 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy= "organizer")
      *
     private Outing $outingsOrganizer;
-
+*/
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Campus", inversedBy= "students")
-     *
+     */
     private Campus $campus;
-*/
+
     public function getId(): ?int
     {
         return $this->id;
@@ -194,10 +194,10 @@ class User implements UserInterface
     {
         $this->role = $role;
     }
-
+/*
     /**
      * @return Outing
-     */
+     *
     public function getOutingsParticipants(): ?Outing
     {
         return $this->outingsParticipants;
@@ -205,7 +205,7 @@ class User implements UserInterface
 
     /**
      * @param Outing $outingsParticipants
-     */
+     *
     public function setOutingsParticipants(Outing $outingsParticipants): void
     {
         $this->outingsParticipants = $outingsParticipants;
@@ -213,7 +213,7 @@ class User implements UserInterface
 
     /**
      * @return Outing
-     */
+     *
     public function getOutingsOrganizer(): Outing
     {
         return $this->outingsOrganizer;
@@ -221,11 +221,11 @@ class User implements UserInterface
 
     /**
      * @param Outing $outingsOrganizer
-     */
+     *
     public function setOutingsOrganizer(Outing $outingsOrganizer): void
     {
         $this->outingsOrganizer = $outingsOrganizer;
-    }
+    }*/
 
     /**
      * @return Campus

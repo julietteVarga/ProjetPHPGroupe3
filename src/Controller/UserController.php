@@ -6,6 +6,8 @@ use App\Entity\Role;
 use App\Entity\User;
 use App\Form\SignInType;
 use App\Form\SignUpType;
+use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Authenticator\Passport\UserPassportInterface;
 
 class UserController extends AbstractController
 {
@@ -40,7 +43,7 @@ class UserController extends AbstractController
             $em->flush();
 
             $this->addFlash("success", "New User successfully saved !");
-            return $this->redirectToRoute("user_profile", ["id" => $newUser->getId()]);
+            return $this->redirectToRoute("user_my_profile", ["id" => $newUser->getId()]);
         }
 
         return $this->render('user/signUp.html.twig', [
@@ -70,15 +73,36 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/myprofile/{id}', name: 'user_profile', requirements: ['id' => '\d+'])]
-    public function myProfile(EntityManagerInterface $em, int $id): Response
+    #[Route('/user/myprofile/{id}', name: 'user_my_profile',requirements: [ 'id' => '\d+' ])]
+    public function modifyMyProfile(int $id,Request $request,
+                                    EntityManagerInterface $entityManager,
+                                    UserRepository $userRepository): Response
     {
-        $repository = $em->getRepository(User::class);
-        $newUser  = $repository->find($id);
-        dump($newUser);
+        $repository = $userRepository;
+           $userModify= $repository->find($id);
+
+        $userModifyForm = $this->createForm(UserType::class,$userModify);
+        $userModifyForm->handleRequest($request);
+
+
+        if($userModifyForm->isSubmitted() && $userModifyForm->isValid()){
+
+            $entityManager->persist($userModify);
+            $entityManager->flush();
+
+            $this->addFlash('success','Vous avez bien modifié votre profil!');
+
+            return $this->redirectToRoute('user_my_profile',['id'=>$id]);
+
+        }
+
         return $this->render('user/myProfile.html.twig', [
-            'newUser' => $newUser
+            'userModifyForm' => $userModifyForm->createView(),
+            'confirmation'=>'confirmation de votre mot de passe'
+
+
         ]);
+
     }
 
 
