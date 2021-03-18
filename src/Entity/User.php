@@ -83,17 +83,19 @@ class User implements UserInterface
         return $this->id;
     }
 
+
+
     /**
      * @inheritDoc
      */
-    public function getUsername()
+    public function getName()
     {
-        return $this->username;
+        return $this->name;
     }
 
-    public function setUsername(string $username): self
+    public function setName(string $name): self
     {
-        $this->username = $username;
+        $this->name = $name;
 
         return $this;
     }
@@ -150,17 +152,17 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getName()
+    public function getUsername()
     {
-        return $this->name;
+        return $this->username;
     }
 
     /**
-     * @param mixed $name
+     * @param mixed $username
      */
-    public function setName($name): void
+    public function setUsername($username): void
     {
-        $this->name = $name;
+        $this->username = $username;
     }
 
     /**
@@ -182,7 +184,7 @@ class User implements UserInterface
     /**
      * @inheritDoc
      */
-    public function getRoles(): array
+    public function getRoles()
     {
        return $this->roles;
     }
@@ -262,7 +264,7 @@ class User implements UserInterface
     /**
      * @return Campus
      */
-    public function getCampus(): Campus
+    public function getCampus(): ?Campus
     {
         return $this->campus;
     }
@@ -270,7 +272,7 @@ class User implements UserInterface
     /**
      * @param Campus $campus
      */
-    public function setCampus(Campus $campus): void
+    public function setCampus(Campus $campus): self
     {
         $this->campus = $campus;
     }
