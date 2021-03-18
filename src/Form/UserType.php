@@ -28,21 +28,17 @@ class UserType extends AbstractType
                 'invalid_message' => 'The password fields must match.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options'  => ['label' => 'Mot de passe'],
+                'first_options' => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'confirmation du mot de passe'],])
             ->add('username')
             ->add('name')
             ->add('surname')
             ->add('tel')
             ->add('email')
-            ->add('campus',EntityType::class,[
-                'class'=>Campus::class,
-                'choice_label'=>'campusName'
-            ])
-
-
-
-        ;
+            ->add('campus', EntityType::class, [
+                'class' => Campus::class,
+                'choice_label' => 'campusName'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
