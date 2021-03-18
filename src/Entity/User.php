@@ -220,7 +220,7 @@ class User implements UserInterface
 /*
     /**
      * @return Outing
-     *
+     */
     public function getOutingsParticipants(): ?Outing
     {
         return $this->outingsParticipants;
@@ -228,7 +228,7 @@ class User implements UserInterface
 
     /**
      * @param Outing $outingsParticipants
-     *
+     */
     public function setOutingsParticipants(Outing $outingsParticipants): void
     {
         $this->outingsParticipants = $outingsParticipants;
@@ -236,7 +236,7 @@ class User implements UserInterface
 
     /**
      * @return Outing
-     *
+     */
     public function getOutingsOrganizer(): Outing
     {
         return $this->outingsOrganizer;
@@ -244,16 +244,16 @@ class User implements UserInterface
 
     /**
      * @param Outing $outingsOrganizer
-     *
+     */
     public function setOutingsOrganizer(Outing $outingsOrganizer): void
     {
         $this->outingsOrganizer = $outingsOrganizer;
-    }*/
+    }
 
     /**
      * @return Campus
      */
-    public function getCampus(): Campus
+    public function getCampus(): ?Campus
     {
         return $this->campus;
     }
@@ -261,7 +261,7 @@ class User implements UserInterface
     /**
      * @param Campus $campus
      */
-    public function setCampus(Campus $campus): void
+    public function setCampus(Campus $campus): self
     {
         $this->campus = $campus;
     }

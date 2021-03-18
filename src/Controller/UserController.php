@@ -52,7 +52,6 @@ class UserController extends AbstractController
 
         return $this->render('user/myProfile.html.twig', [
             'userModifyForm' => $userModifyForm->createView(),
-            'confirmation'=>'confirmation de votre mot de passe'
 
 
         ]);
