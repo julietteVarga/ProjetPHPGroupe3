@@ -34,10 +34,8 @@ class UserType extends AbstractType
             ->add('surname')
             ->add('tel')
             ->add('email')
-           ->add('usersCity',EntityType::class,[
-               'class'=>City::class,
-               'label'=>'name'
-           ])
+            ->add('campus')
+
 
 
         ;

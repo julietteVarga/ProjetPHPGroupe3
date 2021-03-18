@@ -27,11 +27,6 @@ class City
      */
     private $postalCode;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="usersCity")
-     */
-    private $users;
-
 
     /*
         /**

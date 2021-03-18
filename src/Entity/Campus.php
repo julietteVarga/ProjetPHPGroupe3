@@ -21,12 +21,12 @@ class Campus
      * @ORM\Column(type="string", length=255)
      */
     private $campusName;
-/*
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy= "campus")
-     *
+     */
     private User $students;
-
+/*
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy= "campusOrganizer")
      *
@@ -37,21 +37,21 @@ class Campus
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getCampusName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setCampusName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
-/*
+
     /**
      * @return User
-     *
+     */
     public function getStudents(): User
     {
         return $this->students;
@@ -59,12 +59,12 @@ class Campus
 
     /**
      * @param User $students
-     *
+     */
     public function setStudents(User $students): void
     {
         $this->students = $students;
     }
-
+/*
     /**
      * @return Outing
      *
