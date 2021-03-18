@@ -11,13 +11,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
 {
 
     #[Route('/signup', name: 'user_signUp')]
-    public function signUp(Request $request, EntityManagerInterface $em): Response
+    public function signUp(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $newUser = new User();
         $newUserForm = $this->createForm(SignUpType::class, $newUser);
@@ -25,9 +26,13 @@ class UserController extends AbstractController
 
         if ($newUserForm->isSubmitted() && $newUserForm->isValid()) {
             $newUser->setIsActive(false);
-            $userRole = new Role();
-            $userRole->setIsAdmin(false);
-            $newUser->setRole($userRole);
+
+            //On encode le mot de passe :
+            $password = $passwordEncoder->encodePassword($newUser, $newUser->getPassword());
+            $newUser->setPassword($password);
+
+            //Par défaut on met le role ROLE_USER en appelant getRoles de la classe User:
+            $newUser->getRoles();
 
             // tell Doctrine you want to eventually save the product (no queries yet) :
             $em->persist($newUser);
@@ -48,27 +53,20 @@ class UserController extends AbstractController
     {
         $registeredUser = new User();
         $registeredUserForm = $this->createForm(SignInType::class, $registeredUser);
-        return $this->render('user/signIn.html.twig', [
+        return $this->render('security/login.html.twig', [
             "registeredUserForm" => $registeredUserForm->createView(),
             'loginError' => $utils->getLastAuthenticationError(),
             'loginUsername' => $utils->getLastUsername(),
         ]);
     }
 
-    #[Route('/logout', name: 'user_signOut')]
-    public function signout()
-    {
-        throw new \Exception('Don\'t forget to activate logout in security.yaml');
-    }
 
-    #[Route('/home/{id}', name: 'user_home', requirements: ['id' => '\d+'])]
+    #[Route('/home', name: 'user_home')]
     public function home(EntityManagerInterface $em, int $id): Response
     {
-        $repository = $em->getRepository(User::class);
-        $newUser  = $repository->find($id);
-        dump($newUser);
+
         return $this->render('user/homeSignedIn.html.twig', [
-            'newUser' => $newUser
+
         ]);
     }
 

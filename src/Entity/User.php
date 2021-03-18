@@ -52,12 +52,12 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isActive;
-    /*
-        /**
-         * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy= "users", cascade={"persist"})
-         *
-    private Role $role;
 
+        /**
+         * @ORM\Column(type="json")
+         */
+    private $roles = [];
+/*
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Outing", inversedBy="participants", cascade={"persist", "remove"})
      *
@@ -72,23 +72,23 @@ class User implements UserInterface
      * @ORM\ManyToOne(targetEntity="App\Entity\Campus", inversedBy= "students")
      *
     private Campus $campus;
-
+*/
     public function getId(): ?int
     {
         return $this->id;
     }
-*/
+
     /**
      * @inheritDoc
      */
-    public function getName()
+    public function getUsername()
     {
-        return $this->name;
+        return $this->username;
     }
 
-    public function setName(string $name): self
+    public function setUsername(string $username): self
     {
-        $this->name = $name;
+        $this->username = $username;
 
         return $this;
     }
@@ -145,17 +145,17 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getUsername()
+    public function getName()
     {
-        return $this->username;
+        return $this->name;
     }
 
     /**
-     * @param mixed $username
+     * @param mixed $name
      */
-    public function setUsername($username): void
+    public function setName($name): void
     {
-        $this->username = $username;
+        $this->name = $name;
     }
 
     /**
@@ -178,9 +178,13 @@ class User implements UserInterface
      * @inheritDoc
      * @return Role
      */
-    public function getRoles()
+    public function getRoles(): array
     {
-       return $this->role;
+       $roles = $this->roles;
+       //Par défaut ROLE_USER :
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
     /**

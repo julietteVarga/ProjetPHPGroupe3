@@ -1,15 +1,14 @@
 {% extends 'base.html.twig' %}
 
  {% block Pagetitle %}
-    Bienvenue sur Sortir.com !<br>
-     <em>Sortez en sécurité, sortez masqués !</em>
+
  {% endblock %}
 
  {% block main %}
 
      <div class="group_buttons_index">
         <div class="button">
-            <a href="{{ url('user_signIn')}}" >Se connecter</a>
+            <a href="{{ url('app_login')}}" >Se connecter</a>
         </div>
         <div class="button">
             <a href="{{ url('user_signUp') }}">S'inscrire</a>
