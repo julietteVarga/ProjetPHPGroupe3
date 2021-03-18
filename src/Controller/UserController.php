@@ -43,7 +43,7 @@ class UserController extends AbstractController
             $em->flush();
 
             $this->addFlash("success", "New User successfully saved !");
-            return $this->redirectToRoute("user_profile", ["id" => $newUser->getId()]);
+            return $this->redirectToRoute("user_my_profile", ["id" => $newUser->getId()]);
         }
 
         return $this->render('user/signUp.html.twig', [

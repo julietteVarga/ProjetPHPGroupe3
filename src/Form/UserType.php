@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
 use App\Entity\City;
 use App\Entity\User;
 use App\Repository\CityRepository;
@@ -34,7 +35,10 @@ class UserType extends AbstractType
             ->add('surname')
             ->add('tel')
             ->add('email')
-            ->add('campus')
+            ->add('campus',EntityType::class,[
+                'class'=>Campus::class,
+                'choice_label'=>'campusName'
+            ])
 
 
 

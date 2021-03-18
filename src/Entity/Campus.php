@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CampusRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,9 +24,10 @@ class Campus
     private $campusName;
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy= "campus")
      */
-    private User $students;
+    private  $students;
 /*
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy= "campusOrganizer")
@@ -39,28 +41,28 @@ class Campus
 
     public function getCampusName(): ?string
     {
-        return $this->name;
+        return $this->campusName;
     }
 
-    public function setCampusName(string $name): self
+    public function setCampusName(string $campusName): self
     {
-        $this->name = $name;
+        $this->campusName = $campusName;
 
         return $this;
     }
 
     /**
-     * @return User
+     * @return ArrayCollection
      */
-    public function getStudents(): User
+    public function getStudents(): ArrayCollection
     {
         return $this->students;
     }
 
     /**
-     * @param User $students
+     * @param ArrayCollection $students
      */
-    public function setStudents(User $students): void
+    public function setStudents(ArrayCollection $students): void
     {
         $this->students = $students;
     }
