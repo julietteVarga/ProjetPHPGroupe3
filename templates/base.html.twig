@@ -23,13 +23,15 @@
             Sortir.com<br>
             <em>Sortez en sécurité, sortez masqués !</em>
         </h1>
-        <h2>
-            {% block Pagetitle %}
-                //Titre de la page ici
-            {% endblock %}
-        </h2>
-
         {# ********************************************* #}
+    </div>
+
+    <div>
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
     </div>
 
     <nav>
@@ -41,21 +43,21 @@
                 <li><a href="">Ajouter une sorties</a></li>
             {% endblock %}
         </ul>
+
     </nav>
 
 </header>
 
 {# ********************************************* #}
 <main>
-    {% for type, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash flash-{{ type }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-    {% block main %}
+    <h2>
+        {% block Pagetitle %}
+            //Titre de la page ici
+        {% endblock %}
+    </h2>
 
+    {% block main %}
+        //Corps de la page ici
     {% endblock %}
 </main>
 {# ********************************************* #}
