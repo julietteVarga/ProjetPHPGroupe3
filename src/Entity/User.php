@@ -3,19 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-
-//use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
-//use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-//#[UniqueEntity('username',
-//message: "Ce nom d'utilisateur existe déjà")]
-
 class User implements UserInterface
 {
     /**
@@ -31,10 +25,8 @@ class User implements UserInterface
     private $password;
 
     /**
-     *
      * @ORM\Column(type="string", length=255)
      */
-    //#[Assert\username]
     private $username;
 
     /**
@@ -66,17 +58,21 @@ class User implements UserInterface
          * @ORM\Column(type="json")
          */
     private $roles = [];
-/*
+
+
+
     /**
+     * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="App\Entity\Outing", inversedBy="participants", cascade={"persist", "remove"})
-     *
-    private Outing $outingsParticipants;
+     */
+    private $outingsParticipants;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy= "organizer")
-     *
-    private Outing $outingsOrganizer;
-*/
+     */
+    private $outingsOrganizer;
+
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Campus", inversedBy= "students")
      */
@@ -247,17 +243,17 @@ class User implements UserInterface
     }
 
     /**
-     * @return Outing
+     * @return ArrayCollection
      */
-    public function getOutingsParticipants(): ?Outing
+    public function getOutingsParticipants(): ?ArrayCollection
     {
         return $this->outingsParticipants;
     }
 
     /**
-     * @param Outing $outingsParticipants
+     * @param ArrayCollection $outingsParticipants
      */
-    public function setOutingsParticipants(Outing $outingsParticipants): void
+    public function setOutingsParticipants(ArrayCollection $outingsParticipants): void
     {
         $this->outingsParticipants = $outingsParticipants;
     }
@@ -289,14 +285,10 @@ class User implements UserInterface
     /**
      * @param Campus $campus
      */
-    public function setCampus(Campus $campus): self
+    public function setCampus(Campus $campus): void
     {
         $this->campus = $campus;
     }
-
-
-
-
 
     /**
      * @inheritDoc
@@ -305,7 +297,6 @@ class User implements UserInterface
     {
         return null;
     }
-
 
 
     /**

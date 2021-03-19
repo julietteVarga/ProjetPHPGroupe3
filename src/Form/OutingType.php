@@ -6,7 +6,6 @@ use App\Entity\Location;
 use App\Entity\Outing;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,7 +20,6 @@ class OutingType extends AbstractType
             ->add('registrationDeadLine')
             ->add('maxNumberRegistration')
             ->add('outingInfos')
-            ->add('campusOrganizer')
             ->add('location', EntityType::class, [
                 'class' => Location::class,
                 'choice_label' => 'name'

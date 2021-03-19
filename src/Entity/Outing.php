@@ -33,7 +33,7 @@ class Outing
     private $duration;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $registrationDeadLine;
 
@@ -46,17 +46,17 @@ class Outing
      * @ORM\Column(type="text")
      */
     private $outingInfos;
-/*
+
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="outingsParticipants")
-     *
+     */
     private User $participants;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="outingsOrganizer")
-     *
+     */
     private User $organizer;
-*/
+
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Campus", inversedBy="outingsCampus")
@@ -232,10 +232,10 @@ class Outing
     $this->campusOrganizer = $campusOrganizer;
     }
 
-    /*
+
         /**
          * @return User
-         *
+         */
         public function getParticipants(): User
         {
             return $this->participants;
@@ -243,7 +243,7 @@ class Outing
 
         /**
          * @param User $participants
-         *
+         */
         public function setParticipants(User $participants): void
         {
             $this->participants = $participants;
@@ -251,7 +251,7 @@ class Outing
 
         /**
          * @return User
-         *
+         */
         public function getOrganizer(): User
         {
             return $this->organizer;
@@ -259,13 +259,13 @@ class Outing
 
         /**
          * @param User $organizer
-         *
+         */
         public function setOrganizer(User $organizer): void
         {
             $this->organizer = $organizer;
         }
 
-     */
+
 
         /**
          * @return Location
