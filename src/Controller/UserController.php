@@ -55,30 +55,51 @@ class UserController extends AbstractController
 
         $userModify = $user[0];
 
-
         $userModifyForm = $this->createForm(UserType::class, $userModify);
 
         $userModifyForm->handleRequest($request);
 
 
-        if ($userModifyForm->isSubmitted() && $userModifyForm->isValid()) {
+        if ($userModifyForm->isSubmitted() && $userModifyForm->isValid() ) {
+            $allUsers = $repository->findAllExceptUserName($userModify->getUserName());
+            foreach ($allUsers as $userTest){
+                if($userModify->getUserName()===$userTest->getUsername()){
+
+                    $user = $userModify;
+
+                    $plainPassword = $user->getPassword();
+                    $encoded = $encoder->encodePassword($user, $plainPassword);
+
+                    $user->setPassword($encoded);
+
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+
+                    $this->addFlash('success', 'Vous avez bien modifié votre profil!');
+
+                    return $this->redirectToRoute('user_my_profile');
+
+                }
+
+                $userInSession= $this->getUser();
+
+                $userModify=$userInSession;
+
+                $userModify->setUserName($userName);
+                $plainPassword = $userModify->getPassword();
+                $encoded = $encoder->encodePassword($userModify, $plainPassword);
+
+                $userModify->setPassword($encoded);
+
+                $entityManager->persist($userModify);
+                $entityManager->flush();
 
 
-            $user = $userModify;
+                return $this->redirectToRoute('user_my_profile');
+                }
 
-            $plainPassword = $user->getPassword();
-            $encoded = $encoder->encodePassword($user, $plainPassword);
+            }
 
-            $user->setPassword($encoded);
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Vous avez bien modifié votre profil!');
-
-            return $this->redirectToRoute('user_my_profile');
-
-        }
 
         return $this->render('user/myProfile.html.twig', [
             'userModifyForm' => $userModifyForm->createView(),
