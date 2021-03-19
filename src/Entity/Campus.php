@@ -27,7 +27,7 @@ class Campus
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy= "campus")
      */
-    private User $students;
+    private $students;
 
 
     /**
@@ -61,17 +61,17 @@ class Campus
 
 
     /**
-     * @return User
+     * @return ArrayCollection
      */
-    public function getStudents(): User
+    public function getStudents(): ArrayCollection
     {
         return $this->students;
     }
 
     /**
-     * @param User $students
+     * @param ArrayCollection $students
      */
-    public function setStudents(User $students): void
+    public function setStudents(ArrayCollection $students): void
     {
         $this->students = $students;
     }

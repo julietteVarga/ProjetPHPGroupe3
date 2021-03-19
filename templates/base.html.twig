@@ -29,27 +29,23 @@
     <div>
         {% if app.user %}
             <div class="mb-3">
-                Bonjour {{ app.user.username }} vous êtes connecté ! <a href="{{ path('app_logout') }}">Logout</a>
+                You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
             </div>
-
+        {% endif %}
     </div>
 
     <nav>
         <ul>
+            {% block NavMenu %}
                 <li><a href="{{ url('main_index') }}">Accueil</a></li>
+                <li><a href="">About us</a></li>
                 <li><a href="">Liste des sorties</a></li>
-                <li><a href="{{ url('create_outing') }}">Ajouter une sorties</a></li>
-                <li><a href="{{ url('user_my_profile') }}">Mon profil</a></li>
-            {% if is_granted ('ROLE_ADMIN') %}
-                <li><a href="{{ url('admin_signup') }}">Participants</a></li>
-                <li><a href="{{ url('admin_city') }}">Villes</a></li>
-                <li><a href="{{ url('admin_campus') }}">Campus</a></li>
-            {% endif %}
-
+                <li><a href="{{ url('user_my_profile') }}">Modifier mon profil</a></li>
+                <li><a href="{{ url('create_outing') }}">Ajouter une sortie</a></li>
+            {% endblock %}
         </ul>
 
     </nav>
-    {% endif %}
 
 </header>
 
@@ -70,7 +66,8 @@
 <footer>
     <p>&copy; Sortir.com 2021</p>
     <p>
-        By Awesome Group 3 (https://github.com/julietteVarga/ProjetPHPGroupe3.git)
+        By Awesome Group 3 (
+        <a href="https://github.com/julietteVarga/ProjetPHPGroupe3.git" > lien github</a>)
     </p>
     <p>
         <ul>

@@ -18,14 +18,40 @@ class UserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, User::class);
     }
-    public function findOneById(int $id) {
+
+    public function findOneById(int $id)
+    {
         $query = $this->createQueryBuilder('u')
             ->andWhere('u.id=:id')
-            ->setParameter('id',$id)
+            ->setParameter('id', $id)
             ->getQuery();
 
         return $query->getResult();
     }
+
+    public function findAllExceptUserName(string $userName)
+    {
+        $query = $this->createQueryBuilder('u')
+            ->andWhere('u.username!=:username')
+            ->setParameter('username', $userName)
+            ->getQuery();
+        return $query->execute();
+    }
+
+    /**
+     * Bonne méthode pour trouver un utilisateur selon son pseudo
+     * @param string $userName
+     * @return int|mixed|string
+     */
+    public function findOneByUserName(string $userName)
+    {
+        $query = $this->createQueryBuilder('u')
+            ->andWhere('u.username=:username')
+            ->setParameter('username', $userName)
+            ->getQuery();
+        return $query->execute();
+    }
+
 
     // /**
     //  * @return User[] Returns an array of User objects
