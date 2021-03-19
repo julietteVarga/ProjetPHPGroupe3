@@ -6,16 +6,9 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-//use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
-//use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-//#[UniqueEntity('username',
-//message: "Ce nom d'utilisateur existe déjà")]
-
 class User implements UserInterface
 {
     /**
@@ -31,10 +24,8 @@ class User implements UserInterface
     private $password;
 
     /**
-     *
      * @ORM\Column(type="string", length=255)
      */
-    //#[Assert\username]
     private $username;
 
     /**
@@ -62,24 +53,10 @@ class User implements UserInterface
      */
     private $isActive;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Campus", inversedBy= "students")
-     */
-    private Campus $campus;
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-
         /**
          * @ORM\Column(type="json")
          */
-    private  $roles=[];
+    private $roles = [];
 /*
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Outing", inversedBy="participants", cascade={"persist", "remove"})
@@ -91,26 +68,27 @@ class User implements UserInterface
      *
     private Outing $outingsOrganizer;
 */
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Campus", inversedBy= "students")
+     */
+    private Campus $campus;
 
-
-
-
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     /**
      * @inheritDoc
      */
-    public function getName()
+    public function getUsername()
     {
-        return $this->name;
+        return $this->username;
     }
 
-    /**
-     * @param string $name
-     * @return $this
-     */
-    public function setName(string $name): self
+    public function setUsername(string $username): self
     {
-        $this->name = $name;
+        $this->username = $username;
 
         return $this;
     }
@@ -188,17 +166,17 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getUsername()
+    public function getName()
     {
-        return $this->username;
+        return $this->name;
     }
 
     /**
-     * @param mixed $username
+     * @param mixed $name
      */
-    public function setUsername($username): void
+    public function setName($name): void
     {
-        $this->username = $username;
+        $this->name = $name;
     }
 
     /**
@@ -219,24 +197,48 @@ class User implements UserInterface
 
     /**
      * @inheritDoc
-     * @return Role
      */
-    public function getRoles():array
+    public function getRoles(): array
     {
-        $roles = $this->roles;
-        $roles[]='ROLE_USER';
-       return array_unique($roles);
-
+       return $this->roles;
     }
 
     /**
-     * @param Role $role
+     * @param array $roles
      */
-    public function setRole(Role $role): void
+    public function setRoles(array $roles): self
     {
-        $this->role = $role;
+        $this->roles = $roles;
+
+        return $this;
     }
 
+    public function addRole($role)
+    {
+        if (!in_array($role, $this->roles)) {
+            array_push($this->roles, $role);
+        }
+
+        return $this;
+    }
+
+    public function hasRole($role)
+    {
+        return in_array(strtoupper($role), $this->getRoles(), true);
+    }
+
+    public function removeRole($role)
+    {
+        if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
+            unset($this->roles[$key]);
+            $this->roles = array_values($this->roles);
+        }
+
+        return $this;
+    }
+
+
+/*
     /**
      * @return Outing
      */

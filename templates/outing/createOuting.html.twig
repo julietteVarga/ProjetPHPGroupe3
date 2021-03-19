@@ -1,66 +1,76 @@
 {% extends 'base.html.twig' %}
 
+{% block Pagetitle %}
+    Créer une sortie :
+{% endblock %}
 
 {% block main %}
-    <h1>Créer une nouvelle sortie</h1>
 
+    {% if app.user %}
 
-    {% for type, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash flash-{{ type }}">
-                {{ message }}
-            </div>
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash flash-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
 
 
-    <div class="form">
-        {{ form_start (outingForm) }}
-        <div class="form_groupe">
-            {{ form_label (outingForm.name) }}
-            {{ form_widget (outingForm.name) }}
-            {{ form_errors (outingForm.name) }}
-        </div>
-        <div class="form_groupe">
-            {{ form_label (outingForm.startingDateTime) }}
-            {{ form_widget (outingForm.startingDateTime) }}
-            {{ form_errors (outingForm.startingDateTime) }}
-        </div>
-        <div class="form_groupe">
-            {{ form_label (outingForm.duration) }}
-            {{ form_widget (outingForm.duration) }}
-            {{ form_errors (outingForm.duration) }}
-        </div>
-        <div class="form_groupe">
-            {{ form_label (outingForm.registrationDeadLine) }}
-            {{ form_widget (outingForm.registrationDeadLine) }}
-            {{ form_errors (outingForm.registrationDeadLine) }}
-        </div>
-        <div class="form_groupe">
-            {{ form_label (outingForm.maxNumberRegistration) }}
-            {{ form_widget (outingForm.maxNumberRegistration) }}
-            {{ form_errors (outingForm.maxNumberRegistration) }}
-        </div>
-        <div class="form_groupe">
-            {{ form_label (outingForm.outingInfos) }}
-            {{ form_widget (outingForm.outingInfos) }}
-            {{ form_errors (outingForm.outingInfos) }}
-        </div>
-        <div class="form_groupe">
-            {{ form_label (outingForm.campusOrganizer) }}
-            {{ form_widget (outingForm.campusOrganizer) }}
-            {{ form_errors (outingForm.campusOrganizer) }}
-        </div>
-        <div class="form_groupe">
-            {{ form_label (outingForm.location) }}
-            {{ form_widget (outingForm.location) }}
-            {{ form_errors (outingForm.location) }}
-        </div>
+        <div class="form">
+            {{ form_start (outingForm) }}
+            <div class="form_groupe">
+                {{ form_label (outingForm.name) }}
+                {{ form_widget (outingForm.name) }}
+                {{ form_errors (outingForm.name) }}
+            </div>
+            <div class="form_groupe">
+                {{ form_label (outingForm.startingDateTime) }}
+                {{ form_widget (outingForm.startingDateTime) }}
+                {{ form_errors (outingForm.startingDateTime) }}
+            </div>
+            <div class="form_groupe">
+                {{ form_label (outingForm.duration) }}
+                {{ form_widget (outingForm.duration) }}
+                {{ form_errors (outingForm.duration) }}
+            </div>
+            <div class="form_groupe">
+                {{ form_label (outingForm.registrationDeadLine) }}
+                {{ form_widget (outingForm.registrationDeadLine) }}
+                {{ form_errors (outingForm.registrationDeadLine) }}
+            </div>
+            <div class="form_groupe">
+                {{ form_label (outingForm.maxNumberRegistration) }}
+                {{ form_widget (outingForm.maxNumberRegistration) }}
+                {{ form_errors (outingForm.maxNumberRegistration) }}
+            </div>
+            <div class="form_groupe">
+                {{ form_label (outingForm.outingInfos) }}
+                {{ form_widget (outingForm.outingInfos) }}
+                {{ form_errors (outingForm.outingInfos) }}
+            </div>
+            <div class="form_groupe">
+                {{ form_label (outingForm.campusOrganizer) }}
+                {{ form_widget (outingForm.campusOrganizer) }}
+                {{ form_errors (outingForm.campusOrganizer) }}
+            </div>
+            <div class="form_groupe">
+                {{ form_label (outingForm.location) }}
+                {{ form_widget (outingForm.location) }}
+                {{ form_errors (outingForm.location) }}
+            </div>
         
-        <br>
-        <button type="submit">Envoyer !</button>
-        {{ form_end (outingForm) }}
-    </div>
+            <br>
+            <button type="submit">Envoyer !</button>
+            {{ form_end (outingForm) }}
+        </div>
+
+    {% else %}
+        <h2>Vous devez être connecté pour accéder à cette page.</h2>
+    {% endif %}
+
 
 {% endblock %}
+
+
 
