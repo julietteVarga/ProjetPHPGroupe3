@@ -36,10 +36,10 @@ class SignUpType extends AbstractType
                     'Admin' => 'ROLE_ADMIN',
                 ]
             ])
-            //->add('campus', EntityType::class, [
-            //    'class' => Campus::class,
-            //    'choice_label' => 'campusName',
-            //])
+            ->add('campus', EntityType::class, [
+                'class' => Campus::class,
+                'choice_label' => 'campusName',
+            ])
         ;
 
         //Data transformer :

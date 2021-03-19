@@ -68,6 +68,7 @@ class User implements UserInterface
     private $outingsParticipants;
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy= "organizer")
      */
     private $outingsOrganizer;
@@ -86,7 +87,7 @@ class User implements UserInterface
     /**
      * @inheritDoc
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -158,7 +159,7 @@ class User implements UserInterface
     /**
      * @inheritDoc
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -171,7 +172,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -179,7 +180,7 @@ class User implements UserInterface
     /**
      * @param mixed $name
      */
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -187,7 +188,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getIsActive()
+    public function getIsActive(): bool
     {
         return $this->isActive;
     }
@@ -195,7 +196,7 @@ class User implements UserInterface
     /**
      * @param mixed $isActive
      */
-    public function setIsActive($isActive): void
+    public function setIsActive(bool $isActive): void
     {
         $this->isActive = $isActive;
     }

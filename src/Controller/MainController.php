@@ -14,7 +14,13 @@ class MainController extends AbstractController
     #[Route('/', name: 'main_index')]
     public function index(): Response
     {
-        return $this->redirectToRoute('app_login');
+        if ($this->getUser()) {
+            return $this->redirectToRoute('user_home');
+
+        }else {
+            return $this->redirectToRoute('app_login');
+        }
+
     }
 
 

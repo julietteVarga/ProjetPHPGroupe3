@@ -1,9 +1,66 @@
 {% extends('./base.html.twig') %}
 
  {% block Pagetitle %}
-    Bonjour {{ newUser.getUsername() }} !
+    <div class="hometitle">
+        Date du jour : {{ "now"|date("d/m/y") }}<br>
+        Participant(e) : {{ app.user.name }} {{ app.user.surname }}
+    </div>
  {% endblock %}
 
  {% block main %}
+
+
+
+         <table class="tableau_home">
+             <tr>
+                 <th>Nom de la sortie</th>
+                 <th>Date de la sortie</th>
+                 <th>Clotûre</th>
+                 <th>Inscrits/places</th>
+                 <th>Etat</th>
+                 <th>Inscrit</th>
+                 <th>Organisateur</th>
+                 <th>Actions</th>
+             </tr>
+             {% for title in allOutings|batch(3) %}
+                 <tr>
+                     {% for outing in title %}
+                         <td>{{ outing.name }}</td>
+                         <td>{{ outing.startingDateTime|date("d/m/y") }}</td>
+                         <td>{{ outing.registrationDeadLine|date("d/m/y") }}</td>
+                         <td>{{ outing.participants|length }}/{{ outing.maxNumberRegistration }}</td>
+                         <td>{{ outing.state }}</td>
+                         <td>//TODO : inscrit bool oui ou non app.user</td>
+                         <td>//TODO : nom de l'organisateur ?</td>
+                         <td>
+                             {# TODO :: gérer l'affichage des liens en fonction des inscriptions de l'utilisateur !! et de son statut organisateur ou non #}
+
+                             {% if outing.state == 'En création' %}
+                             <a href="#">Modifier</a> - <a href="#">Publier</a>
+                             {% endif %}
+
+                             {% if outing.state == 'Ouverte' %}
+                             <a href="#">Afficher</a> - <a href="#">S'inscrire</a>
+                             {% endif %}
+
+                             {% if outing.state == 'En cours' %}
+                             <a href="#">Afficher</a>
+                             {% endif %}
+
+                             {% if outing.state == 'Clôturée' %}
+                             <a href="#">Afficher</a> - <a href="#">Se désister</a>
+                             {% endif %}
+
+                             {% if outing.state == 'Annulée' %}
+                             <p>Annulée</p>
+                             {% endif %}
+
+                         </td>
+
+                     {% endfor %}
+                 </tr>
+             {% endfor %}
+         </table>
+
 
  {% endblock %}

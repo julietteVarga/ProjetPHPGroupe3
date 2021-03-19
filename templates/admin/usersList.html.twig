@@ -9,7 +9,17 @@
 <div class="block1">
     <h2>Liste des participants :</h2>
 
-    {% for  %}
+    {% for user in allUsers %}
+        <p>
+           <a href="{{ url('admin_user_profile', {'id':user.getId()}) }}"> {{ user.name }} {{ user.surname }} </a>
+        </p>
+    {% endfor %}
+
+<div class="button">
+    <a href="{{ url('admin_signup') }}">Ajouter un utilisateur</a>
+</div>
 
 
 </div>
+
+{% endblock %}

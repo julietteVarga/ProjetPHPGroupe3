@@ -69,3 +69,22 @@ footer {
     text-decoration: none;
     color: white;
 }
+
+.hometitle {
+    text-align: end;
+}
+
+.tableau_home td {
+    width: 10vw;
+    min-width: 100px;
+    text-align: center;
+    font-size: 18px;
+    background-color: rgba(130,130,130,0.5);
+}
+
+.tableau_home th {
+    background-color: #2e3136;
+    font-size: 20px;
+    color: white;
+    height: 40px;
+}

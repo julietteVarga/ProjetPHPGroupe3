@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\OutingRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * @ORM\Entity(repositoryClass=OutingRepository::class)
@@ -48,9 +51,15 @@ class Outing
     private $outingInfos;
 
     /**
+     * @var Collection
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="outingsParticipants")
      */
-    private User $participants;
+    private $participants;
+
+    public function __construct()
+    {
+        $this->participants = new ArrayCollection();
+    }
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="outingsOrganizer")
@@ -234,17 +243,17 @@ class Outing
 
 
         /**
-         * @return User
+         * @return Collection|null
          */
-        public function getParticipants(): User
+        public function getParticipants(): ?Collection
         {
             return $this->participants;
         }
 
         /**
-         * @param User $participants
+         * @param Collection $participants
          */
-        public function setParticipants(User $participants): void
+        public function setParticipants(Collection $participants): void
         {
             $this->participants = $participants;
         }
