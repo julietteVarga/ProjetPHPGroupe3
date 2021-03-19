@@ -75,17 +75,26 @@ class Outing
      */
     private Location $location;
 
-
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -93,11 +102,18 @@ class Outing
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getStartingDateTime(): ?\DateTimeInterface
     {
         return $this->startingDateTime;
     }
 
+    /**
+     * @param \DateTimeInterface $startingDateTime
+     * @return $this
+     */
     public function setStartingDateTime(\DateTimeInterface $startingDateTime): self
     {
         $this->startingDateTime = $startingDateTime;
@@ -105,11 +121,18 @@ class Outing
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getDuration(): ?\DateTimeInterface
     {
         return $this->duration;
     }
 
+    /**
+     * @param \DateTimeInterface $duration
+     * @return $this
+     */
     public function setDuration(\DateTimeInterface $duration): self
     {
         $this->duration = $duration;
@@ -117,11 +140,18 @@ class Outing
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getRegistrationDeadLine(): ?\DateTimeInterface
     {
         return $this->registrationDeadLine;
     }
 
+    /**
+     * @param \DateTimeInterface $registrationDeadLine
+     * @return $this
+     */
     public function setRegistrationDeadLine(\DateTimeInterface $registrationDeadLine): self
     {
         $this->registrationDeadLine = $registrationDeadLine;
@@ -129,11 +159,18 @@ class Outing
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getMaxNumberRegistration(): ?int
     {
         return $this->maxNumberRegistration;
     }
 
+    /**
+     * @param int $maxNumberRegistration
+     * @return $this
+     */
     public function setMaxNumberRegistration(int $maxNumberRegistration): self
     {
         $this->maxNumberRegistration = $maxNumberRegistration;
@@ -141,11 +178,18 @@ class Outing
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getOutingInfos(): ?string
     {
         return $this->outingInfos;
     }
 
+    /**
+     * @param string $outingInfos
+     * @return $this
+     */
     public function setOutingInfos(string $outingInfos): self
     {
         $this->outingInfos = $outingInfos;
@@ -153,11 +197,18 @@ class Outing
         return $this;
     }
 
+    /**
+     * @return State
+     */
     public function getState(): State
     {
         return $this->state;
     }
 
+    /**
+     * @param State $state
+     * @return $this
+     */
     public function setState(State $state): self
     {
         $this->state = $state;
