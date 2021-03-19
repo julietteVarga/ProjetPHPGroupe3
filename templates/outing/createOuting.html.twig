@@ -47,16 +47,11 @@
             {{ form_errors (outingForm.outingInfos) }}
         </div>
         <div class="form_groupe">
-            {{ form_label (outingForm.campusOrganizer) }}
-            {{ form_widget (outingForm.campusOrganizer) }}
-            {{ form_errors (outingForm.campusOrganizer) }}
-        </div>
-        <div class="form_groupe">
             {{ form_label (outingForm.location) }}
             {{ form_widget (outingForm.location) }}
             {{ form_errors (outingForm.location) }}
         </div>
-        
+        <p> Ville organisatrice : {{ app.user.getCampus }}</p>
         <br>
         <button type="submit">Envoyer !</button>
         {{ form_end (outingForm) }}

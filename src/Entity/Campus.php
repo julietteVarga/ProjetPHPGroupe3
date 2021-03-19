@@ -22,12 +22,14 @@ class Campus
      * @ORM\Column(type="string", length=255)
      */
     private $campusName;
-/*
+
+
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy= "campus")
-     *
-    private User $students;
-*/
+     */
+    private $students;
+
 
     /**
      * @var ArrayCollection
@@ -58,23 +60,22 @@ class Campus
     }
 
 
-/*
     /**
-     * @return User
-     *
-    public function getStudents(): User
+     * @return ArrayCollection
+     */
+    public function getStudents(): ArrayCollection
     {
         return $this->students;
     }
 
     /**
-     * @param User $students
-     *
-    public function setStudents(User $students): void
+     * @param ArrayCollection $students
+     */
+    public function setStudents(ArrayCollection $students): void
     {
         $this->students = $students;
     }
-*/
+
 
     public function getOutingsCampus(): ArrayCollection
     {
