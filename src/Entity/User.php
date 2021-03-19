@@ -87,12 +87,11 @@ class User implements UserInterface
      */
     private Campus $campus;
 
+
     public function getId(): ?int
     {
         return $this->id;
     }
-
-
 
     /**
      * @inheritDoc
@@ -288,7 +287,7 @@ class User implements UserInterface
      * @param Outing $outingsOrganizer
      */
 
-    public function setOutingsOrganizer( Outing $outingsOrganizer): void
+    public function setOutingsOrganizer(Outing $outingsOrganizer): void
     {
         $this->outingsOrganizer = $outingsOrganizer;
     }
@@ -306,7 +305,7 @@ class User implements UserInterface
     /**
      * @param Campus $campus
      */
-    public function setCampus(Campus $campus): self
+    public function setCampus(Campus $campus): void
     {
         $this->campus = $campus;
     }
