@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Outing;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Form\SignInType;
@@ -27,9 +28,14 @@ class UserController extends AbstractController
 
 
     #[Route('/home', name: 'user_home')]
-    public function home(): Response
+    public function home(Request $request, EntityManagerInterface $em): Response
     {
-        return $this->render('user/homeSignedIn.html.twig');
+        $repository = $em->getRepository(Outing::class);
+        $allOutings = $repository->findAll();
+
+        return $this->render('user/homeSignedIn.html.twig', [
+            'allOutings' => $allOutings
+        ]);
     }
 
     /**
@@ -99,15 +105,12 @@ class UserController extends AbstractController
                 }
 
             }
-
-
         return $this->render('user/myProfile.html.twig', [
-            'userModifyForm' => $userModifyForm->createView(),
-
-
-        ]);
-
+            'userModifyForm' => $userModifyForm->createView()]);
     }
+
+
+
 
 
 }

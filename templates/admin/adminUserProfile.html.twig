@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block Pagetitle %}
+Profil de {{ user.username }} :
+{% endblock %}
+
+{% block main %}
+
+    <p>
+        Prénom : {{ user.name }} <br>
+        Nom : {{ user.surname }} <br>
+        Email : {{ user.email }} <br>
+        Téléphone : {{ user.tel }}
+    </p>
+
+    <p>
+        Campus de rattachement : {{ user.campus }}
+    </p>
+
+    <p>
+        Etudiant actif :
+        {% if user.isActive %}
+        oui
+        {% else %}
+        non
+        {% endif %}
+    </p>
+    <p><em>
+        Rôle :
+        {% if user.hasRole('ROLE_ADMIN') %}
+        Administrateur
+        {% else %}
+        Simple utilisateur
+        {% endif %}
+        </em></p>
+
+{% endblock %}

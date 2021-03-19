@@ -56,9 +56,8 @@ class Campus
      */
     public function setCampusName($campusName): void
     {
-        $this->campusName = $campusName;
+        $this->campusName = mb_strtoupper($campusName);
     }
-
 
 
     /**

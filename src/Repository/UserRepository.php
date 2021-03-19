@@ -82,3 +82,4 @@ class UserRepository extends ServiceEntityRepository
     }
     */
 }
+

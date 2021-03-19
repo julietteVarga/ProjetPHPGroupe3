@@ -1,1 +1,28 @@
-{% extends 'base.html.twig' %}
+{% extends('./base.html.twig') %}
+
+ {% block Pagetitle %}
+Liste des campus :
+ {% endblock %}
+
+ {% block main %}
+
+     <div class="block1">
+
+         {% if (allCampus is empty) %}
+         <p>Aucun campus</p>
+         {% else %}
+         {% for campus in allCampus %}
+             <p>
+                    {{ campus.campusName }}
+             </p>
+         {% endfor %}
+         {% endif %}
+
+         <div class="button">
+             <a href="{{ url('admin_add_campus') }}">Ajouter un campus</a>
+         </div>
+
+
+     </div>
+
+ {% endblock %}

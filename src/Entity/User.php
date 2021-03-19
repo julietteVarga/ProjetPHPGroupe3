@@ -58,9 +58,7 @@ class User implements UserInterface
          * @ORM\Column(type="json")
          */
     private $roles = [];
-
-
-
+/*
     /**
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="App\Entity\Outing", inversedBy="participants", cascade={"persist", "remove"})
@@ -68,6 +66,7 @@ class User implements UserInterface
     private $outingsParticipants;
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy= "organizer")
      */
     private $outingsOrganizer;
@@ -86,7 +85,7 @@ class User implements UserInterface
     /**
      * @inheritDoc
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -158,7 +157,7 @@ class User implements UserInterface
     /**
      * @inheritDoc
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -171,7 +170,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -179,7 +178,7 @@ class User implements UserInterface
     /**
      * @param mixed $name
      */
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -187,7 +186,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getIsActive()
+    public function getIsActive(): bool
     {
         return $this->isActive;
     }
@@ -195,7 +194,7 @@ class User implements UserInterface
     /**
      * @param mixed $isActive
      */
-    public function setIsActive($isActive): void
+    public function setIsActive(bool $isActive): void
     {
         $this->isActive = $isActive;
     }
@@ -242,8 +241,6 @@ class User implements UserInterface
         return $this;
     }
 
-
-
     /**
      * @return ArrayCollection
      */
@@ -263,8 +260,7 @@ class User implements UserInterface
     /**
      * @return Outing
      */
-
-    public function getOutingsOrganizer(): ArrayCollection
+    public function getOutingsOrganizer(): Outing
     {
         return $this->outingsOrganizer;
     }
@@ -272,13 +268,10 @@ class User implements UserInterface
     /**
      * @param Outing $outingsOrganizer
      */
-
-    public function setOutingsOrganizer( Outing $outingsOrganizer): void
+    public function setOutingsOrganizer(Outing $outingsOrganizer): void
     {
         $this->outingsOrganizer = $outingsOrganizer;
     }
-
-
 
     /**
      * @return Campus
@@ -291,7 +284,7 @@ class User implements UserInterface
     /**
      * @param Campus $campus
      */
-    public function setCampus(Campus $campus): self
+    public function setCampus(Campus $campus): void
     {
         $this->campus = $campus;
     }
