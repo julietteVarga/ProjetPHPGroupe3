@@ -181,26 +181,48 @@ class User implements UserInterface
 
     /**
      * @inheritDoc
-     * @return Role
      */
     public function getRoles(): array
     {
-       $roles = $this->roles;
-       //Par défaut ROLE_USER :
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+       return $this->roles;
     }
 
     /**
-     * @param Role $role
+     * @param array $roles
      */
-    public function setRole(Role $role): void
+    public function setRoles(array $roles): self
     {
-        $this->role = $role;
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function addRole($role)
+    {
+        if (!in_array($role, $this->roles)) {
+            array_push($this->roles, $role);
+        }
+
+        return $this;
+    }
+
+    public function hasRole($role)
+    {
+        return in_array(strtoupper($role), $this->getRoles(), true);
+    }
+
+    public function removeRole($role)
+    {
+        if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
+            unset($this->roles[$key]);
+            $this->roles = array_values($this->roles);
+        }
+
+        return $this;
     }
 
 
+/*
     /**
      * @return ArrayCollection
      */

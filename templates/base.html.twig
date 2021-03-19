@@ -29,22 +29,27 @@
     <div>
         {% if app.user %}
             <div class="mb-3">
-                You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                Bonjour {{ app.user.username }} vous êtes connecté ! <a href="{{ path('app_logout') }}">Logout</a>
             </div>
-        {% endif %}
+
     </div>
 
     <nav>
         <ul>
-            {% block NavMenu %}
                 <li><a href="{{ url('main_index') }}">Accueil</a></li>
-                <li><a href="">About us</a></li>
                 <li><a href="">Liste des sorties</a></li>
                 <li><a href="{{ url('create_outing') }}">Ajouter une sorties</a></li>
-            {% endblock %}
+                <li><a href="{{ url('user_my_profile') }}">Mon profil</a></li>
+            {% if is_granted ('ROLE_ADMIN') %}
+                <li><a href="{{ url('admin_signup') }}">Participants</a></li>
+                <li><a href="{{ url('admin_city') }}">Villes</a></li>
+                <li><a href="{{ url('admin_campus') }}">Campus</a></li>
+            {% endif %}
+
         </ul>
 
     </nav>
+    {% endif %}
 
 </header>
 

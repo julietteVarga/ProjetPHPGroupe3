@@ -1,17 +1,20 @@
 {% extends 'base.html.twig' %}
 
+{% block Pagetitle %}
+    Créer une sortie :
+{% endblock %}
 
 {% block main %}
-    <h1>Créer une nouvelle sortie</h1>
 
+    {% if app.user %}
 
-    {% for type, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash flash-{{ type }}">
-                {{ message }}
-            </div>
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash flash-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
 
 
     <div class="form">
@@ -57,5 +60,12 @@
         {{ form_end (outingForm) }}
     </div>
 
+    {% else %}
+        <h2>Vous devez être connecté pour accéder à cette page.</h2>
+    {% endif %}
+
+
 {% endblock %}
+
+
 

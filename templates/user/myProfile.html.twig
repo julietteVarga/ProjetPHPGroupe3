@@ -6,18 +6,17 @@
         <div class="form_groupe">
             {{ form_label (userModifyForm.name) }}
             {{ form_widget (userModifyForm.name) }}
-
-            <!--{{ form_errors (userModifyForm.name) }}-->
+            {{ form_errors (userModifyForm.name) }}
         </div>
         <div class="form_groupe">
             {{ form_label (userModifyForm.surname) }}
             {{ form_widget (userModifyForm.surname) }}
-           <!-- {{ form_errors (userModifyForm.surname) }}-->
+           {{ form_errors (userModifyForm.surname) }}
         </div>
         <div class="form_groupe">
            {{ form_label (userModifyForm.username) }}
-            {{ form_widget (userModifyForm.username) }}
-           <!-- {{ form_errors (userModifyForm.username) }}-->
+           {{ form_widget (userModifyForm.username) }}
+           {{ form_errors (userModifyForm.username) }}
         </div>
         <div class="form_groupe">
             {{ form_row(userModifyForm.password.first) }}
@@ -27,18 +26,18 @@
         <div class="form_groupe">
             {{ form_label (userModifyForm.tel) }}
             {{ form_widget (userModifyForm.tel) }}
-            <!--{{ form_errors (userModifyForm.tel) }}-->
+            {{ form_errors (userModifyForm.tel) }}
         </div>
         <div class="form_groupe">
             {{ form_label (userModifyForm.email) }}
             {{ form_widget (userModifyForm.email) }}
-          <!--  {{ form_errors (userModifyForm.email) }}-->
+            {{ form_errors (userModifyForm.email) }}
         </div>
 
         <div class="form_groupe">
             {{ form_label (userModifyForm.campus,'ville de rattachement') }}
             {{ form_widget (userModifyForm.campus) }}
-            <!--  {{ form_errors (userModifyForm.email) }}-->
+            {{ form_errors (userModifyForm.campus) }}
         </div>
 
         {#
