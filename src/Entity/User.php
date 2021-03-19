@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -53,39 +54,34 @@ class User implements UserInterface
      */
     private $isActive;
 
+        /**
+         * @ORM\Column(type="json")
+         */
+    private $roles = [];
+
+
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="App\Entity\Outing", inversedBy="participants", cascade={"persist", "remove"})
+     */
+    private $outingsParticipants;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy= "organizer")
+     */
+    private $outingsOrganizer;
+
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Campus", inversedBy= "students")
      */
     private Campus $campus;
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
-
-
-        /**
-         * @ORM\Column(type="json")
-         */
-    private $roles = [];
-/*
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Outing", inversedBy="participants", cascade={"persist", "remove"})
-     *
-    private Outing $outingsParticipants;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy= "organizer")
-     *
-    private Outing $outingsOrganizer;
-*/
-
-
-
-
 
     /**
      * @inheritDoc
@@ -249,17 +245,17 @@ class User implements UserInterface
 
 
     /**
-     * @return Outing
+     * @return ArrayCollection
      */
-    public function getOutingsParticipants(): ?Outing
+    public function getOutingsParticipants(): ?ArrayCollection
     {
         return $this->outingsParticipants;
     }
 
     /**
-     * @param Outing $outingsParticipants
+     * @param ArrayCollection $outingsParticipants
      */
-    public function setOutingsParticipants(Outing $outingsParticipants): void
+    public function setOutingsParticipants(ArrayCollection $outingsParticipants): void
     {
         $this->outingsParticipants = $outingsParticipants;
     }
@@ -267,7 +263,8 @@ class User implements UserInterface
     /**
      * @return Outing
      */
-    public function getOutingsOrganizer(): Outing
+
+    public function getOutingsOrganizer(): ArrayCollection
     {
         return $this->outingsOrganizer;
     }
@@ -275,10 +272,13 @@ class User implements UserInterface
     /**
      * @param Outing $outingsOrganizer
      */
-    public function setOutingsOrganizer(Outing $outingsOrganizer): void
+
+    public function setOutingsOrganizer( Outing $outingsOrganizer): void
     {
         $this->outingsOrganizer = $outingsOrganizer;
     }
+
+
 
     /**
      * @return Campus
@@ -296,10 +296,6 @@ class User implements UserInterface
         $this->campus = $campus;
     }
 
-
-
-
-
     /**
      * @inheritDoc
      */
@@ -307,7 +303,6 @@ class User implements UserInterface
     {
         return null;
     }
-
 
 
     /**

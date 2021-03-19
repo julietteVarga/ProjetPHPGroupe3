@@ -23,6 +23,7 @@ class Campus
      */
     private $campusName;
 
+
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy= "campus")
