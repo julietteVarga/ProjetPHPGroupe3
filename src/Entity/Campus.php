@@ -27,7 +27,7 @@ class Campus
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy= "campus")
      */
-    private User $students;
+    private  $students;
 
 
     /**
