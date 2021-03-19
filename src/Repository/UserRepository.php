@@ -28,6 +28,15 @@ class UserRepository extends ServiceEntityRepository
 
     }
 
+    public function findAllExceptUserName(string $userName)
+    {
+        $query = $this->createQueryBuilder('u')
+            ->andWhere('u.username!=:username')
+            ->setParameter('username', $userName)
+            ->getQuery();
+        return $query->execute();
+    }
+
     public function findOneByUserName(string $userName)
     {
         $query = $this->createQueryBuilder('u')
@@ -36,6 +45,7 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery();
         return $query->execute();
     }
+
 
     // /**
     //  * @return User[] Returns an array of User objects

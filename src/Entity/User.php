@@ -7,9 +7,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+//use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+//use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
+//#[UniqueEntity('username',
+//message: "Ce nom d'utilisateur existe déjà")]
+
 class User implements UserInterface
 {
     /**
@@ -25,8 +32,10 @@ class User implements UserInterface
     private $password;
 
     /**
+     *
      * @ORM\Column(type="string", length=255)
      */
+    //#[Assert\username]
     private $username;
 
     /**
