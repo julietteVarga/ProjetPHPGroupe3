@@ -102,11 +102,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSurname(): ?string
     {
         return $this->surname;
     }
 
+    /**
+     * @param string $surname
+     * @return $this
+     */
     public function setSurname(string $surname): self
     {
         $this->surname = $surname;
@@ -114,11 +121,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getTel(): ?string
     {
         return $this->tel;
     }
 
+    /**
+     * @param string $tel
+     * @return $this
+     */
     public function setTel(string $tel): self
     {
         $this->tel = $tel;
@@ -126,11 +140,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     * @return $this
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -225,8 +246,6 @@ class User implements UserInterface
         return $this;
     }
 
-
-/*
     /**
      * @return Outing
      */

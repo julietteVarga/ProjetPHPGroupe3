@@ -38,6 +38,11 @@ class UserRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
+    /**
+     * Bonne méthode pour trouver un utilisateur selon son pseudo
+     * @param string $userName
+     * @return int|mixed|string
+     */
     public function findOneByUserName(string $userName)
     {
         $query = $this->createQueryBuilder('u')
