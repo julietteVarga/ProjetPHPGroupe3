@@ -62,10 +62,10 @@ class City
 
         return $this;
     }
-/*
+
     /**
      * @return Location
-     *
+     */
     public function getLocations(): Location
     {
         return $this->locations;
@@ -73,12 +73,12 @@ class City
 
     /**
      * @param Location $locations
-     *
+     */
     public function setLocations(Location $locations): void
     {
         $this->locations = $locations;
     }
-*/
+
 
     public function __toString(): string
     {

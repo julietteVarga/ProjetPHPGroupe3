@@ -3,9 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Campus;
-use App\Entity\City;
 use App\Entity\User;
-use App\Repository\CityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;

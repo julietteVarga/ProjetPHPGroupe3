@@ -77,7 +77,7 @@ class User implements UserInterface
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Campus", inversedBy= "students")
      */
-    private Campus $campus;
+    private ?Campus $campus = null;
 
     public function getId(): ?int
     {
@@ -276,7 +276,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return Campus
+     * @return Campus|null
      */
     public function getCampus(): ?Campus
     {

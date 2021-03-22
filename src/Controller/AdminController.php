@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Campus;
+use App\Entity\City;
 use App\Entity\User;
 use App\Form\CampusType;
+use App\Form\CityType;
 use App\Form\SignUpType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,13 +18,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminController extends AbstractController
 {
-    #[Route('/admin', name: 'admin')]
-    public function index(): Response
-    {
-        return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
-        ]);
-    }
 
     #[Route('/admin/signup', name: 'admin_signup')]
     public function signUp(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder,
@@ -69,14 +64,6 @@ class AdminController extends AbstractController
         ]);
     }
 
-
-    #[Route('/admin/city', name: 'admin_city')]
-    public function city(): Response
-    {
-        return $this->render('admin/manageCities.html.twig');
-    }
-
-
     #[Route('/admin/profile/{id}', name: 'admin_user_profile')]
     public function userProfile(EntityManagerInterface $em, Request $request, int $id): Response
     {
@@ -96,8 +83,6 @@ class AdminController extends AbstractController
         return $this->render('admin/manageCampus.html.twig', [
             'allCampus' => $allCampus
         ]);
-
-        return $this->render('admin/manageCampus.html.twig');
     }
 
 
@@ -119,8 +104,44 @@ class AdminController extends AbstractController
                 'newCampus' => $newCampus
             ]);
         }
-        return $this->redirectToRoute('admin_campus', [
+        return $this->render('admin/addCampus.html.twig', [
             "newCampusForm" => $newCampusForm->createView()
+        ]);
+    }
+
+    #[Route('/admin/cities', name: 'admin_cities')]
+    public function cities(EntityManagerInterface $em, Request $request): Response
+    {
+        $repository = $em->getRepository(City::class);
+        $allCities = $repository->findAll();
+        return $this->render('admin/manageCities.html.twig', [
+            'allCities' => $allCities
+        ]);
+
+        return $this->render('admin/manageCities.html.twig');
+    }
+
+
+    #[Route('/admin/addCity', name: 'admin_add_city')]
+    public function addCities(Request $request, EntityManagerInterface $em): Response
+    {
+        $newCity = new City();
+        $newCityForm = $this->createForm(CityType::class, $newCity);
+        $newCityForm->handleRequest($request);
+
+        if ($newCityForm->isSubmitted() && $newCityForm->isValid()) {
+            // tell Doctrine you want to eventually save the product (no queries yet) :
+            $em->persist($newCity);
+            // actually executes the queries (i.e. the INSERT query)
+            $em->flush();
+
+            $this->addFlash("success", "New City successfully saved !");
+            return $this->redirectToRoute('admin_cities', [
+                'newCity' => $newCity
+            ]);
+        }
+        return $this->render('admin/addCity.html.twig', [
+            "newCityForm" => $newCityForm->createView()
         ]);
     }
 

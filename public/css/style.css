@@ -1,8 +1,26 @@
+:root {
+    --bg-color : white;
+    --text-color : black;
+    --title-color : #5592FF;
+}
+
 body {
+    background-color: var(--bg-color);
     margin: 1% 3% 1% 3% ;
     display: flex;
     flex-direction: column;
     min-height: 95vh;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color);
+}
+
+h1 {
+    font-family: 'Chango', cursive;
+    color: var(--title-color);
+}
+
+h2 {
+    font-family: 'Chango', cursive;
 }
 
 main {
@@ -55,17 +73,20 @@ footer {
     display: flex;
 }
 
-.button {
+.button, form button {
     display: flex;
     background-color: black;
     color: white;
     margin: 5px;
     height: 5vh;
     width: 200px;
+    text-align: center;
     align-items: center;
+    border-radius: 30px;
+    box-shadow: 5px 5px 10px 3px grey;
 }
 
-.button a {
+.button a, form button {
     text-decoration: none;
     color: white;
 }
@@ -88,3 +109,21 @@ footer {
     color: white;
     height: 40px;
 }
+
+.form_groupe, form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.form_groupe input, #user_campus, form input {
+    border-radius: 10px;
+    width: 15%;
+    font-size: 16px;
+    color: var(--title-color);
+}
+
+.form_groupe label, form label {
+    margin-right: 15px;
+}
+

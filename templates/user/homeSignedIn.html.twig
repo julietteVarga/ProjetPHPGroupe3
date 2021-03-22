@@ -43,12 +43,12 @@
                              <a href="#">Afficher</a> - <a href="#">S'inscrire</a>
                              {% endif %}
 
-                             {% if outing.state == 'En cours' %}
-                             <a href="#">Afficher</a>
-                             {% endif %}
-
                              {% if outing.state == 'Clôturée' %}
                              <a href="#">Afficher</a> - <a href="#">Se désister</a>
+                             {% endif %}
+
+                             {% if outing.state == 'En cours' %}
+                                 <a href="#">Afficher</a>
                              {% endif %}
 
                              {% if outing.state == 'Annulée' %}
