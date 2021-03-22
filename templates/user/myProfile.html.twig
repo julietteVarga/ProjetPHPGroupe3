@@ -1,7 +1,18 @@
 {% extends 'base.html.twig' %}
+
+
 {% block main %}
  {% if app.user %}
-    <div class="form">
+
+     {% for type, messages in app.flashes %}
+         {% for message in messages %}
+             <div class="flash flash-{{ type }}">
+                 {{ message }}
+             </div>
+         {% endfor %}
+     {% endfor %}
+
+     <div class="form">
         {{ form_start (userModifyForm) }}
         <div class="form_groupe">
             {{ form_label (userModifyForm.name) }}
