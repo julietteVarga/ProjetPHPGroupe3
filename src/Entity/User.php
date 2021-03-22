@@ -58,7 +58,7 @@ class User implements UserInterface
          * @ORM\Column(type="json")
          */
     private $roles = [];
-/*
+
     /**
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="App\Entity\Outing", inversedBy="participants", cascade={"persist", "remove"})
