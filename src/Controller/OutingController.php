@@ -44,6 +44,7 @@ class OutingController extends AbstractController
         $campusOrganizer = $repository->findOneBy(['username' => $this->getUser()->getUsername()]);
         $campusId = $campusOrganizer->getCampus();
 
+
         $outing = new Outing();
         $outingForm = $this->createForm(OutingType::class, $outing);
         $outingForm->handleRequest($request);
@@ -52,6 +53,7 @@ class OutingController extends AbstractController
 
             $state = $this->findState($entityManager);
 
+            $outing->setOrganizer($campusOrganizer);
             $outing->setCampusOrganizer($campusId);
             $outing->setState($state);
 
