@@ -1,18 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block Pagetitle %}
+Mon profil
+{% endblock %}
 
 {% block main %}
  {% if app.user %}
-
-     {% for type, messages in app.flashes %}
-         {% for message in messages %}
-             <div class="flash flash-{{ type }}">
-                 {{ message }}
-             </div>
-         {% endfor %}
-     {% endfor %}
-
-     <div class="form">
+    <div class="form">
         {{ form_start (userModifyForm) }}
         <div class="form_groupe">
             {{ form_label (userModifyForm.name) }}
@@ -30,8 +24,14 @@
            {{ form_errors (userModifyForm.username) }}
         </div>
         <div class="form_groupe">
-            {{ form_row(userModifyForm.password.first) }}
-            {{ form_row(userModifyForm.password.second) }}
+            {{ form_label(userModifyForm.password.first) }}
+            {{ form_widget(userModifyForm.password.first) }}
+            {{ form_errors(userModifyForm.password.first) }}
+        </div>
+        <div class="form_groupe">
+            {{ form_label(userModifyForm.password.second) }}
+            {{ form_widget(userModifyForm.password.second) }}
+            {{ form_errors(userModifyForm.password.second) }}
         </div>
 
         <div class="form_groupe">

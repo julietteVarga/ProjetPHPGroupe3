@@ -6,6 +6,8 @@
 
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset("css/style.css") }}">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Chango&family=Montserrat&display=swap" rel="stylesheet">
     {% endblock %}
 
     {% block javascripts %}
@@ -16,7 +18,7 @@
 <body>
 <header>
     <div class="header_blockleft">
-        <img src="{{ asset("images/bucketList1.png") }}">
+        <img src="{{ asset("images/bucketList1.png") }}" alt="logo" title="logo Sortir.com">
 
         {# ********************************************* #}
         <h1>
@@ -41,7 +43,7 @@
                 <li><a href="{{ url('user_my_profile') }}">Mon profil</a></li>
             {% if is_granted ('ROLE_ADMIN') %}
                 <li><a href="{{ url('admin_users_list') }}">Participants</a></li>
-                <li><a href="{{ url('admin_city') }}">Villes</a></li>
+                <li><a href="{{ url('admin_cities') }}">Villes</a></li>
                 <li><a href="{{ url('admin_campus') }}">Campus</a></li>
             {% endif %}
 
@@ -65,12 +67,12 @@
 
     <h2>
         {% block Pagetitle %}
-            //Titre de la page ici
+            {# Titre de la page ici #}
         {% endblock %}
     </h2>
 
     {% block main %}
-        //Corps de la page ici
+        {# Corps de la page ici #}
     {% endblock %}
 </main>
 {# ********************************************* #}

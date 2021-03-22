@@ -1,1 +1,28 @@
-{% extends 'base.html.twig' %}
+{% extends('./base.html.twig') %}
+
+ {% block Pagetitle %}
+     Liste des Villes
+ {% endblock %}
+
+ {% block main %}
+
+     <div class="block1">
+
+         {% if (allCities is empty) %}
+             <p>Aucune ville</p>
+         {% else %}
+             {% for city in allCities %}
+                 <p>
+                    {{ city.postalCode }} {{ city.name }}
+                 </p>
+             {% endfor %}
+         {% endif %}
+
+         <div class="button">
+             <a href="{{ url('admin_add_city') }}">Ajouter une ville</a>
+         </div>
+
+
+     </div>
+
+ {% endblock %}

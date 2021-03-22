@@ -1,7 +1,7 @@
 {% extends('./base.html.twig') %}
 
  {% block Pagetitle %}
-Liste des campus :
+Liste des campus
  {% endblock %}
 
  {% block main %}
@@ -19,7 +19,7 @@ Liste des campus :
          {% endif %}
 
          <div class="button">
-             <a href="{{ url('admin_add_campus') }}">Ajouter un campus</a>
+             <a href="{{ path('admin_add_campus') }}">Ajouter un campus</a>
          </div>
 
 
