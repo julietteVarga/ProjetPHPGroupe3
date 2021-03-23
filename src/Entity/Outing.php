@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Pure;
+use Symfony\Component\Validator\Constraints\Time;
+//use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=OutingRepository::class)
@@ -25,15 +27,27 @@ class Outing
      */
     private $name;
 
+
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+    private $startingDateTime;
+*/
     /**
      * @ORM\Column(type="datetime")
      */
     private $startingDateTime;
 
+
+
     /**
      * @ORM\Column(type="time")
      */
-    private $duration;
+    //#[Assert\Time]
+    private  $duration;
+
+
 
     /**
      * @ORM\Column(type="date")
@@ -131,10 +145,12 @@ class Outing
         return $this;
     }
 
+
+
     /**
-     * @return \DateTimeInterface|null
+     * @return \DateTimeInterface
      */
-    public function getDuration(): ?\DateTimeInterface
+    public function getDuration(): \DateTimeInterface
     {
         return $this->duration;
     }
