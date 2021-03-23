@@ -26,28 +26,50 @@
          <div class="form_groupe">
              {{ form_label(form.mindate) }}
              {{ form_widget(form.mindate) }}
-             {{ form_errors(form.mindate) }}
          </div>
 
 
          <div class="form_groupe">
              {{ form_label(form.maxdate) }}
              {{ form_widget(form.maxdate) }}
-             {{ form_errors(form.maxdate) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label(form.organizer) }}
+             {{ form_widget(form.organizer) }}
+             {{ form_errors(form.organizer) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label(form.participant) }}
+             {{ form_widget(form.participant) }}
+             {{ form_errors(form.participant) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label(form.notParticipant) }}
+             {{ form_widget(form.notParticipant) }}
+             {{ form_errors(form.notParticipant) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label(form.pastOutings) }}
+             {{ form_widget(form.pastOutings) }}
+             {{ form_errors(form.pastOutings) }}
          </div>
 
          <button type="submit" class="button">Filtrer</button>
 
          {{ form_end(form) }}
 
-
-
      </div>
+
+
 
      <div class="listOuting">
 
          {% for outing in filterOutings %}
-                {{ outing.name }}<br>
+                <a href="{{  url('outing_show', {'id':outing.getId()})  }}">{{ outing.name }}</a><br>
          {% endfor %}
 
 

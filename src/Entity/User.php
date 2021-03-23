@@ -70,10 +70,6 @@ class User implements UserInterface
         $this->outingsParticipants=new ArrayCollection();
     }
 
-    public function __construct()
-    {
-        $this->outingsParticipants = new ArrayCollection();
-    }
 
     /**
      * @var ArrayCollection

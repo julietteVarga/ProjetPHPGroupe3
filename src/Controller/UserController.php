@@ -43,10 +43,11 @@ class UserController extends AbstractController
     public function home(Request $request, EntityManagerInterface $em, OutingRepository $outingRepository): Response
     {
         $data = new SearchData();
+        $userInSession = $this->getUser();
         $form = $this->createForm(SearchOutingType::class, $data);
         $form->handleRequest($request);
 
-        $filterOutings = $outingRepository->findSearch($data);
+        $filterOutings = $outingRepository->findSearch($data, $userInSession);
 
         return $this->render('user/homeSignedIn.html.twig', [
             'filterOutings' => $filterOutings,

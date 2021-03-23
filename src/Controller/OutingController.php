@@ -27,7 +27,7 @@ class OutingController extends AbstractController
     {
         $repository = $entityManager->getRepository(State::class);
         $stateInCreation = $repository->findOneBy([
-            'label' => 'En création'
+            'label' => 'Ouverte'
         ]);
 
         return $stateInCreation;

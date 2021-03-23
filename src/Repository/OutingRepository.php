@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Data\SearchData;
 use App\Entity\Outing;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -27,16 +28,21 @@ class OutingRepository extends ServiceEntityRepository
      * Permet de récupérer les sorties en lien avec une recherche
      * (on filtre les sorties selon des critères)
      */
-    public function findSearch(SearchData $search) {
+    public function findSearch(SearchData $search, User $userInSession) {
 
         $query = $this
             //On récupère les sorties :
             ->createQueryBuilder('o')
-            ->select('c', 'o')
-            //On fait une liaison avec Campus :
-            ->join('o.campusOrganizer', 'c');
+            ->select('c', 'o', 'u', 's')
+            //On fait une liaison avec Campus, User et State :
+            ->join('o.campusOrganizer', 'c')
+            ->join('o.organizer', 'u')
+            ->join('o.state', 's')
+            //On classe par ordre croissant du plus récent au moins récent :
+            ->orderBy('o.startingDateTime', 'ASC')
 
-        dump($search->q);
+            ;
+
         //Si la barre de recherche n'est pas vide :
         if(!empty($search->q)) {
             $query = $query
@@ -44,11 +50,23 @@ class OutingRepository extends ServiceEntityRepository
                 ->setParameter('q', "%{$search->q}%");
         }
 
+        //TODO : gérer les filtres date !
         if(!empty($search->campus)) {
             $query = $query
                 ->andWhere('c.id IN (:campus)')
                 ->setParameter('campus', $search->campus);
         }
+
+
+        if(!empty($search->mindate) && !empty($seach->maxdate) && ($search->maxdate) > ($search->mindate)) {
+            $query = $query
+                ->andWhere('o.startingDateTime BETWEEN :mindate AND :maxdate')
+                ->setParameter('mindate', $search->mindate)
+                ->setParameter('maxdate', $search->maxdate)
+            ;
+
+        }
+
 
         if(!empty($search->mindate)) {
             $query = $query
@@ -56,6 +74,33 @@ class OutingRepository extends ServiceEntityRepository
                 ->setParameter('min', $search->mindate)
                 ;
         }
+
+        if(!empty($search->organizer)) {
+            $query = $query
+                ->andWhere('u = :u')
+                ->setParameter('u', $userInSession);
+        }
+
+        if(!empty($search->participant)) {
+            $query = $query
+                ->andWhere(':u MEMBER OF o.participants')
+                ->setParameter('u', $userInSession);
+        }
+
+
+        //TODO : not participant !
+        if (!empty($search->notParticipant)) {
+            $query;       }
+
+        //TODO : sorties passées (fermées) !
+        if (!empty($search->pastOutings)) {
+            $query = $query
+                ->andWhere('s = :s')
+                ->setParameter('s', 'Fermée');
+        }
+
+        dump($query);
+        dump($search);
 
         return $query->getQuery()->getResult();
 

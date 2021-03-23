@@ -27,13 +27,13 @@ class SearchData
 
 
     /**
-     * @var datetime|null
+     * @var DateTime|null
      * Pour le filtre de recherche entre date min et date max
      */
     public $mindate;
 
     /**
-     * @var datetime|null
+     * @var DateTime|null
      * Pour le filtre de recherche entre date min et date max
      */
     public $maxdate;
@@ -97,7 +97,7 @@ class SearchData
     /**
      * @return DateTime|null
      */
-    public function getMindate(): ?DateTime
+    public function getMindate(): DateTime
     {
         return $this->mindate;
     }
@@ -105,7 +105,7 @@ class SearchData
     /**
      * @param DateTime|null $mindate
      */
-    public function setMindate(?DateTime $mindate): void
+    public function setMindate(DateTime $mindate): void
     {
         $this->mindate = $mindate;
     }
@@ -113,7 +113,7 @@ class SearchData
     /**
      * @return DateTime|null
      */
-    public function getMaxdate(): ?DateTime
+    public function getMaxdate(): DateTime
     {
         return $this->maxdate;
     }
@@ -121,7 +121,7 @@ class SearchData
     /**
      * @param DateTime|null $maxdate
      */
-    public function setMaxdate(?DateTime $maxdate): void
+    public function setMaxdate(DateTime $maxdate): void
     {
         $this->maxdate = $maxdate;
     }

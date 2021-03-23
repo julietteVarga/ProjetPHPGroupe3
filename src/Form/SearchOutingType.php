@@ -14,7 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class SearchOutingType extends AbstractType
 {
@@ -32,7 +31,7 @@ class SearchOutingType extends AbstractType
     {
         $builder
             ->add('q', TextType::class, [
-                'label' => false,
+                'label' => 'Le nom de la sortie contient :',
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Rechercher une sortie par mot-clé'
@@ -44,23 +43,21 @@ class SearchOutingType extends AbstractType
                 'required' => false,
                 'class' => Campus::class,
                 'expanded' => true,
-                'multiple' => true
-//                'choice_label' => function (Campus $camp) {
-//                $camp->getCampusName();
-//                },
+                'multiple' => true,
+                //'choice_label' => 'campusName'
             ])
 
 
-            ->add('mindate', DateTimeType::class, [
-                'label' => 'Date minimum',
-                'required' => false,
-            ])
+           ->add('mindate', DateTimeType::class, [
+               'label' => 'Date minimum',
+               'required' => false
+           ])
 
-            ->add('maxdate', DateType::class, [
+            ->add('maxdate', DateTimeType::class, [
                 'label' => 'Date maximum',
                 'required' => false
             ])
-/*
+
             ->add('organizer', CheckboxType::class, [
                 'label' => 'Sorties dont je suis l\'organisateur',
                 'required' => false
@@ -80,7 +77,7 @@ class SearchOutingType extends AbstractType
                 'label' => 'Sorties passées',
                 'required' => false
             ])
-*/
+
 ;
 
 

@@ -7,6 +7,7 @@ Sortie "{{ outing.name }}"
 {% block main %}
 
     <div class="block1">
+        ETAT : {{ outing.state }}<br>
         Nom de la sortie : {{ outing.name }}<br>
         Date et heure de la sortie : {{ outing.startingDateTime|date('d/m/y') }} - {{ outing.startingDateTime|date('h:m') }}<br>
         Date limite d'inscription : {{ outing.registrationDeadLine|date('d/m/y') }}<br>
