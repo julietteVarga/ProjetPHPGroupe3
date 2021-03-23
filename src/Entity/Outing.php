@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Pure;
+use Symfony\Component\Validator\Constraints\Time;
+//use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=OutingRepository::class)
@@ -25,15 +27,27 @@ class Outing
      */
     private $name;
 
+
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+    private $startingDateTime;
+*/
     /**
      * @ORM\Column(type="datetime")
      */
     private $startingDateTime;
 
+
+
     /**
      * @ORM\Column(type="datetime")
      */
-    private $duration;
+    //#[Assert\Time]
+    private  $duration;
+
+
 
     /**
      * @ORM\Column(type="datetime")
@@ -61,6 +75,7 @@ class Outing
         $this->participants = new ArrayCollection();
     }
 
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="outingsOrganizer")
      */
@@ -80,7 +95,7 @@ class Outing
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="outings")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", cascade={"persist"}, inversedBy="outings")
      */
     private Location $location;
 
@@ -130,10 +145,12 @@ class Outing
         return $this;
     }
 
+
+
     /**
-     * @return \DateTimeInterface|null
+     * @return \DateTimeInterface
      */
-    public function getDuration(): ?\DateTimeInterface
+    public function getDuration(): \DateTimeInterface
     {
         return $this->duration;
     }

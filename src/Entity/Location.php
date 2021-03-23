@@ -45,7 +45,7 @@ class Location
     private $outings;
 
     /**
-     * @ORM\ManyToOne (targetEntity="App\Entity\City", inversedBy="locations")
+     * @ORM\ManyToOne (targetEntity="App\Entity\City", cascade={"persist"}, inversedBy="locations")
      */
     private City $city;
 
@@ -139,7 +139,7 @@ class Location
 
     public function __toString(): string
     {
-        return $this->getName();
+        return $this->getName().' ('.$this->getCity()->getName().')';
     }
 
 }

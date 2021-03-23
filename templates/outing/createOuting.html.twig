@@ -49,15 +49,23 @@
             {{ form_widget (outingForm.outingInfos) }}
             {{ form_errors (outingForm.outingInfos) }}
         </div>
+
         <div class="form_groupe">
             {{ form_label (outingForm.location) }}
             {{ form_widget (outingForm.location) }}
             {{ form_errors (outingForm.location) }}
         </div>
+
         <p> Ville organisatrice : {{ app.user.getCampus }}</p>
         <br>
+        <div>
+        <a href="{{ url('create_location') }}">Ajouter un lieu</a>
+        </div>
+
         <button type="submit">Envoyer !</button>
         {{ form_end (outingForm) }}
+
+
     </div>
 
     {% else %}

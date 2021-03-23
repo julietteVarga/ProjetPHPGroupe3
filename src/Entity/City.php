@@ -34,7 +34,7 @@ class City
          * @var ArrayCollection
          * @ORM\OneToMany (targetEntity="App\Entity\Location", mappedBy="city")
          */
-        private $locations;
+        private  $locations;
 
     public function getId(): ?int
     {
@@ -66,7 +66,7 @@ class City
     }
 
     /**
-     * @return Location
+     * @return ArrayCollection
      */
     public function getLocations(): ArrayCollection
     {
@@ -76,7 +76,7 @@ class City
     /**
      * @param ArrayCollection $locations
      */
-    public function setLocations(Location $locations): void
+    public function setLocations(ArrayCollection $locations): void
     {
         $this->locations = $locations;
     }

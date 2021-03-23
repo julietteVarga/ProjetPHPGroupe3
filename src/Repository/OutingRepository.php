@@ -20,6 +20,7 @@ class OutingRepository extends ServiceEntityRepository
         parent::__construct($registry, Outing::class);
     }
 
+
     /**
      * @param SearchData $search
      * @return Outing[]

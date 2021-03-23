@@ -65,6 +65,10 @@ class User implements UserInterface
      * @ORM\ManyToMany(targetEntity="App\Entity\Outing", inversedBy="participants", cascade={"persist", "remove"})
      */
     private $outingsParticipants;
+    public function __construct()
+    {
+        $this->outingsParticipants=new ArrayCollection();
+    }
 
     public function __construct()
     {

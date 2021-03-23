@@ -20,7 +20,8 @@ class MainController extends AbstractController
     public function index(): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('user_home');
+            //TODO changer le lien pour mettre a jour les etats selon la date du jour et renvoyer vers user_home
+            return $this->redirectToRoute('update_outing');
 
         }else {
             return $this->redirectToRoute('app_login');
