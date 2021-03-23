@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Validator\Constraints\Time;
-//use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=OutingRepository::class)
@@ -28,23 +28,17 @@ class Outing
     private $name;
 
 
-
-    /**
-     * @ORM\Column(type="datetime")
-     *
-    private $startingDateTime;
-*/
     /**
      * @ORM\Column(type="datetime")
      */
+    #[Assert\GreaterThan("today")]
     private $startingDateTime;
-
 
 
     /**
      * @ORM\Column(type="time")
      */
-    //#[Assert\Time]
+
     private  $duration;
 
 

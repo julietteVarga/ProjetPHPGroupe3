@@ -11,6 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
@@ -28,8 +29,9 @@ class OutingType extends AbstractType
             ->add('registrationDeadLine', DateType::class, array('label' => 'Date limite d\'inscription :'))
             ->add('maxNumberRegistration', IntegerType::class, array('label' => 'Nombre de places :'))
             ->add('outingInfos', TextareaType::class, array('label' => 'Informations :'))
-            ->add('location', EntityType::class, array('class' => Location::class));
-
+            ->add('location', EntityType::class, array('class' => Location::class))
+            ->add('save', SubmitType::class, array('label' => 'Enregistrer'))
+            ->add('saveAndAdd', SubmitType::class, array('label' => 'Publier'));
 
 
     }

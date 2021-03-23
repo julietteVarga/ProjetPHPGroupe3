@@ -25,14 +25,25 @@ class OutingController extends AbstractController
         ]);
     }
 
-    public function findState(EntityManagerInterface $entityManager): object
+    public function findStateInCreation(EntityManagerInterface $entityManager): object
     {
         $repositoryS = $entityManager->getRepository(State::class);
         $stateInCreation = $repositoryS->findOneBy([
-            'label' => 'Ouverte'
+            'label' => 'En création'
         ]);
 
         return $stateInCreation;
+
+    }
+
+    public function findStateOpen(EntityManagerInterface $entityManager): object
+    {
+        $repositoryS = $entityManager->getRepository(State::class);
+        $stateOpen = $repositoryS->findOneBy([
+            'label' => 'Ouverte'
+        ]);
+
+        return $stateOpen;
 
     }
 
@@ -46,11 +57,8 @@ class OutingController extends AbstractController
     public function updateState(EntityManagerInterface $em): Response
     {
         $dateNow = new \DateTime('now');
-        //On convertis en secondes.
+        //On convertit en secondes.
         $dateNowStamp = $dateNow->getTimestamp();
-
-dd($dateNow);
-
 
         $repository = $em->getRepository(Outing::class);
         $listOutings = $repository->findAll();
@@ -142,12 +150,10 @@ dd($dateNow);
         $outingForm = $this->createForm(OutingType::class, $outing);
 
         $outingForm->handleRequest($request);
-        $dateNow = new \DateTime('now');
 
-        if ($outingForm->isSubmitted() && $outingForm->isValid() && $outing->getStartingDateTime()> $dateNow &&
-            $outing->getRegistrationDeadLine() <= $outing->getStartingDateTime() ) {
+        if ($outingForm->isSubmitted() && $outingForm->isValid() && $outingForm->get('save')->isClicked()) {
 
-            $state = $this->findState($entityManager);
+            $state = $this->findStateInCreation($entityManager);
 
             $outing->setOrganizer($campusOrganizer);
             $outing->setCampusOrganizer($campusId);
@@ -159,10 +165,22 @@ dd($dateNow);
             $this->addFlash('success', 'Sortie publiée !');
 
             return $this->redirectToRoute('create_outing');
-        }
-        else{
+
+        } elseif ($outingForm->isSubmitted() && $outingForm->isValid() && $outingForm->get('saveAndAdd')->isClicked()) {
+
+            $stateOpen = $this->findStateOpen($entityManager);
+            $outing->setOrganizer($campusOrganizer);
+            $outing->setCampusOrganizer($campusId);
+            $outing->setState($stateOpen);
+
+            $entityManager->persist($outing);
+            $entityManager->flush();
+
+
+            return $this->redirectToRoute('create_outing');
 
         }
+
 
         return $this->render('outing/createOuting.html.twig', [
             'outingForm' => $outingForm->createView(),

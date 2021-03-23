@@ -58,11 +58,16 @@
 
         <p> Ville organisatrice : {{ app.user.getCampus }}</p>
         <br>
-        <div>
-        <a href="{{ url('create_location') }}">Ajouter un lieu</a>
+
+        <div class="button">
+        <a href="{{ url('create_location') }}">Ajouter un lieu </a>
         </div>
 
-        <button type="submit">Envoyer !</button>
+        <div class="button">
+            <a href="{{ url('main_index') }}">Annuler</a>
+        </div>
+
+
         {{ form_end (outingForm) }}
 
 
