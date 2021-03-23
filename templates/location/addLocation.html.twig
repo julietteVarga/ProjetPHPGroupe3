@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+
+{% block Pagetitle %}
+    Ajouter un lieu :
+{% endblock %}
+
+{% block main %}
+
+    <div class="form">
+    {{ form_start (locationForm) }}
+    <div class="form_groupe">
+        {{ form_label (locationForm.city) }}
+        {{ form_widget (locationForm.city) }}
+        {{ form_errors (locationForm.city) }}
+    </div>
+    <div class="form_groupe">
+        {{ form_label (locationForm.name) }}
+        {{ form_widget (locationForm.name) }}
+        {{ form_errors (locationForm.name) }}
+
+    </div>
+    <div class="form_groupe">
+        {{ form_label (locationForm.street) }}
+        {{ form_widget (locationForm.street) }}
+        {{ form_errors (locationForm.street) }}
+    </div>
+    <div class="form_groupe">
+        {{ form_label (locationForm.latitude) }}
+        {{ form_widget (locationForm.latitude) }}
+        {{ form_errors (locationForm.latitude) }}
+    </div>
+    <div class="form_groupe">
+        {{ form_label (locationForm.longitude) }}
+        {{ form_widget (locationForm.longitude) }}
+        {{ form_errors (locationForm.longitude) }}
+    </div>
+    <button type="submit">Envoyer !</button>
+    {{ form_end (locationForm) }}
+
+{% endblock %}

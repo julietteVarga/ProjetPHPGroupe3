@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Location;
 use App\Entity\State;
 use App\Entity\User;
-use Doctrine\ORM\EntityManager;
+use App\Repository\LocationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,8 +23,6 @@ class OutingController extends AbstractController
             'controller_name' => 'OutingController',
         ]);
     }
-
-
 
     public function findState(EntityManagerInterface $entityManager): object
     {
@@ -44,9 +43,10 @@ class OutingController extends AbstractController
         $campusOrganizer = $repository->findOneBy(['username' => $this->getUser()->getUsername()]);
         $campusId = $campusOrganizer->getCampus();
 
-
         $outing = new Outing();
+
         $outingForm = $this->createForm(OutingType::class, $outing);
+
         $outingForm->handleRequest($request);
 
         if ($outingForm->isSubmitted() && $outingForm->isValid()) {

@@ -80,7 +80,7 @@ class Outing
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="outings")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", cascade={"persist"}, inversedBy="outings")
      */
     private Location $location;
 

@@ -39,7 +39,7 @@
     <nav>
         <ul>
                 <li><a href="{{ url('main_index') }}">Accueil</a></li>
-                <li><a href="{{ url('create_outing') }}">Ajouter une sorties</a></li>
+                <li><a href="{{ url('create_outing') }}">Ajouter une sortie</a></li>
                 <li><a href="{{ url('user_my_profile') }}">Mon profil</a></li>
             {% if is_granted ('ROLE_ADMIN') %}
                 <li><a href="{{ url('admin_users_list') }}">Participants</a></li>

@@ -19,6 +19,7 @@ class LocationRepository extends ServiceEntityRepository
         parent::__construct($registry, Location::class);
     }
 
+
     // /**
     //  * @return Location[] Returns an array of Location objects
     //  */

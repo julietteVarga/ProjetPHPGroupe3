@@ -43,12 +43,12 @@ class Location
      * @ORM\OneToMany (targetEntity="App\Entity\Outing", mappedBy="location")
      */
     private $outings;
-/*
+
     /**
-     * @ORM\ManyToOne (targetEntity="App\Entity\City", inversedBy="locations")
-     *
+     * @ORM\ManyToOne (targetEntity="App\Entity\City", cascade={"persist"}, inversedBy="locations")
+     */
     private City $city;
-*/
+
     public function getId(): ?int
     {
         return $this->id;
@@ -118,11 +118,10 @@ class Location
         $this->outings = $outings;
     }
 
-    /*
 
     /**
      * @return City
-     *
+     */
     public function getCity(): City
     {
         return $this->city;
@@ -130,16 +129,16 @@ class Location
 
     /**
      * @param City $city
-     *
+     */
     public function setCity(City $city): void
     {
         $this->city = $city;
     }
-*/
+
 
     public function __toString(): string
     {
-        return $this->getName();
+        return $this->getName().' ('.$this->getCity()->getName().')';
     }
 
 }

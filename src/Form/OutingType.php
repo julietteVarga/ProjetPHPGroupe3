@@ -4,8 +4,16 @@ namespace App\Form;
 
 use App\Entity\Location;
 use App\Entity\Outing;
+
+use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,17 +22,16 @@ class OutingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('startingDateTime')
-            ->add('duration')
-            ->add('registrationDeadLine')
-            ->add('maxNumberRegistration')
-            ->add('outingInfos')
-            ->add('location', EntityType::class, [
-                'class' => Location::class,
-                'choice_label' => 'name'
-            ])
-        ;
+            ->add('name', TextType::class, array('label' => 'Nom :'))
+            ->add('startingDateTime', DateTimeType::class, array('label' => 'Date & heure de la sortie :'))
+            ->add('duration', TimeType::class, array('label' => 'Durée :'))
+            ->add('registrationDeadLine', DateType::class, array('label' => 'Date limite d\'inscription :'))
+            ->add('maxNumberRegistration', IntegerType::class, array('label' => 'Nombre de places :'))
+            ->add('outingInfos', TextareaType::class, array('label' => 'Informations :'))
+            ->add('location', EntityType::class, array('class' => Location::class));
+
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
