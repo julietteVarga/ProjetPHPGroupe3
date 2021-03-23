@@ -99,6 +99,7 @@ class OutingController extends AbstractController
             $durationAndStartingDate = $startingDateStamp + $durationSeconds;
 
 
+
             //Si la date d'aujourd'hui est inférieure à la date de début
             //et supérieur à la durée + date de début et que l'état n'est pas en création
             //alors la sortie est ouverte.
@@ -123,7 +124,6 @@ class OutingController extends AbstractController
             if ($state === $creation) {
                 $outing->setState($creation);
             }
-
             //Si la date d'aujourd'hui est supérieure à la date de début
             //et supérieur à la durée + date de début et que l'état n'est pas en création
             //et que la date de début est inférieure ou égale à la date d'archive (today +30jours)
@@ -132,6 +132,8 @@ class OutingController extends AbstractController
                 && $startingDateStamp <= $dateArchiveToUse && $state != $creation) {
                 $outing->setState($archive);
             }
+
+
             $em->persist($outing);
             $em->flush();
             return $this->redirectToRoute('user_home');
