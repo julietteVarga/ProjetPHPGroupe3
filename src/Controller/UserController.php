@@ -117,6 +117,7 @@ class UserController extends AbstractController
 
         $userModifyForm = $this->createForm(UserType::class, $userModify);
 
+
         $userModifyForm->handleRequest($request);
 
 
@@ -160,7 +161,9 @@ class UserController extends AbstractController
 
             }
         return $this->render('user/myProfile.html.twig', [
-            'userModifyForm' => $userModifyForm->createView()]);
+            'userModifyForm' => $userModifyForm->createView(),
+
+        ]);
     }
 
 
