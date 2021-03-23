@@ -36,7 +36,7 @@
                              {# TODO :: gérer l'affichage des liens en fonction des inscriptions de l'utilisateur !! et de son statut organisateur ou non #}
 
                              {% if outing.state == 'En création' and app.user== outing.organizer%}
-                             <a href="{{ url('modify_outing') }}">Modifier</a> - <a href="#">Publier</a>
+                             <a href="{{ url('modify_outing', {'id':outing.getId()}) }}">Modifier</a> - <a href="#">Publier</a>
                              {% endif %}
 
                              {% if outing.state == 'Ouverte' %}

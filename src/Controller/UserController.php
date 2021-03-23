@@ -83,7 +83,7 @@ class UserController extends AbstractController
 
             $em->flush();
 
-            $this->addFlash('sucess',"Participant ajouté!");
+            $this->addFlash('success',"Participant ajouté!");
             return $this->redirectToRoute('user_home');
         }
 

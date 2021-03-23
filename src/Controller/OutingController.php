@@ -162,7 +162,7 @@ class OutingController extends AbstractController
             $entityManager->persist($outing);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Sortie publiée !');
+            $this->addFlash('success', 'Sortie enregistrée !');
 
             return $this->redirectToRoute('create_outing');
 
@@ -176,6 +176,7 @@ class OutingController extends AbstractController
             $entityManager->persist($outing);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Sortie publiée !');
 
             return $this->redirectToRoute('create_outing');
 
@@ -188,9 +189,55 @@ class OutingController extends AbstractController
 
     }
 
-    #[Route('/modify-outing', name : 'modify_outing')]
-    public function update(Request $request, EntityManagerInterface $entityManager) :Response {
+    #[Route('/modify-outing/{id}', name : 'modify_outing', requirements: ['id' => '\d+'])]
+    public function update(Request $request, EntityManagerInterface $entityManager, int $id) :Response {
 
+        $repositoryCampus = $entityManager->getRepository(User::class);
+        $repository = $entityManager->getRepository(Outing::class);
+
+        $campusOrganizer = $repositoryCampus->findOneBy(['username' => $this->getUser()->getUsername()]);
+        $campusId = $campusOrganizer->getCampus();
+
+        $outing = $repository->find($id);
+
+        $outingForm = $this->createForm(OutingType::class, $outing);
+
+        $outingForm->handleRequest($request);
+
+        if ($outingForm->isSubmitted() && $outingForm->isValid() && $outingForm->get('save')->isClicked()) {
+
+            $state = $this->findStateInCreation($entityManager);
+
+            $outing->setOrganizer($campusOrganizer);
+            $outing->setCampusOrganizer($campusId);
+            $outing->setState($state);
+
+            $entityManager->persist($outing);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Sortie modifiée !');
+
+            return $this->redirectToRoute('main_index');
+
+        } elseif ($outingForm->isSubmitted() && $outingForm->isValid() && $outingForm->get('saveAndAdd')->isClicked()) {
+
+            $stateOpen = $this->findStateOpen($entityManager);
+            $outing->setOrganizer($campusOrganizer);
+            $outing->setCampusOrganizer($campusId);
+            $outing->setState($stateOpen);
+
+            $entityManager->persist($outing);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Sortie publiée !');
+
+            return $this->redirectToRoute('main_index');
+
+        }
+
+        return $this->render('outing/modifyOuting.html.twig', [
+            'modifyForm' => $outingForm->createView(),
+        ]);
 
 
 
