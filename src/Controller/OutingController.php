@@ -186,6 +186,16 @@ class OutingController extends AbstractController
             'outingForm' => $outingForm->createView(),
         ]);
 
+    }
+
+    #[Route('/modify-outing', name : 'modify_outing')]
+    public function update(Request $request, EntityManagerInterface $entityManager) :Response {
+
+
+
 
     }
+
+
+
 }
