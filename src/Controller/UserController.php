@@ -2,14 +2,18 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
 use App\Entity\Outing;
 use App\Entity\Role;
 use App\Entity\User;
+use App\Form\SearchOutingType;
 use App\Form\SignInType;
 use App\Form\SignUpType;
 use App\Form\UserType;
+use App\Repository\OutingRepository;
 use App\Repository\UserRepository;
 use App\Security\SignInFormAuthenticator;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,16 +30,29 @@ use Symfony\Component\Serializer\Serializer;
 class UserController extends AbstractController
 {
 
-
-    #[Route('/home', name: 'user_home')]
-    public function home(Request $request, EntityManagerInterface $em): Response
+    /**
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param OutingRepository $outingRepository
+     * @return Response
+     * Fonction qui va :
+     * - chercher la liste de toutes les sorties (findAll) pour les afficher dans la page d'accueil lorsque le user est connecté
+     * - créer le formulaire de recherche pour filtrer les sorties si le user le souhaite
+     */
+    #[Route('/user/home', name: 'user_home')]
+    public function home(Request $request, EntityManagerInterface $em, OutingRepository $outingRepository): Response
     {
-        $repository = $em->getRepository(Outing::class);
-        $allOutings = $repository->findAll();
+        $data = new SearchData();
+        $form = $this->createForm(SearchOutingType::class, $data);
+        $form->handleRequest($request);
+
+        $filterOutings = $outingRepository->findSearch($data);
 
         return $this->render('user/homeSignedIn.html.twig', [
-            'allOutings' => $allOutings
+            'filterOutings' => $filterOutings,
+            'form' => $form->createView(),
         ]);
+
     }
 
     /**
@@ -110,7 +127,88 @@ class UserController extends AbstractController
     }
 
 
+    /**
+     * fonction pour s'inscrire à une sortie lorqu'on est en session.
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param int $id
+     * @return Response
+     */
+    #[Route('user/signUpOuting/{id}', name: 'user_sign_up_outing', requirements: ['id' => '\d+'])]
+    public function signUpOuting (Request $request, EntityManagerInterface $em, int $id) : Response
+    {
+        //on va cherche la sortie par rapport à son id qu'on a envoyé via le lien s'inscrire.
+        $repository = $em->getRepository(Outing::class);
+        $outing = $repository->find($id);
 
+        //on va chercher l'utilisateur en session
+        $repositoryU = $em->getRepository(User::class);
+        $outingParticipant = $repositoryU->findOneBy(['username' => $this->getUser()->getUsername()]);
+        //on crée un array collection pour pouvoir ajouter la sortie dans la relation user_outing.
+        $collectionU= new ArrayCollection();
+        $collectionU->add($outing);
+        //on crée un array collection pour pouvoir ajouter l'utilisateur en session dans la relation user_outing.
+        $collectionO= new ArrayCollection();
+        $collectionO->add($outingParticipant);
+
+        //si la sortie existe et si l'utilisateur en session existe alors on ajoute les arraycollection
+        //dans l'entité correspondante et on flush tout ca.
+        if($outing && $outingParticipant){
+            $outing->setParticipants($collectionO);
+            $outingParticipant->setOutingsParticipants($collectionU);
+            $em->persist($outingParticipant);
+            $em->persist($outing);
+            $em->flush();
+            $this->addFlash('sucess',"Participant ajouté!");
+            return $this->redirectToRoute('user_home');
+        }
+
+    }
+
+    #[Route('/user/showUser/{id}', name: 'user_show_organizer',  requirements: ['id' => '\d+'])]
+    public function showOrganizer(Request $request, EntityManagerInterface $em, int $id): Response
+    {
+        $repository = $em->getRepository(User::class);
+        $user  = $repository->find($id);
+        return $this->render('user/otherProfiles.html.twig', [
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * fonction pour se désinscrire à une sortie lorqu'on est en session.
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param int $id
+     * @return Response
+     */
+    #[Route('user/signOutOuting/{id}', name: 'user_sign_out_outing', requirements: ['id' => '\d+'])]
+    public function signOutOuting (Request $request, EntityManagerInterface $em, int $id) : Response
+    {
+        //on va chercher la sortie par rapport à son id qu'on a envoyé via le lien se désinscrire.
+        $repository = $em->getRepository(Outing::class);
+        $outing = $repository->find($id);
+
+        //on va chercher l'utilisateur en session
+        $repositoryU = $em->getRepository(User::class);
+        $userInSession = $repositoryU->findOneBy(['username' => $this->getUser()->getUsername()]);
+
+        //on récupère la liste des participants de la sortie considérée :
+        $outingParticipantsList = $outing->getParticipants() ;
+        $userOutings = $userInSession->getOutingsParticipants();
+
+        //on retire l'utilisateur en session déclaré plus haut (userInSession) :
+        $outingParticipantsList->removeElement($userInSession);
+        $userOutings->removeElement($outing);
+
+
+            $em->persist($outing);
+            $em->persist($userInSession);
+            $em->flush();
+            $this->addFlash('sucess',"Vous vous êtes désinscrit de la sortie :".$outing->getName());
+            return $this->redirectToRoute('user_home');
+
+    }
 
 
 }

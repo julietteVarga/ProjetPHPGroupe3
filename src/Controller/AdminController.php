@@ -64,7 +64,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/profile/{id}', name: 'admin_user_profile')]
+    #[Route('/admin/profile/{id}', name: 'admin_user_profile', requirements: ['id' => '\d+'])]
     public function userProfile(EntityManagerInterface $em, Request $request, int $id): Response
     {
         $repository = $em->getRepository(User::class);
@@ -99,7 +99,7 @@ class AdminController extends AbstractController
             // actually executes the queries (i.e. the INSERT query)
             $em->flush();
 
-            $this->addFlash("success", "New Campus successfully saved !");
+            $this->addFlash("success", "Nouveau Campus ajouté !");
             return $this->redirectToRoute('admin_campus', [
                 'newCampus' => $newCampus
             ]);
@@ -135,7 +135,7 @@ class AdminController extends AbstractController
             // actually executes the queries (i.e. the INSERT query)
             $em->flush();
 
-            $this->addFlash("success", "New City successfully saved !");
+            $this->addFlash("success", "Nouvelle ville ajoutée !");
             return $this->redirectToRoute('admin_cities', [
                 'newCity' => $newCity
             ]);

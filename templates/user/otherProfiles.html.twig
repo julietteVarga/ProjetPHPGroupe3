@@ -1,2 +1,25 @@
 {% extends 'base.html.twig' %}
 
+{% block Pagetitle %}
+    Profil de {{ user.username }} :
+{% endblock %}
+
+{% block main %}
+
+    <p>
+        Prénom : {{ user.name }} <br>
+        Nom : {{ user.surname }} <br>
+        Email : {{ user.email }} <br>
+        Téléphone : {{ user.tel }}
+    </p>
+
+    <p>
+        Campus de rattachement : {{ user.campus }}
+    </p>
+
+    <div class="button">
+        <a href="{{ url('main_index') }}">Retour</a>
+    </div>
+
+
+{% endblock %}

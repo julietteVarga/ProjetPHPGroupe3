@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,12 +29,13 @@ class City
     private $postalCode;
 
 
-    /*
+
         /**
+         * @var ArrayCollection
          * @ORM\OneToMany (targetEntity="App\Entity\Location", mappedBy="city")
-         *
-        private Location $locations;
-    */
+         */
+        private $locations;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -66,13 +68,13 @@ class City
     /**
      * @return Location
      */
-    public function getLocations(): Location
+    public function getLocations(): ArrayCollection
     {
         return $this->locations;
     }
 
     /**
-     * @param Location $locations
+     * @param ArrayCollection $locations
      */
     public function setLocations(Location $locations): void
     {

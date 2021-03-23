@@ -11,6 +11,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
+    /**
+     * @return Response
+     * Fonction qui renvoie sur la page de connexion si l'utilisateur n'est pas connecté,
+     * et sur la page d'accueil (avec la liste des sorties et les filtres de recherche) si le user est connecté
+     */
     #[Route('/', name: 'main_index')]
     public function index(): Response
     {

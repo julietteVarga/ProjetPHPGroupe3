@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -51,6 +52,8 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery();
         return $query->execute();
     }
+
+
 
 
     // /**

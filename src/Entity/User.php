@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -58,12 +59,17 @@ class User implements UserInterface
          * @ORM\Column(type="json")
          */
     private $roles = [];
-/*
+
     /**
-     * @var ArrayCollection
+     * @var Collection
      * @ORM\ManyToMany(targetEntity="App\Entity\Outing", inversedBy="participants", cascade={"persist", "remove"})
      */
     private $outingsParticipants;
+
+    public function __construct()
+    {
+        $this->outingsParticipants = new ArrayCollection();
+    }
 
     /**
      * @var ArrayCollection
@@ -75,7 +81,7 @@ class User implements UserInterface
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Campus", inversedBy= "students")
      */
-    private ?Campus $campus = null;
+    private ?Campus $campus;
 
     public function getId(): ?int
     {
@@ -242,17 +248,17 @@ class User implements UserInterface
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection|null
      */
-    public function getOutingsParticipants(): ?ArrayCollection
+    public function getOutingsParticipants(): ?Collection
     {
         return $this->outingsParticipants;
     }
 
     /**
-     * @param ArrayCollection $outingsParticipants
+     * @param Collection $outingsParticipants
      */
-    public function setOutingsParticipants(ArrayCollection $outingsParticipants): void
+    public function setOutingsParticipants(Collection $outingsParticipants): void
     {
         $this->outingsParticipants = $outingsParticipants;
     }

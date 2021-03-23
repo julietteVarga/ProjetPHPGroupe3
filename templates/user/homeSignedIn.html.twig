@@ -9,8 +9,52 @@
 
  {% block main %}
 
+     <div class="form">
+         {{ form_start(form) }}
+         <div class="form_groupe">
+             {{ form_label(form.q) }}
+             {{ form_widget(form.q) }}
+             {{ form_errors(form.q) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label(form.campus) }}
+             {{ form_widget(form.campus) }}
+             {{ form_errors(form.campus) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label(form.mindate) }}
+             {{ form_widget(form.mindate) }}
+             {{ form_errors(form.mindate) }}
+         </div>
 
 
+         <div class="form_groupe">
+             {{ form_label(form.maxdate) }}
+             {{ form_widget(form.maxdate) }}
+             {{ form_errors(form.maxdate) }}
+         </div>
+
+         <button type="submit" class="button">Filtrer</button>
+
+         {{ form_end(form) }}
+
+
+
+     </div>
+
+     <div class="listOuting">
+
+         {% for outing in filterOutings %}
+                {{ outing.name }}<br>
+         {% endfor %}
+
+
+     </div>
+
+
+{#
          <table class="tableau_home">
              <tr>
                  <th>Nom de la sortie</th>
@@ -22,7 +66,7 @@
                  <th>Organisateur</th>
                  <th>Actions</th>
              </tr>
-             {% for title in allOutings|batch(3) %}
+             {% for title in allOutings|batch(8) %}
                  <tr>
                      {% for outing in title %}
                          <td>{{ outing.name }}</td>
@@ -31,16 +75,29 @@
                          <td>{{ outing.participants|length }}/{{ outing.maxNumberRegistration }}</td>
                          <td>{{ outing.state }}</td>
                          <td>//TODO : inscrit bool oui ou non app.user</td>
-                         <td>//TODO : nom de l'organisateur ?</td>
-                         <td>
-                             {# TODO :: gérer l'affichage des liens en fonction des inscriptions de l'utilisateur !! et de son statut organisateur ou non #}
+                         <td><a href="{{ url('user_show_organizer', {'id':outing.getOrganizer().getId()}) }}">{{ outing.organizer.username }}</a>
 
+
+                         </td>
+                         <td> #}
+                             {# TODO :: gérer l'affichage des liens en fonction des inscriptions de l'utilisateur !! et de son statut organisateur ou non #}
+{#
                              {% if outing.state == 'En création' %}
-                             <a href="#">Modifier</a> - <a href="#">Publier</a>
+                                {% if app.user == outing.organizer %}
+                                 <a href="#">Modifier</a> - <a href="#">Publier</a>
+                                    {% else %}
+                                    <p> Sortie en création<br>Aucune action possible</p>
+                                {% endif %}
+
                              {% endif %}
 
                              {% if outing.state == 'Ouverte' %}
-                             <a href="#">Afficher</a> - <a href="#">S'inscrire</a>
+                             <a href="{{ url('outing_show', {'id':outing.getId()}) }}">Afficher</a> -
+                                 {% if app.user in outing.participants %}
+                                     <a href="{{ url('user_sign_out_outing', {'id':outing.getId()}) }}">Se désinscrire</a>
+                                 {% else %}
+                                        <a href="{{ url('user_sign_up_outing', {'id':outing.getId()}) }}">S'inscrire</a>
+                                 {% endif %}
                              {% endif %}
 
                              {% if outing.state == 'Clôturée' %}
@@ -57,10 +114,11 @@
 
                          </td>
 
+                     </tr>
                      {% endfor %}
-                 </tr>
+
              {% endfor %}
          </table>
-
+#}
 
  {% endblock %}

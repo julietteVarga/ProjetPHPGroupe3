@@ -1,1 +1,54 @@
 {% extends 'base.html.twig' %}
+
+{% block Pagetitle %}
+Sortie "{{ outing.name }}"
+{% endblock %}
+
+{% block main %}
+
+    <div class="block1">
+        Nom de la sortie : {{ outing.name }}<br>
+        Date et heure de la sortie : {{ outing.startingDateTime|date('d/m/y') }} - {{ outing.startingDateTime|date('h:m') }}<br>
+        Date limite d'inscription : {{ outing.registrationDeadLine|date('d/m/y') }}<br>
+        Nombre de places : {{ outing.maxNumberRegistration }}<br>
+        Durée : {{ outing.duration|date('h') }} h {{ outing.duration|date('m') }} min <br>
+        Description et infos : {{ outing.outingInfos }}<br>
+    </div>
+
+    <div class="block2">
+        Ville organisatrice : {{ outing.campusOrganizer }}<br>
+        Lieu : <br>
+        Rue : <br>
+        Code postal : <br>
+        Latitude : <br>
+        Longitude : <br>
+    </div>
+
+    <div class="outingpage_userlist">
+        <h2>Liste des participants :</h2>
+
+        <table class="userlist">
+
+            <tr>
+                <th>Pseudo</th>
+                <th>Nom</th>
+            </tr>
+
+            <tr>
+                {% for title in outing.participants|batch(2) %}
+                    {% for participant in title %}
+
+                    <td>
+                        {{ participant.username }}
+                    </td>
+                    <td>
+                        {{ participant.name }} {{ participant.surname }}
+                    </td>
+                    {% endfor %}
+                {% endfor %}
+            </tr>
+        </table>
+
+    </div>
+
+{% endblock %}

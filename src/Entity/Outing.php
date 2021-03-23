@@ -31,12 +31,12 @@ class Outing
     private $startingDateTime;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="datetime")
      */
     private $duration;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $registrationDeadLine;
 
@@ -52,7 +52,7 @@ class Outing
 
     /**
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="outingsParticipants")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="outingsParticipants", cascade={"persist", "remove"})
      */
     private $participants;
 

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Outing;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,6 +18,48 @@ class OutingRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Outing::class);
+    }
+
+    /**
+     * @param SearchData $search
+     * @return Outing[]
+     * Permet de récupérer les sorties en lien avec une recherche
+     * (on filtre les sorties selon des critères)
+     */
+    public function findSearch(SearchData $search) {
+
+        $query = $this
+            //On récupère les sorties :
+            ->createQueryBuilder('o')
+            ->select('c', 'o')
+            //On fait une liaison avec Campus :
+            ->join('o.campusOrganizer', 'c');
+
+        dump($search->q);
+        //Si la barre de recherche n'est pas vide :
+        if(!empty($search->q)) {
+            $query = $query
+                ->andWhere('o.name LIKE :q')
+                ->setParameter('q', "%{$search->q}%");
+        }
+
+        if(!empty($search->campus)) {
+            $query = $query
+                ->andWhere('c.id IN (:campus)')
+                ->setParameter('campus', $search->campus);
+        }
+
+        if(!empty($search->mindate)) {
+            $query = $query
+                ->andWhere('o.startingDateTime >= :mindate')
+                ->setParameter('min', $search->mindate)
+                ;
+        }
+
+        return $query->getQuery()->getResult();
+
+
+
     }
 
     // /**

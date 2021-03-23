@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
 use App\Entity\State;
 use App\Entity\User;
+use App\Form\SearchOutingType;
+use App\Repository\OutingRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,15 +18,6 @@ use App\Form\OutingType;
 
 class OutingController extends AbstractController
 {
-    #[Route('/outing', name: 'outing')]
-    public function index(): Response
-    {
-        return $this->render('outing/index.html.twig', [
-            'controller_name' => 'OutingController',
-        ]);
-    }
-
-
 
     public function findState(EntityManagerInterface $entityManager): object
     {
@@ -68,7 +62,22 @@ class OutingController extends AbstractController
         return $this->render('outing/createOuting.html.twig', [
             'outingForm' => $outingForm->createView(),
         ]);
+    }
 
+    #[Route('/showOuting/{id}', name: 'outing_show',  requirements: ['id' => '\d+'])]
+    public function showOrganizer(Request $request, EntityManagerInterface $em, int $id): Response
+    {
+        $repository = $em->getRepository(Outing::class);
+        $outing  = $repository->find($id);
+        return $this->render('outing/outingPage.html.twig', [
+            'outing' => $outing
+        ]);
+    }
+
+
+    public function filterOutings(OutingRepository $repository) {
 
     }
+
+
 }
