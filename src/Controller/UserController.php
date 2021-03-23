@@ -10,6 +10,7 @@ use App\Form\SignUpType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Security\SignInFormAuthenticator;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +28,11 @@ class UserController extends AbstractController
 {
 
 
-    #[Route('/home', name: 'user_home')]
+
+
+
+
+    #[Route('user/home', name: 'user_home')]
     public function home(Request $request, EntityManagerInterface $em): Response
     {
         $repository = $em->getRepository(Outing::class);
@@ -37,6 +42,55 @@ class UserController extends AbstractController
             'allOutings' => $allOutings
         ]);
     }
+
+
+    /**
+     * fonction pour s'inscrire a une sorte lorqu'on est en session.
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param int $id
+     * @return Response
+     */
+    #[Route('user/signUpOuting/{id}', name: 'user_sign_up_outing', requirements: ['id' => '\d+'])]
+    public function signUpOuting (Request $request, EntityManagerInterface $em, int $id) : Response
+    {
+
+        //on va cherche la sortie par rapport à son id qu'on a envoyé via le lien s'inscrire.
+        $repository = $em->getRepository(Outing::class);
+        $outing = $repository->find($id);
+
+
+        //on va chercher l'utilisateur en session
+        $repositoryU = $em->getRepository(User::class);
+        $outingParticipant = $repositoryU->findOneBy(['username' => $this->getUser()->getUsername()]);
+
+        //on crée un array collection pour pouvoir ajouter la sortie dans la relation user_outing.
+        $collectionU= new ArrayCollection();
+        $collectionU->add($outing);
+
+        //on crée un array collection pour pouvoir ajouter l'utilisateur en session dans la relation user_outing.
+        $collectionO= new ArrayCollection();
+        $collectionO->add($outingParticipant);
+
+
+        //si la sortie existe et si l'utilisateur en session existe alors on ajoute les arraycollection
+        //dans l'entité correspondante et on flush tout ca.
+        if($outing && $outingParticipant){
+            $outing->setParticipants($collectionO);
+            $outingParticipant->setOutingsParticipants($collectionU);
+            $em->persist($outingParticipant);
+            $em->persist($outing);
+
+            $em->flush();
+
+            $this->addFlash('sucess',"Participant ajouté!");
+            return $this->redirectToRoute('user_home');
+        }
+
+
+
+    }
+
 
     /**
      * Fonction pour modifier son profil en tant qu'utilisateur en session.

@@ -28,11 +28,13 @@ class City
      */
     private $postalCode;
 
+
+
         /**
          * @var ArrayCollection
          * @ORM\OneToMany (targetEntity="App\Entity\Location", mappedBy="city")
          */
-        private $locations;
+        private  $locations;
 
     public function getId(): ?int
     {

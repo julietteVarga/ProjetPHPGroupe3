@@ -61,6 +61,7 @@ class Outing
         $this->participants = new ArrayCollection();
     }
 
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="outingsOrganizer")
      */

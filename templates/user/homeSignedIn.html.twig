@@ -40,7 +40,7 @@
                              {% endif %}
 
                              {% if outing.state == 'Ouverte' %}
-                             <a href="#">Afficher</a> - <a href="#">S'inscrire</a>
+                             <a href="#">Afficher</a> - <a href="{{ url('user_sign_up_outing',{'id':outing.getId()}) }}">S'inscrire</a>
                              {% endif %}
 
                              {% if outing.state == 'Clôturée' %}
