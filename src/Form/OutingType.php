@@ -24,9 +24,15 @@ class OutingType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, array('label' => 'Nom :'))
-            ->add('startingDateTime', DateTimeType::class, array('label' => 'Date & heure de la sortie :'))
-            ->add('duration', TimeType::class, array('label' => 'Durée :'))
-            ->add('registrationDeadLine', DateType::class, array('label' => 'Date limite d\'inscription :'))
+            ->add('startingDateTime', DateTimeType::class, array('label' => 'Date & heure de la sortie :',
+                'date_widget'=> 'single_text',
+                'with_minutes' => true,
+                'input' => 'datetime',
+                ))
+            ->add('duration', TimeType::class, array('label' => 'Durée :',
+                'widget'=> 'single_text'))
+            ->add('registrationDeadLine', DateType::class, array('label' => 'Date limite d\'inscription :',
+                'widget'=> 'single_text'))
             ->add('maxNumberRegistration', IntegerType::class, array('label' => 'Nombre de places :'))
             ->add('outingInfos', TextareaType::class, array('label' => 'Informations :'))
             ->add('location', EntityType::class, array('class' => Location::class))
