@@ -159,7 +159,7 @@ class UserController extends AbstractController
 
         //si la sortie existe et si l'utilisateur en session existe alors on ajoute les listes
         //dans l'entité correspondante et on flush tout ca.
-        if($outing && $outingParticipant){
+        if($outing && $outingParticipant && count($participantsList)<=$outing->getMaxNumberRegistration()){
             $outing->setParticipants($participantsList);
             $outingParticipant->setOutingsParticipants($outingsList);
             $em->persist($outingParticipant);
@@ -167,6 +167,9 @@ class UserController extends AbstractController
             $em->flush();
             $this->addFlash('success',"Vous êtes bien inscrit à la sortie \"".$outing->getName()."\" !");
             return $this->redirectToRoute('user_home');
+        } else {
+            $this->addFlash('notice', 'Vous ne pouvez pas vous inscrire');
+            return $this->redirectToRoute('main_index');
         }
 
     }
