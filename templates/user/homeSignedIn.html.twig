@@ -135,11 +135,11 @@
                              {% endif %}
                             {# TODO : Se désister ? Si organisateur ... ? #}
                              {% if outing.state == 'Clôturée' %}
-                             <a href="#">Afficher</a> - <a href="#">Se désister</a>
+                             <a href="{{  url('outing_show', {'id':outing.getId()}) }}">Afficher</a> - <a href="#">Se désister</a>
                              {% endif %}
 
-                             {% if outing.state == 'En cours' %}
-                                 <a href="#">Afficher</a>
+                             {% if outing.state == 'Terminée' or outing.state == 'En cours' %}
+                                 <a href="{{  url('outing_show', {'id':outing.getId()}) }}">Afficher</a>
                              {% endif %}
 
                              {% if outing.state == 'Annulée' %}
