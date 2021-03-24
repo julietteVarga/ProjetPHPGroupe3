@@ -60,6 +60,7 @@ class UserController extends AbstractController
 
     }
 
+
     /**
      * Fonction pour modifier son profil en tant qu'utilisateur en session.
      * Si le formulaire est bien rempli et renvoyé, on encode le mot de passe une nouvelle fois

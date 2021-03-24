@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block Pagetitle %}
-    Créer une sortie :
+    Modifier une sortie :
 {% endblock %}
 
 {% block main %}
@@ -58,11 +58,12 @@
 
         <p> Ville organisatrice : {{ app.user.getCampus }}</p>
         <br>
-        <div>
-        <a href="{{ url('create_location') }}">Ajouter un lieu</a>
+
+        <div class="button">
+        <a href="{{ url('create_location') }}">Ajouter un lieu </a>
         </div>
 
-        <button type="submit">Envoyer !</button>
+
         {{ form_end (outingForm) }}
 
 
