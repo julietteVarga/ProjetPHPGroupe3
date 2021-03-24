@@ -57,23 +57,29 @@ class OutingController extends AbstractController
 
 
         //Reprendre les etats dans la base de données
-        $closed = $repositoryS->findOneBy([
-            'label' => 'Clôturée'
+        //Terminée
+        $finished = $repositoryS->findOneBy([
+            'label' => 'Terminée'
         ]);
+        //En cours
         $started = $repositoryS->findOneBy([
             'label' => 'En cours'
         ]);
-
+//En création
         $creation = $repositoryS->findOneBy([
             'label' => 'En création'
         ]);
-
+//archivée
         $archive = $repositoryS->findOneBy([
             'label' => 'Archivée'
         ]);
-
+//ouverte
         $open = $repositoryS->findOneBy([
             'label' => 'Ouverte'
+        ]);
+        //clôturée
+        $closed = $repositoryS->findOneBy([
+            'label' => 'Clôturée'
         ]);
 
 
@@ -104,39 +110,53 @@ class OutingController extends AbstractController
             $archiveAddMonth = $archiveNow->add(interval: $interval );
             $archiveStamp = $archiveAddMonth->getTimestamp();
 
+
             //Si la date d'aujourd'hui est inférieure à la date de début
+            //Si la date d'aujourd'hui est inférieure à la date de fin d'inscriptions
             //et supérieur à la durée + date de début et que l'état n'est pas en création
-            //alors la sortie est ouverte.
-            if ($registrationStamp > $dateNowStamp
+            //alors la sortie est ouverte pour inscriptions.
+            if ($startingDateStamp>$dateNowStamp
+                &&$registrationStamp > $dateNowStamp
                 && $state != $creation) {
                 $outing->setState($open);
-
-            }
-
-            //Si la date d'aujourd'hui est supérieure à la date de début
-            //et supérieur à la durée + date de début et que l'état n'est pas en création
-            //alors la sortie est fermée.
-            if ($registrationStamp < $dateNowStamp
-                && $archiveStamp>$dateNowStamp
-                && $state != $creation) {
-                $outing->setState($closed);
-
             }
 
 
             //Si la date d'aujourd'hui est supérieure à la date de début
             //et inférieure à la durée + date de début et que l'état n'est pas en création
+            //et Si la date d'aujourd'hui est supérieure à la date de fin d'inscriptions
+            //et que la date d'archive n'est pas depassée
             //alors la sortie est en cours.
-            if ($dateNowStamp > $startingDateStamp && $dateNowStamp < $durationAndStartingDate
+            if ($dateNowStamp > $startingDateStamp
+                && $dateNowStamp < $durationAndStartingDate
+                && $registrationStamp < $dateNowStamp
+                && $archiveStamp>$dateNowStamp
                 && $state != $creation) {
                 $outing->setState($started);
             }
 
+            //Si la date d'aujourd'hui est supérieure à la date de fin d'inscriptions
+            //et supérieure à la date de début de la sortie
+            //et qu'elle ne depasse pas la date d'archive d'1 mois
+            //alors la sortie est clôturée.
+            if ($registrationStamp < $dateNowStamp
+                && $dateNowStamp > $durationAndStartingDate
+                && $archiveStamp>$dateNowStamp
+                && $dateNowStamp>$startingDateStamp
+                && $state != $creation) {
+                $outing->setState($finished);
 
+            }
+            //Si la date d'aujourd'hui est supérieure à la date de fin d'inscriptions
+            //et inférieure à la date de début de la sortie
+            //et qu'elle ne depasse pas la date d'archive d'1 mois
+            //alors la sortie est terminée.
+            if ($registrationStamp < $dateNowStamp
+                && $archiveStamp>$dateNowStamp
+                && $dateNowStamp<$startingDateStamp
+                && $state != $creation) {
+                $outing->setState($closed);
 
-            //Si l'état est en création.
-            if ($state === $creation) {
-                $outing->setState($creation);
             }
 
 
@@ -149,8 +169,10 @@ class OutingController extends AbstractController
                 && $state != $creation) {
                 $outing->setState($archive);
             }
-
-
+            //Si l'état est en création.
+            if ($state === $creation) {
+                $outing->setState($creation);
+            }
             $em->persist($outing);
             $em->flush();
 
