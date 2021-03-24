@@ -23,14 +23,13 @@
         {# ********************************************* #}
         <h1>
             Sortir.com<br>
-            <em>Sortez en sécurité, sortez masqués !</em>
         </h1>
         {# ********************************************* #}
     </div>
 
     <div>
         {% if app.user %}
-            <div class="mb-3">
+            <div class="login_logout_msg">
                 Bonjour {{ app.user.username }} vous êtes connecté ! <a href="{{ path('app_logout') }}">Logout</a>
             </div>
 

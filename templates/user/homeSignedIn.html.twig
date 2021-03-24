@@ -9,9 +9,16 @@
 
  {% block main %}
 
+     <h3 class="filter_title">Filtrer les sorties :</h3>
+
+
      <div class="form">
-         {{ form_start(form) }}
-         <div class="form_groupe">
+
+
+         <div class="notCheckbox_group">
+             {{ form_start(form) }}
+
+             <div class="form_groupe">
              {{ form_label(form.q) }}
              {{ form_widget(form.q) }}
              {{ form_errors(form.q) }}
@@ -34,28 +41,33 @@
              {{ form_widget(form.maxdate) }}
          </div>
 
-         <div class="form_groupe">
-             {{ form_label(form.organizer) }}
+         </div>
+         <div class="checkbox_group">
+
+         <div class="form_groupe form_checkbox">
              {{ form_widget(form.organizer) }}
+             {{ form_label(form.organizer) }}
              {{ form_errors(form.organizer) }}
          </div>
 
-         <div class="form_groupe">
-             {{ form_label(form.participant) }}
+         <div class="form_groupe form_checkbox">
              {{ form_widget(form.participant) }}
+             {{ form_label(form.participant) }}
              {{ form_errors(form.participant) }}
          </div>
 
-         <div class="form_groupe">
-             {{ form_label(form.notParticipant) }}
+         <div class="form_groupe form_checkbox">
              {{ form_widget(form.notParticipant) }}
+             {{ form_label(form.notParticipant) }}
              {{ form_errors(form.notParticipant) }}
          </div>
 
-         <div class="form_groupe">
-             {{ form_label(form.pastOutings) }}
+         <div class="form_groupe form_checkbox">
              {{ form_widget(form.pastOutings) }}
+             {{ form_label(form.pastOutings) }}
              {{ form_errors(form.pastOutings) }}
+         </div>
+
          </div>
 
          <button type="submit" class="button">Filtrer</button>
@@ -68,15 +80,6 @@
 
      <div class="listOuting">
 
-         {% for outing in filterOutings %}
-                <a href="{{  url('outing_show', {'id':outing.getId()})  }}">{{ outing.name }}</a><br>
-         {% endfor %}
-
-
-     </div>
-
-
-{#
          <table class="tableau_home">
              <tr>
                  <th>Nom de la sortie</th>
@@ -88,7 +91,7 @@
                  <th>Organisateur</th>
                  <th>Actions</th>
              </tr>
-             {% for title in allOutings|batch(8) %}
+             {% for title in filterOutings|batch(8) %}
                  <tr>
                      {% for outing in title %}
                          <td>{{ outing.name }}</td>
@@ -96,14 +99,18 @@
                          <td>{{ outing.registrationDeadLine|date("d/m/y") }}</td>
                          <td>{{ outing.participants|length }}/{{ outing.maxNumberRegistration }}</td>
                          <td>{{ outing.state }}</td>
-                         <td>//TODO : inscrit bool oui ou non app.user</td>
+                         <td>
+                             {% if app.user in outing.participants %}
+                             <p>X</p>
+                             {% endif %}
+                         </td>
                          <td><a href="{{ url('user_show_organizer', {'id':outing.getOrganizer().getId()}) }}">{{ outing.organizer.username }}</a>
 
 
                          </td>
-                         <td> #}
+                         <td>
                              {# TODO :: gérer l'affichage des liens en fonction des inscriptions de l'utilisateur !! et de son statut organisateur ou non #}
-{#
+
                              {% if outing.state == 'En création' %}
                                 {% if app.user == outing.organizer %}
                                  <a href="#">Modifier</a> - <a href="#">Publier</a>
@@ -141,6 +148,7 @@
 
              {% endfor %}
          </table>
-#}
+
+     </div>
 
  {% endblock %}

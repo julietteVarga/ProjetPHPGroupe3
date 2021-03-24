@@ -28,14 +28,26 @@ Sortie "{{ outing.name }}"
     <div class="outingpage_userlist">
         <h2>Liste des participants :</h2>
 
-        <table class="userlist">
+        <table class="tableau_home userlist">
 
             <tr>
                 <th>Pseudo</th>
                 <th>Nom</th>
             </tr>
 
-            <tr>
+
+
+                {% if outing.participants is empty %}
+                    <tr>
+                        <td colspan="2">
+                        <p>Aucun participant</p>
+                        </td>
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+
                 {% for title in outing.participants|batch(2) %}
                     {% for participant in title %}
 
@@ -48,8 +60,13 @@ Sortie "{{ outing.name }}"
                     {% endfor %}
                 {% endfor %}
             </tr>
+            {% endif %}
         </table>
 
+    </div>
+<br>
+    <div class="button">
+    <a href="{{ url('main_index') }}">Retour</a>
     </div>
 
 {% endblock %}

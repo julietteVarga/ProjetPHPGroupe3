@@ -47,7 +47,11 @@ class UserController extends AbstractController
         $form = $this->createForm(SearchOutingType::class, $data);
         $form->handleRequest($request);
 
+        dump($data);
+
         $filterOutings = $outingRepository->findSearch($data, $userInSession);
+
+        dump($filterOutings);
 
         return $this->render('user/homeSignedIn.html.twig', [
             'filterOutings' => $filterOutings,
@@ -146,27 +150,35 @@ class UserController extends AbstractController
         //on va chercher l'utilisateur en session
         $repositoryU = $em->getRepository(User::class);
         $outingParticipant = $repositoryU->findOneBy(['username' => $this->getUser()->getUsername()]);
-        //on crée un array collection pour pouvoir ajouter la sortie dans la relation user_outing.
-        $collectionU= new ArrayCollection();
-        $collectionU->add($outing);
-        //on crée un array collection pour pouvoir ajouter l'utilisateur en session dans la relation user_outing.
-        $collectionO= new ArrayCollection();
-        $collectionO->add($outingParticipant);
 
-        //si la sortie existe et si l'utilisateur en session existe alors on ajoute les arraycollection
+        $participantsList = $outing->getParticipants();
+        $outingsList = $this->getUser()->getOutingsParticipants();
+
+        $participantsList->add($outingParticipant);
+        $outingsList->add($outing);
+
+        //si la sortie existe et si l'utilisateur en session existe alors on ajoute les listes
         //dans l'entité correspondante et on flush tout ca.
         if($outing && $outingParticipant){
-            $outing->setParticipants($collectionO);
-            $outingParticipant->setOutingsParticipants($collectionU);
+            $outing->setParticipants($participantsList);
+            $outingParticipant->setOutingsParticipants($outingsList);
             $em->persist($outingParticipant);
             $em->persist($outing);
             $em->flush();
-            $this->addFlash('sucess',"Participant ajouté!");
+            $this->addFlash('success',"Vous êtes bien inscrit à la sortie \"".$outing->getName()."\" !");
             return $this->redirectToRoute('user_home');
         }
 
     }
 
+    /**
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param int $id
+     * @return Response
+     * Fonction pour afficher le profil du user organisateur d'une sortie considérée lors du clic sur son nom dans le
+     * tableau des sorties de la page d'accueil
+     */
     #[Route('/user/showUser/{id}', name: 'user_show_organizer',  requirements: ['id' => '\d+'])]
     public function showOrganizer(Request $request, EntityManagerInterface $em, int $id): Response
     {

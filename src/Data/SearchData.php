@@ -13,16 +13,16 @@ class SearchData
     /**
      * @var string|null
      * Chaine de caractere qui va représenter le mot-clé pour la barre de recherche
-     * par défaut : la chaine est vide;
+     * par défaut : la chaine est vide
      */
     public ?string $q = null;
 
 
     /**
-     * @var Campus[]
+     * @var string
      * Tableau qui va contenir les campus avec lesquels on va filtrer le résultat
      */
-    public $campus = [];
+    public $campus;
 
 
 
@@ -30,7 +30,7 @@ class SearchData
      * @var DateTime|null
      * Pour le filtre de recherche entre date min et date max
      */
-    public $mindate;
+    public ?DateTime $mindate;
 
     /**
      * @var DateTime|null
@@ -79,17 +79,17 @@ class SearchData
     }
 
     /**
-     * @return Campus[]
+     * @return string
      */
-    public function getCampus(): array
+    public function getCampus(): string
     {
         return $this->campus;
     }
 
     /**
-     * @param Campus[] $campus
+     * @param string $campus
      */
-    public function setCampus(array $campus): void
+    public function setCampus(string $campus): void
     {
         $this->campus = $campus;
     }
@@ -97,7 +97,7 @@ class SearchData
     /**
      * @return DateTime|null
      */
-    public function getMindate(): DateTime
+    public function getMindate(): ?DateTime
     {
         return $this->mindate;
     }
@@ -105,7 +105,7 @@ class SearchData
     /**
      * @param DateTime|null $mindate
      */
-    public function setMindate(DateTime $mindate): void
+    public function setMindate(?DateTime $mindate): void
     {
         $this->mindate = $mindate;
     }
@@ -113,7 +113,7 @@ class SearchData
     /**
      * @return DateTime|null
      */
-    public function getMaxdate(): DateTime
+    public function getMaxdate(): ?DateTime
     {
         return $this->maxdate;
     }
@@ -121,7 +121,7 @@ class SearchData
     /**
      * @param DateTime|null $maxdate
      */
-    public function setMaxdate(DateTime $maxdate): void
+    public function setMaxdate(?DateTime $maxdate): void
     {
         $this->maxdate = $maxdate;
     }

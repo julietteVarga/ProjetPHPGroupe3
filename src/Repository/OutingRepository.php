@@ -40,8 +40,8 @@ class OutingRepository extends ServiceEntityRepository
             ->join('o.state', 's')
             //On classe par ordre croissant du plus récent au moins récent :
             ->orderBy('o.startingDateTime', 'ASC')
-
             ;
+
 
         //Si la barre de recherche n'est pas vide :
         if(!empty($search->q)) {
@@ -50,19 +50,19 @@ class OutingRepository extends ServiceEntityRepository
                 ->setParameter('q', "%{$search->q}%");
         }
 
-        //TODO : gérer les filtres date !
         if(!empty($search->campus)) {
             $query = $query
-                ->andWhere('c.id IN (:campus)')
+                ->andWhere('c.campusName = :campus')
                 ->setParameter('campus', $search->campus);
         }
 
+        //TODO : gérer les filtres date !
 
-        if(!empty($search->mindate) && !empty($seach->maxdate) && ($search->maxdate) > ($search->mindate)) {
+        if(!empty($search->mindate) && !empty($search->maxdate) && ($search->maxdate) > ($search->mindate)) {
             $query = $query
                 ->andWhere('o.startingDateTime BETWEEN :mindate AND :maxdate')
-                ->setParameter('mindate', $search->mindate)
-                ->setParameter('maxdate', $search->maxdate)
+                ->setParameter('mindate', $search->mindate->format('Y-m-d'))
+                ->setParameter('maxdate', $search->maxdate->format('Y-m-d'))
             ;
 
         }
@@ -88,19 +88,18 @@ class OutingRepository extends ServiceEntityRepository
         }
 
 
-        //TODO : not participant !
         if (!empty($search->notParticipant)) {
-            $query;       }
-
-        //TODO : sorties passées (fermées) !
-        if (!empty($search->pastOutings)) {
             $query = $query
-                ->andWhere('s = :s')
-                ->setParameter('s', 'Fermée');
+                ->andWhere(':u NOT MEMBER OF o.participants')
+                ->setParameter('u', $userInSession);
+            ;
         }
 
-        dump($query);
-        dump($search);
+        if (!empty($search->pastOutings)) {
+            $query = $query
+                ->andWhere('s.label = :s')
+                ->setParameter('s', 'Fermée');
+        }
 
         return $query->getQuery()->getResult();
 
