@@ -113,7 +113,7 @@
 
                              {% if outing.state == 'En création' %}
                                 {% if app.user == outing.organizer %}
-                                 <a href="{{ url('modify_outing', {'id':outing.getId()}) }}">Modifier</a> - <a href="#">Publier</a>
+                                 <a href="{{ url('modify_outing', {'id':outing.getId()}) }}">Modifier/Publier</a>
                                     {% else %}
                                     <p> Sortie en création<br>Aucune action possible</p>
                                 {% endif %}
