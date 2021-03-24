@@ -33,7 +33,6 @@ class OutingType extends AbstractType
             ->add('save', SubmitType::class, array('label' => 'Enregistrer'))
             ->add('saveAndAdd', SubmitType::class, array('label' => 'Publier'));
 
-
     }
 
     public function configureOptions(OptionsResolver $resolver)
