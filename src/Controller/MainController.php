@@ -20,7 +20,7 @@ class MainController extends AbstractController
     public function index(): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('update_outing');
+            return $this->redirectToRoute('update_state');
 
         }else {
             return $this->redirectToRoute('app_login');
