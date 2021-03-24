@@ -133,7 +133,7 @@
                                      <a href="{{ url('user_sign_up_outing', {'id':outing.getId()}) }}">S'inscrire</a>
                                     {% endif %}
                              {% endif %}
-
+                            {# TODO : Se désister ? Si organisateur ... ? #}
                              {% if outing.state == 'Clôturée' %}
                              <a href="#">Afficher</a> - <a href="#">Se désister</a>
                              {% endif %}

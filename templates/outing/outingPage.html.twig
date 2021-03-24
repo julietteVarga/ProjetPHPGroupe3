@@ -18,11 +18,11 @@ Sortie "{{ outing.name }}"
 
     <div class="block2">
         Ville organisatrice : {{ outing.campusOrganizer }}<br>
-        Lieu : <br>
-        Rue : <br>
-        Code postal : <br>
-        Latitude : <br>
-        Longitude : <br>
+        Lieu : {{ outing.location }}<br>
+        Rue : {{ outing.location.street }}<br>
+        Code postal : {{ outing.location.city.postalCode }}<br>
+        Latitude : {{ outing.location.latitude }}<br>
+        Longitude : {{ outing.location.longitude }}<br>
     </div>
 
     <div class="outingpage_userlist">

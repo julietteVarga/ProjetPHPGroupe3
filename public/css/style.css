@@ -93,16 +93,19 @@ footer {
 }
 
 .button, form button {
-    display: flex;
     background-color: black;
     color: white;
     margin: 5px;
     height: 5vh;
     width: 200px;
     text-align: center;
-    align-items: center;
     border-radius: 30px;
     box-shadow: 5px 5px 10px 3px grey;
+}
+
+.button {
+    display: flex;
+    align-items: center;
 }
 
 .button a, form button {
