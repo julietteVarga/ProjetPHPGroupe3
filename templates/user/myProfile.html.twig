@@ -3,9 +3,13 @@
 {% block Pagetitle %}
 Mon profil
 {% endblock %}
-
 {% block main %}
  {% if app.user %}
+     {% if app.user.profilePic %}
+     <div class="image_profile">
+         <img src=" {{asset('uploads/profile_pics/'~ app.user.profilePic.name) }}" alt="photo de profil">
+     </div>
+     {% endif %}
     <div class="form form_oneblock">
         {{ form_start (userModifyForm) }}
         <div class="form_groupe">
@@ -51,6 +55,12 @@ Mon profil
             {{ form_errors (userModifyForm.campus) }}
         </div>
 
+
+        <div class="form_groupe">
+            {{ form_label (userModifyForm.profilePic) }}
+            {{ form_widget (userModifyForm.profilePic) }}
+            {{ form_errors (userModifyForm.profilePic) }}
+        </div>
         <br>
         <button type="submit">Envoyer !</button>
         {{ form_end (userModifyForm) }}

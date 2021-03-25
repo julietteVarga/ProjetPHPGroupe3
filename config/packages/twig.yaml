@@ -1,2 +1,6 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    date:
+        timezone: Europe/Paris
+    globals:
+        img_folder: 'ProjetPHPGroupe3/public/uploads/profile_pics'

@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block main %}
+    {% if user.profilePic %}
+    <div class="image_profile">
+        <img src=" {{asset('uploads/profile_pics/'~ user.profilePic.name) }}" alt="photo de profil">
+    </div>
+    {% endif %}
 
     <p>
         Prénom : {{ user.name }} <br>
