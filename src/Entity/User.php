@@ -7,11 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -59,6 +60,31 @@ class User implements UserInterface
          * @ORM\Column(type="json")
          */
     private $roles = [];
+    /**
+     * @var string
+     *
+     */
+private $salt;
+
+
+    /**
+     *@ORM\OneToOne(targetEntity="App\Entity\ProfilePicture",cascade={"persist", "remove"})
+     * @Assert\File(mimeTypes={ "image/png" ,"image/jpeg"})
+     */
+    private $profilePic;
+
+    public function getProfilePic()
+    {
+        return $this->profilePic;
+    }
+
+    public function setProfilePic($profilePic)
+    {
+        $this->profilePic = $profilePic;
+
+        return $this;
+    }
+
 
     /**
      * @var Collection
@@ -82,6 +108,9 @@ class User implements UserInterface
      * @ORM\ManyToOne(targetEntity="App\Entity\Campus", inversedBy= "students")
      */
     private ?Campus $campus;
+
+
+
 
     public function getId(): ?int
     {
@@ -309,5 +338,34 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {    }
+
+
+    /**
+     *
+     * Serialize l'utilisateur pour le stocker en Session
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->salt,
+        ));
+    }
+
+    /**
+     *
+     * Permet de recharger l'utilisateur à partir de la session
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->salt
+            ) = unserialize($serialized);
+    }
 
 }

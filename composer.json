@@ -16,6 +16,7 @@
         "doctrine/orm": "^2.8",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^6.1",
+        "stof/doctrine-extensions-bundle": "^1.6",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "5.2.*",
         "symfony/console": "*",
@@ -25,6 +26,7 @@
         "symfony/form": "5.2.*",
         "symfony/framework-bundle": "*",
         "symfony/maker-bundle": "^1.29",
+        "symfony/mime": "5.2.*",
         "symfony/monolog-bundle": "^3.0",
         "symfony/property-access": "5.2.*",
         "symfony/property-info": "5.2.*",
@@ -40,7 +42,8 @@
         "symfony/web-profiler-bundle": "5.2.*",
         "symfony/yaml": "*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "vich/uploader-bundle": "^1.17"
     },
     "config": {
         "optimize-autoloader": true,

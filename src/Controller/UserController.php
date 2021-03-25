@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Data\SearchData;
 use App\Entity\Outing;
+use App\Entity\ProfilePicture;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Form\SearchOutingType;
@@ -11,10 +12,12 @@ use App\Form\SignInType;
 use App\Form\SignUpType;
 use App\Form\UserType;
 use App\Repository\OutingRepository;
+use App\Repository\ProfilePictureRepository;
 use App\Repository\UserRepository;
 use App\Security\SignInFormAuthenticator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use JetBrains\PhpStorm\Pure;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,6 +64,80 @@ class UserController extends AbstractController
     }
 
 
+
+    /**
+     * Fonction pour ajouter une nouvelle image si l'utilisateur ne possède pas deja d'image
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param UserRepository $userRepository
+     * @param ProfilePictureRepository $profilePictureRepository
+     * @param UserPasswordEncoderInterface $encoder
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function addImage(Request $request,
+                                    EntityManagerInterface $entityManager,
+                                    UserRepository $userRepository,
+                                    ProfilePictureRepository $profilePictureRepository,
+                                    UserPasswordEncoderInterface $encoder)
+    {
+        $user = $this->getUser();
+        $userName = $user->getUsername();
+
+        $repository = $userRepository;
+        $user = $repository->findOneByUserName($userName);
+
+
+        $userModify = $user[0];
+
+        $userModifyForm = $this->createForm(UserType::class, $userModify);
+
+
+        $userModifyForm->handleRequest($request);
+        $pictureinDb= new ProfilePicture();
+        $userInSession= $this->getUser();
+
+        $userModify=$userInSession;
+
+        $userModify->setUserName($userName);
+        $plainPassword = $userModify->getPassword();
+        $encoded = $encoder->encodePassword($userModify, $plainPassword);
+
+        $userModify->setPassword($encoded);
+
+        $profilePic = $userModify->getProfilePic();
+
+
+        //On met un nom au hasard à la photo
+        $picName = $this->generateUniqueFileName().'.'.$profilePic->guessExtension();
+
+        // moves the file to the directory where pics are stored
+        $profilePicPath =   $profilePic->move(
+            $this->getParameter('profile_pic_directory'),
+            $picName
+        );
+
+        // updates the 'profile pic' property to store the png file name
+        // instead of its contents
+        $userModify->setProfilePic($pictureinDb);
+
+        $pictureinDb->setName($picName);
+        $pictureinDb->setUserPic($userModify);
+        $pictureinDb->setPath($profilePicPath);
+
+
+
+        // ... persist the $product variable or any other work
+
+        $entityManager->persist($userModify);
+        $entityManager->persist($pictureinDb);
+        $entityManager->flush();
+
+
+        return $this->redirectToRoute('user_my_profile');
+
+      }
+
+
     /**
      * Fonction pour modifier son profil en tant qu'utilisateur en session.
      * Si le formulaire est bien rempli et renvoyé, on encode le mot de passe une nouvelle fois
@@ -74,7 +151,9 @@ class UserController extends AbstractController
     #[Route('/user/myprofile', name: 'user_my_profile')]
     public function modifyMyProfile(Request $request,
                                     EntityManagerInterface $entityManager,
-                                    UserRepository $userRepository, UserPasswordEncoderInterface $encoder): Response
+                                    UserRepository $userRepository,
+                                    ProfilePictureRepository $profilePictureRepository,
+                                    UserPasswordEncoderInterface $encoder): Response
     {
         $user = $this->getUser();
         $userName = $user->getUsername();
@@ -83,9 +162,7 @@ class UserController extends AbstractController
         $user = $repository->findOneByUserName($userName);
 
         $userModify = $user[0];
-
         $userModifyForm = $this->createForm(UserType::class, $userModify);
-
 
         $userModifyForm->handleRequest($request);
 
@@ -111,6 +188,15 @@ class UserController extends AbstractController
 
                 }
 
+
+                //On va cherche la photo de profile de l'utilisateur en session
+                $picture = $profilePictureRepository->findOneByUserId($userModify->getId());
+                //Si l'utilisateur n'a pas deja une image
+                if (!$picture){
+                    $this->addImage($request,$entityManager,$userRepository,$profilePictureRepository,$encoder);
+                }
+                $pictureinDb = $picture[0];
+
                 $userInSession= $this->getUser();
 
                 $userModify=$userInSession;
@@ -121,11 +207,34 @@ class UserController extends AbstractController
 
                 $userModify->setPassword($encoded);
 
+                $profilePic = $userModify->getProfilePic();
+
+
+                //On met un nom au hasard à la photo
+                $picName = $this->generateUniqueFileName().'.'.$profilePic->guessExtension();
+
+                // moves the file to the directory where pics are stored
+             $profilePicPath =   $profilePic->move(
+                 $this->getParameter('profile_pic_directory'),
+                    $picName
+                );
+                // updates the 'profile pic' property to store the png file name
+                // instead of its contents
+                $userModify->setProfilePic($pictureinDb);
+
+                $pictureinDb->setName($picName);
+                $pictureinDb->setUserPic($userModify);
+                $pictureinDb->setPath($profilePicPath);
+
+                // ... persist the $product variable or any other work
+
                 $entityManager->persist($userModify);
+                $entityManager->persist($pictureinDb);
                 $entityManager->flush();
 
 
                 return $this->redirectToRoute('user_my_profile');
+
                 }
 
             }
@@ -226,6 +335,15 @@ class UserController extends AbstractController
             $this->addFlash('sucess',"Vous vous êtes désinscrit de la sortie :".$outing->getName());
             return $this->redirectToRoute('user_home');
 
+    }
+    /**
+     * @return string
+     */
+    private function generateUniqueFileName()
+    {
+        // md5() reduces the similarity of the file names generated by
+        // uniqid(), which is based on timestamps
+        return md5(uniqid());
     }
 
 

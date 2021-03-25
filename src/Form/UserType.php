@@ -5,13 +5,16 @@ namespace App\Form;
 use App\Entity\Campus;
 use App\Entity\City;
 use App\Entity\User;
+use Gedmo\Uploadable\Uploadable;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class UserType extends AbstractType
 {
@@ -34,7 +37,13 @@ class UserType extends AbstractType
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => 'campusName'
-            ]);
+            ])
+            ->add('profilePic', FileType::class,[
+                'data_class'=>null,
+                'required' => false
+            ])
+
+        ;
 
 
     }
