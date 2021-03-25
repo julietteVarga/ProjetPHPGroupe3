@@ -104,7 +104,7 @@ class OutingController extends AbstractController
             //On convertis en secondes
             $durationSeconds = $duration->getTimeStamp();
 
-
+//Si la durée est moins grande ou égale à 1heure alors le timestamp retourne un nombre negatif donc voici le bidouillage.
             if ($durationSeconds<=0) {
                 $durationSeconds = 3600 - ($durationSeconds * (-1));
             }
