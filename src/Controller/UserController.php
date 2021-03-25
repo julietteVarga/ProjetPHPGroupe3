@@ -195,6 +195,7 @@ class UserController extends AbstractController
                 if (!$picture){
                     $this->addImage($request,$entityManager,$userRepository,$profilePictureRepository,$encoder);
                 }
+                else{
                 $pictureinDb = $picture[0];
 
                 $userInSession= $this->getUser();
@@ -235,7 +236,7 @@ class UserController extends AbstractController
 
                 return $this->redirectToRoute('user_my_profile');
 
-                }
+                }}
 
             }
         return $this->render('user/myProfile.html.twig', [
