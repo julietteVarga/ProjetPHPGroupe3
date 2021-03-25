@@ -105,7 +105,7 @@ class OutingController extends AbstractController
             $durationSeconds = $duration->getTimeStamp();
 
 
-            if ($durationSeconds<0) {
+            if ($durationSeconds<=0) {
                 $durationSeconds = 3600 - ($durationSeconds * (-1));
             }
 
