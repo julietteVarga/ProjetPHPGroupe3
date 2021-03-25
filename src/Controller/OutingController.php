@@ -24,6 +24,11 @@ use Symfony\Component\Validator\Constraints\Time;
 class OutingController extends AbstractController
 {
 
+    /**
+     * @param EntityManagerInterface $entityManager
+     * @return object
+     * Méthode en charge de retourner l'état "En création" présent en BDD.
+     */
     public function findStateInCreation(EntityManagerInterface $entityManager): object
     {
         $repositoryS = $entityManager->getRepository(State::class);
@@ -35,6 +40,11 @@ class OutingController extends AbstractController
 
     }
 
+    /**
+     * @param EntityManagerInterface $entityManager
+     * @return object
+     * Méthode en charge de retourner l'état "Ouverte" présent en BDD.
+     */
     public function findStateOpen(EntityManagerInterface $entityManager): object
     {
         $repositoryS = $entityManager->getRepository(State::class);
@@ -46,6 +56,11 @@ class OutingController extends AbstractController
 
     }
 
+    /**
+     * @param EntityManagerInterface $entityManager
+     * @return object
+     * Méthode en charge de retourner l'état "Annulée" présent en BDD.
+     */
     public function findStateCancel(EntityManagerInterface $entityManager): object
     {
         $repositoryS = $entityManager->getRepository(State::class);
@@ -56,7 +71,6 @@ class OutingController extends AbstractController
         return $stateCancel;
 
     }
-
 
     /**
      * Fonction pour mettre à jour nos états de sorties selon la date du jour.
@@ -215,6 +229,12 @@ class OutingController extends AbstractController
         return $this->redirectToRoute('user_home');
     }
 
+    /**
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     * Méthode en charge de créer une sortie et de l'enregistrer en BDD, de la publier en BDD.
+     */
     #[Route('/create-outing', name: 'create_outing')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -267,6 +287,13 @@ class OutingController extends AbstractController
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param int $id
+     * @return Response
+     * Méthode en charge d'afficher une sortie en fonction de son ID.
+     */
     #[Route('/showOuting/{id}', name: 'outing_show', requirements: ['id' => '\d+'])]
     public function showOrganizer(Request $request, EntityManagerInterface $em, int $id): Response
     {
@@ -277,7 +304,13 @@ class OutingController extends AbstractController
         ]);
     }
 
-
+    /**
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param int $id
+     * @return Response
+     * Méthode en charge de modifier une sortie.
+     */
     #[Route('/modify-outing/{id}', name: 'modify_outing', requirements: ['id' => '\d+'])]
     public function update(Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
@@ -332,7 +365,13 @@ class OutingController extends AbstractController
 
     }
 
-
+    /**
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param int $id
+     * @return Response
+     * Méthode en charge de supprimer une sortie en BDD, son état passe à "Annulée" et n'est plus visible pour les autres utilisateurs.
+     */
     #[Route('/cancel_outing/{id}', name: 'cancel_outing', requirements: ['id' => '\d+'])]
     public function delete(Request $request, EntityManagerInterface $entityManager, int $id): Response
     {

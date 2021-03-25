@@ -38,9 +38,14 @@
          </div>
 
          <div class="form_groupe">
-             {{ form_label (newUserForm.password) }}
-             {{ form_widget (newUserForm.password) }}
-             {{ form_errors (newUserForm.password) }}
+             {{ form_label(newUserForm.password.first) }}
+             {{ form_widget(newUserForm.password.first) }}
+             {{ form_errors(newUserForm.password.first) }}
+         </div>
+         <div class="form_groupe">
+             {{ form_label(newUserForm.password.second) }}
+             {{ form_widget(newUserForm.password.second) }}
+             {{ form_errors(newUserForm.password.second) }}
          </div>
 
          <div class="form_groupe">

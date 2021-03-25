@@ -9,30 +9,34 @@
 
     {% if app.user %}
 
-    {% for type, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash flash-{{ type }}">
-                {{ message }}
-            </div>
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash flash-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
 
 
-    <div class="block">
-        nom de la sortie : {{ outingToCancel.name }}<br>
-        Date de la sortie : {{ outingToCancel.startingDateTime|date('d/m/y') }} <br>
-        ville organisatrice : {{ outingToCancel.campusOrganizer.campusName}} <br>
-        Lieu : {{ outingToCancel.location }}<br>
-    </div>
-    <div class="form">
-        {{ form_start (cancelForm) }}
+        <div class="block">
+            nom de la sortie : {{ outingToCancel.name }}<br>
+            Date de la sortie : {{ outingToCancel.startingDateTime|date('d/m/y') }} <br>
+            ville organisatrice : {{ outingToCancel.campusOrganizer.campusName }} <br>
+            Lieu : {{ outingToCancel.location }}<br>
+        </div>
+        <div class="form">
+            {{ form_start (cancelForm) }}
 
-        {{ form_label (cancelForm) }}
-        {{ form_widget (cancelForm) }}
-        {{ form_errors (cancelForm) }}
+            {{ form_label (cancelForm) }}
+            {{ form_widget (cancelForm) }}
+            {{ form_errors (cancelForm) }}
 
-        {{ form_end (cancelForm) }}
-    </div>
+            {{ form_end (cancelForm) }}
+        </div>
+
+        <div class="button">
+            <a href="{{ url('main_index') }}">Annuler</a>
+        </div>
 
     {% else %}
         <h2>Vous devez être connecté pour accéder à cette page.</h2>
