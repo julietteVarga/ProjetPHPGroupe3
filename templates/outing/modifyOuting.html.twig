@@ -60,9 +60,12 @@
             <br>
 
             <div class="button">
-                <a href="{{ url('create_location') }}">Ajouter un lieu </a>
+                <a href="{{ url('create_location') }}">Ajouter un lieu</a>
             </div>
 
+            <div class="button">
+                <a href="{{ url('cancel_outing', {'id':outing.getId()}) }}">Supprimer la sortie</a>
+            </div>
 
             {{ form_end (modifyForm) }}
 

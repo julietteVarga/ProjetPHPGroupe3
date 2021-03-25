@@ -36,8 +36,8 @@ class OutingType extends AbstractType
             ->add('maxNumberRegistration', IntegerType::class, array('label' => 'Nombre de places :'))
             ->add('outingInfos', TextareaType::class, array('label' => 'Informations :'))
             ->add('location', EntityType::class, array('class' => Location::class))
-            ->add('save', SubmitType::class, array('label' => 'Enregistrer'))
-            ->add('saveAndAdd', SubmitType::class, array('label' => 'Publier'));
+            ->add('save', SubmitType::class, array('label' => 'Enregistrer la sortie'))
+            ->add('saveAndAdd', SubmitType::class, array('label' => 'Publier la sortie'));
 
     }
 

@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\OutingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\TextType;
 use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Pure;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Validator\Constraints\Time;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -92,6 +94,31 @@ class Outing
      * @ORM\ManyToOne(targetEntity="App\Entity\Location", cascade={"persist"}, inversedBy="outings")
      */
     private Location $location;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $cancelInfos;
+
+
+    /**
+     * @return mixed
+     */
+    public function getCancelInfos()
+    {
+        return $this->cancelInfos;
+    }
+
+    /**
+     * @param mixed $cancelInfos
+     * @return Outing
+     */
+    public function setCancelInfos($cancelInfos) : self
+    {
+        $this->cancelInfos = $cancelInfos;
+        return $this;
+    }
+
 
     /**
      * @return int|null

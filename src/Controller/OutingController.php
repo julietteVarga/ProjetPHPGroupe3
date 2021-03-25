@@ -6,6 +6,7 @@ use App\Data\SearchData;
 use App\Entity\Location;
 use App\Entity\State;
 use App\Entity\User;
+use App\Form\CancelOutingType;
 use App\Form\SearchOutingType;
 use App\Repository\OutingRepository;
 use Doctrine\ORM\EntityManager;
@@ -45,18 +46,30 @@ class OutingController extends AbstractController
 
     }
 
+    public function findStateCancel(EntityManagerInterface $entityManager): object
+    {
+        $repositoryS = $entityManager->getRepository(State::class);
+        $stateCancel = $repositoryS->findOneBy([
+            'label' => 'Annulée'
+        ]);
+
+        return $stateCancel;
+
+    }
+
 
     /**
      * Fonction pour mettre à jour nos états de sorties selon la date du jour.
      * @param EntityManagerInterface $em
      * @return Response
      */
-    #[Route('/updtateOuting', name : 'update_outing')]
+    #[Route('/updateState', name: 'update_state')]
     public function updateState(EntityManagerInterface $em): Response
     {
         $dateNow = new \DateTime('now');
-        //On convertit en secondes.
+        //On convertis en secondes.
         $dateNowStamp = $dateNow->getTimestamp();
+
 
         $repository = $em->getRepository(Outing::class);
         $listOutings = $repository->findAll();
@@ -88,10 +101,15 @@ class OutingController extends AbstractController
         $closed = $repositoryS->findOneBy([
             'label' => 'Clôturée'
         ]);
+        //clôturée
+        $cancel = $repositoryS->findOneBy([
+            'label' => 'Annulée'
+        ]);
 
 
         //Pour chaque sorties dans la base de données, on change l'état selon sa date.
         foreach ($listOutings as $outing) {
+
 
             $state = $outing->getState();
             $duration = $outing->getDuration();
@@ -110,11 +128,12 @@ class OutingController extends AbstractController
 
             $durationAndStartingDate = $startingDateStamp + $durationSeconds;
 
+
             //on prend la date d'aujourd'hui
-            $archiveNow =$startingDate;
+            $archiveNow = $startingDate;
             $interval = new \DateInterval('P30D');
             //on la convertis en timestamp
-            $archiveAddMonth = $archiveNow->add(interval: $interval );
+            $archiveAddMonth = $archiveNow->add(interval: $interval);
             $archiveStamp = $archiveAddMonth->getTimestamp();
 
 
@@ -122,9 +141,10 @@ class OutingController extends AbstractController
             //Si la date d'aujourd'hui est inférieure à la date de fin d'inscriptions
             //et supérieur à la durée + date de début et que l'état n'est pas en création
             //alors la sortie est ouverte pour inscriptions.
-            if ($startingDateStamp>$dateNowStamp
-                &&$registrationStamp > $dateNowStamp
-                && $state != $creation) {
+            if ($startingDateStamp > $dateNowStamp
+                && $registrationStamp > $dateNowStamp
+                && $state != $creation
+                && $state != $cancel) {
                 $outing->setState($open);
             }
 
@@ -137,10 +157,12 @@ class OutingController extends AbstractController
             if ($dateNowStamp > $startingDateStamp
                 && $dateNowStamp < $durationAndStartingDate
                 && $registrationStamp < $dateNowStamp
-                && $archiveStamp>$dateNowStamp
-                && $state != $creation) {
+                && $archiveStamp > $dateNowStamp
+                && $state != $creation
+                && $state != $cancel) {
                 $outing->setState($started);
             }
+
 
             //Si la date d'aujourd'hui est supérieure à la date de fin d'inscriptions
             //et supérieure à la date de début de la sortie
@@ -148,10 +170,12 @@ class OutingController extends AbstractController
             //alors la sortie est clôturée.
             if ($registrationStamp < $dateNowStamp
                 && $dateNowStamp > $durationAndStartingDate
-                && $archiveStamp>$dateNowStamp
-                && $dateNowStamp>$startingDateStamp
-                && $state != $creation) {
+                && $archiveStamp > $dateNowStamp
+                && $dateNowStamp > $startingDateStamp
+                && $state != $creation
+                && $state != $cancel) {
                 $outing->setState($finished);
+
 
             }
             //Si la date d'aujourd'hui est supérieure à la date de fin d'inscriptions
@@ -159,11 +183,11 @@ class OutingController extends AbstractController
             //et qu'elle ne depasse pas la date d'archive d'1 mois
             //alors la sortie est terminée.
             if ($registrationStamp < $dateNowStamp
-                && $archiveStamp>$dateNowStamp
-                && $dateNowStamp<$startingDateStamp
-                && $state != $creation) {
+                && $archiveStamp > $dateNowStamp
+                && $dateNowStamp < $startingDateStamp
+                && $state != $creation
+                && $state != $cancel) {
                 $outing->setState($closed);
-
             }
 
 
@@ -172,24 +196,28 @@ class OutingController extends AbstractController
             //et que la date de début est inférieure ou égale à la date d'archive (today +30jours)
             //alors la sortie est archivée.
             if ($registrationStamp < $dateNowStamp
-                && $archiveStamp<=$dateNowStamp
-                && $state != $creation) {
+                && $archiveStamp <= $dateNowStamp
+                && $state != $creation
+                && $state != $cancel) {
                 $outing->setState($archive);
             }
             //Si l'état est en création.
             if ($state === $creation) {
                 $outing->setState($creation);
             }
+            if ($state === $cancel) {
+                $outing->setState($cancel);
+            }
             $em->persist($outing);
             $em->flush();
-
 
         }
         return $this->redirectToRoute('user_home');
     }
 
-    #[Route('/create-outing', name : 'create_outing')]
-    public function create(Request $request, EntityManagerInterface $entityManager) :Response {
+    #[Route('/create-outing', name: 'create_outing')]
+    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    {
 
         $repository = $entityManager->getRepository(User::class);
         $campusOrganizer = $repository->findOneBy(['username' => $this->getUser()->getUsername()]);
@@ -239,20 +267,20 @@ class OutingController extends AbstractController
         ]);
     }
 
-    #[Route('/showOuting/{id}', name: 'outing_show',  requirements: ['id' => '\d+'])]
+    #[Route('/showOuting/{id}', name: 'outing_show', requirements: ['id' => '\d+'])]
     public function showOrganizer(Request $request, EntityManagerInterface $em, int $id): Response
     {
         $repository = $em->getRepository(Outing::class);
-        $outing  = $repository->find($id);
+        $outing = $repository->find($id);
         return $this->render('outing/outingPage.html.twig', [
             'outing' => $outing
         ]);
     }
 
 
-
-    #[Route('/modify-outing/{id}', name : 'modify_outing', requirements: ['id' => '\d+'])]
-    public function update(Request $request, EntityManagerInterface $entityManager, int $id) :Response {
+    #[Route('/modify-outing/{id}', name: 'modify_outing', requirements: ['id' => '\d+'])]
+    public function update(Request $request, EntityManagerInterface $entityManager, int $id): Response
+    {
 
         $repositoryCampus = $entityManager->getRepository(User::class);
         $repository = $entityManager->getRepository(Outing::class);
@@ -298,12 +326,42 @@ class OutingController extends AbstractController
         }
 
         return $this->render('outing/modifyOuting.html.twig', [
+            'outing' => $outing,
             'modifyForm' => $outingForm->createView(),
         ]);
 
-
-
     }
 
+
+    #[Route('/cancel_outing/{id}', name: 'cancel_outing', requirements: ['id' => '\d+'])]
+    public function delete(Request $request, EntityManagerInterface $entityManager, int $id): Response
+    {
+
+        $repository = $entityManager->getRepository(Outing::class);
+        $outingToCancel = $repository->find($id);
+
+        $cancelForm = $this->createForm(CancelOutingType::class, $outingToCancel);
+        $cancelForm->handleRequest($request);
+
+
+        if ($cancelForm->isSubmitted() && $cancelForm->isValid() && $cancelForm->get('save')->isClicked()) {
+
+            $stateCancel = $this->findStateCancel($entityManager);
+            $outingToCancel->setState($stateCancel);
+
+            $entityManager->persist($outingToCancel);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Sortie supprimée !');
+
+            return $this->redirectToRoute('main_index');
+
+        }
+
+        return $this->render('outing/cancelOuting.html.twig', [
+            'outingToCancel' => $outingToCancel,
+            'cancelForm' => $cancelForm->createView(),
+        ]);
+    }
 
 }
