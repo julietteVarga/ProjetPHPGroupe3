@@ -105,6 +105,10 @@ class OutingController extends AbstractController
             $durationSeconds = $duration->getTimeStamp();
 
 
+            if ($durationSeconds<0) {
+                $durationSeconds = 3600 - ($durationSeconds * (-1));
+            }
+
 
             $startingDate = $outing->getStartingDateTime();
             //On convertis la date de début en timestamp
@@ -115,10 +119,9 @@ class OutingController extends AbstractController
             $dateRegistration = $outing->getRegistrationDeadLine();
             $registrationStamp = $dateRegistration->getTimeStamp();
 
-
-
             $durationAndStartingDate = $startingDateStamp + $durationSeconds;
 
+            //dd($duration,$durationSeconds,$durationAndStartingDate,$dateNowStamp,$startingDateStamp);
 
 
             //on prend la date d'aujourd'hui

@@ -36,7 +36,7 @@ class Outing
 
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="time")
      */
 
     private  $duration;
