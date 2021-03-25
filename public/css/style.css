@@ -2,7 +2,11 @@
     --bg-color : white;
     --text-color : black;
     --title-color : black;
-    --bg-nav-color : rgba(220, 178, 82, 0.8);
+    --input-color: rgb(16, 88, 121);
+    --link-color : rgb(33, 79, 90);
+    --link-hover-color : rgba(16, 88, 121, 0.8);
+    --bg-nav-color : rgb(231, 202, 151);
+    --bg-login-page : rgba(220, 178, 82, 0.6);
     --bg-tab-corps : rgba(220, 178, 82, 0.5);
     --bg-tab-title : rgba(220, 178, 82, 0.8);
     --tab-title-color : black;
@@ -11,6 +15,7 @@
     --archive-title: #5592FF;
     --archive-tabtitle : #2e3136;
     --archive-tabcorps : rgba(130,130,130,0.5);
+    --archive-nav-bg : rgba(220, 178, 82, 0.8);
 }
 
 body {
@@ -22,6 +27,10 @@ body {
     color: var(--text-color);
 }
 
+.navbar_responsive {
+    display: none;
+}
+
 h1 {
     font-family: 'Chango', cursive;
     color: var(--title-color);
@@ -29,6 +38,7 @@ h1 {
 
 h2 {
     font-family: 'Chango', cursive;
+    font-size: 1.6vw;
 }
 
 main {
@@ -42,6 +52,9 @@ header {
     flex-direction: row;
     justify-content: space-between;
     background-color: var(--bg-nav-color) ;
+    padding: 3px;
+    position: sticky;
+    top:0%;
 }
 
 .header_blockleft {
@@ -145,7 +158,7 @@ footer {
     border-radius: 10px;
     width: 30%;
     font-size: 16px;
-    color: var(--title-color);
+    color: var(--input-color);
 }
 
 .form_groupe label, form label {
@@ -164,18 +177,192 @@ footer {
     justify-content: space-evenly;
 }
 
-.notCheckbox_group {
-    width: 50%;
-}
-
-.checkbox_group {
-    width: 50%;
+.form_homepage, .notCheckbox_group input, .notCheckbox_group, .checkbox_group {
+    width: 100%;
 }
 
 .filter_title {
     margin-bottom: 2%;
 }
 
+.login_page, .login_form {
+    background-color: var(--bg-login-page);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login_logo {
+    opacity: 0%;
+    animation: animLogo 2s ease-out 0.2s forwards;
+}
+
+@keyframes animLogo {
+    0% {
+        opacity : 0;
+        transform: rotate(45deg);
+        top: -5%;
+        right: -10%;
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotate(0);
+    }
+}
+
 .rememberme_checkbox {
+    width: 15%;
+}
+
+a {
+    color: var(--link-color);
+    font-weight: bold;
+}
+
+header nav a, .navbar_responsive a, .login_logout_msg {
+    text-decoration: none;
+    color: var(--link-color);
+    font-weight: bold;
+    font-size: 19px;
+}
+
+.login_logout_msg a {
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+.login_logout_msg {
+    text-align: center;
+}
+
+header nav a:hover, header .navbar_responsive a:hover, .login_logout_msg a:hover {
+    color:  var(--link-hover-color);
+    text-shadow: 3px 3px 3px #719ca0;
+}
+
+/**
+**************************************
+MEDIAQUERIES smartphones et tablettes
+**************************************
+ */
+
+@media screen and (max-width: 1040px) {
+
+    .navbar_classic {
+        display: none;
+    }
+
+    .navbar_responsive {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 50vh;
+    }
+
+    .login_logout_msg {
+        display:none;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: 4vw;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    .form_homepage {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .notCheckbox_group, .checkbox_group {
+        width: 100%;
+        align-items: center;
+    }
+
+    .tableau_home thead {
+        display: none;
+    }
+
+    .tableau_home tr {
+        display: block;
+        margin-bottom: 40px;
+    }
+
+    .tableau_home td {
+        display: block;
+        text-align: right;
+    }
+
+    .tableau_home td:before {
+        content:attr(data-label);
+        float: left;
+        font-weight: bold;
+    }
+
+    .tableau_home td, table {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .login_logo {
+        opacity: 100%;
+        animation: none;
+        width: 45vw;
+    }
+
+    .open-btn{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 5vw;
+        min-width: 35px;
+        height: 50px;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        margin-right: 2%;
+        cursor: pointer;
+    }
+    
+    .open-btn .open-btn-bar {
+        background-color: black;
+        height: 5px;
+        width: 100%;
+    }
+    
+    .close-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        width: 30px;
+        height: 30px;
+        transform: rotate(45deg);
+        cursor: pointer;
+    }
+
+    .close-btn .close-btn-bar {
+        background-color: white;
+        height: 5px;
+        width: 100%;
+    }
+
+    .close-btn-bar-rotate {
+        transform: rotate(90deg);
+        margin-bottom: -5px;
+    }
 
 }

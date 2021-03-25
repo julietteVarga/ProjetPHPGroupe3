@@ -23,21 +23,40 @@ class OutingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array('label' => 'Nom :'))
-            ->add('startingDateTime', DateTimeType::class, array('label' => 'Date & heure de la sortie :',
-                'date_widget'=> 'single_text',
-                'with_minutes' => true,
-                'input' => 'datetime',
-                ))
-            ->add('duration', TimeType::class, array('label' => 'Durée :',
-                'widget'=> 'single_text'))
-            ->add('registrationDeadLine', DateType::class, array('label' => 'Date limite d\'inscription :',
-                'widget'=> 'single_text'))
-            ->add('maxNumberRegistration', IntegerType::class, array('label' => 'Nombre de places :'))
-            ->add('outingInfos', TextareaType::class, array('label' => 'Informations :'))
-            ->add('location', EntityType::class, array('class' => Location::class))
-            ->add('save', SubmitType::class, array('label' => 'Enregistrer'))
-            ->add('saveAndAdd', SubmitType::class, array('label' => 'Publier'));
+            ->add('name', TextType::class, [
+                'label' => 'Nom :'
+                ])
+            ->add('startingDateTime', DateTimeType::class, [
+                    'label' => 'Date & heure de la sortie :',
+                    'date_widget'=> 'single_text',
+                    'with_minutes' => true,
+                    'input' => 'datetime',
+            ])
+            ->add('duration', TimeType::class, [
+                    'label' => 'Durée :',
+                    'widget'=> 'single_text'
+            ])
+
+            ->add('registrationDeadLine', DateType::class, [
+                'label' => 'Date limite d\'inscription :',
+                'widget'=> 'single_text'
+            ])
+
+            ->add('maxNumberRegistration', IntegerType::class, [
+                'label' => 'Nombre de places :'
+            ])
+            ->add('outingInfos', TextareaType::class, [
+                'label' => 'Informations :'
+            ])
+            ->add('location', EntityType::class, [
+                'class' => Location::class
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Enregistrer'
+            ])
+            ->add('saveAndAdd', SubmitType::class, [
+                'label' => 'Publier'
+            ]);
 
     }
 

@@ -1,13 +1,23 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sortir.com Groupe 3</title>
 
-{% block title %}Log in!{% endblock %}
+        <link rel="stylesheet" href="{{ asset("css/style.css") }}">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Chango&family=Montserrat&display=swap" rel="stylesheet">
 
-   {% block Pagetitle %}
-       <h1 class="h3 mb-3 font-weight-normal">Connectez-vous:</h1>
-   {% endblock %}
+</head>
 
-{% block main %}
-<form method="post">
+<body>
+
+<main class="login_page">
+
+    <img class="login_logo" src="images/logoComplet.png" title="logo" alt="logo">
+
+    <h1 class="h3 mb-3 font-weight-normal">Connectez-vous:</h1>
+    <form class="login_form" method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -18,8 +28,7 @@
     <input type="password" name="password" id="inputPassword" class="form-control" required>
 
     <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+           value="{{ csrf_token('authenticate') }}">
 
 
        {#  Add a remember_me option below your firewall to activate remember me functionality.
@@ -30,8 +39,8 @@
             <label for="remember_me"> Se souvenir de moi </label>
         </div>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
+    <button class="btn btn-lg btn-primary" type="submit"> Se connecter </button>
 </form>
-{% endblock %}
+
+</main>
+

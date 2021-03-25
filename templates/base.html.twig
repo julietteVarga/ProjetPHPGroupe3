@@ -11,18 +11,20 @@
     {% endblock %}
 
     {% block javascripts %}
-        {#{{ encore_entry_script_tags('app') }}#}
+        <script src="{{ asset("js/jquery-3.5.1.js") }}"></script>
+        <script src="{{ asset("js/script.js") }}"></script>
     {% endblock %}
+
 </head>
 
 <body>
 <header>
     <div class="header_blockleft">
-        <img src="{{ asset("images/logoComplet_invers.png") }}" alt="logo" title="logo Sortir.com">
+        <img class="logo_header" src="{{ asset("images/logoComplet_invers.png") }}" alt="logo" title="logo Sortir.com">
 
         {# ********************************************* #}
         <h1>
-            {# Titre optionnel ici #}
+            {# Titre optionnel du site ici (en remplacement du logo si besoin) #}
         </h1>
         {# ********************************************* #}
     </div>
@@ -30,13 +32,23 @@
     <div>
         {% if app.user %}
             <div class="login_logout_msg">
-                Bonjour {{ app.user.username }} vous êtes connecté ! <a href="{{ path('app_logout') }}">Logout</a>
+                Bonjour {{ app.user.username }} vous êtes connecté ! <br>
+                <a href="{{ path('app_logout') }}">Se déconnecter</a>
             </div>
 
     </div>
 
+    {# Creation du bouton menu déroulant pour small devices - responsive website #}
+
+    <div class="open-btn">
+    <div class="open-btn-bar"></div>
+    <div class="open-btn-bar open-btn-bar-middle"></div>
+    <div class="open-btn-bar"></div>
+    </div>
+    {# *************************************************************************** #}
+
     <nav>
-        <ul>
+        <ul class="navbar_classic">
                 <li><a href="{{ url('main_index') }}">Accueil</a></li>
                 <li><a href="{{ url('create_outing') }}">Ajouter une sortie</a></li>
                 <li><a href="{{ url('user_my_profile') }}">Mon profil</a></li>
@@ -48,11 +60,25 @@
 
         </ul>
 
+
+        <ul class="navbar_responsive">
+            <div class="close-btn">
+            <div class="close-btn-bar close-btn-bar-rotate"></div>
+            <div class="close-btn-bar"></div>
+            </div>
+            <li><a href="{{ url('main_index') }}">Accueil</a></li>
+            <li><a href="{{ url('create_outing') }}">Ajouter une sortie</a></li>
+            <li><a href="{{ url('user_my_profile') }}">Mon profil</a></li>
+            {% if is_granted ('ROLE_ADMIN') %}
+                <li><a href="{{ url('admin_users_list') }}">Participants</a></li>
+                <li><a href="{{ url('admin_cities') }}">Villes</a></li>
+                <li><a href="{{ url('admin_campus') }}">Campus</a></li>
+            {% endif %}
+            <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+        </ul>
     </nav>
     {% endif %}
-
 </header>
-
 {# ********************************************* #}
 <main>
     {% for label, messages in app.flashes %}
@@ -75,11 +101,10 @@
     {% endblock %}
 </main>
 {# ********************************************* #}
-
 <footer>
     <p>&copy; Sortir.com 2021</p>
     <p>
-        By Awesome Group 3 (
+        By Pupush Team (
         <a href="https://github.com/julietteVarga/ProjetPHPGroupe3.git" > lien github</a>)
     </p>
     <p>
@@ -90,6 +115,8 @@
     </ul>
     </p>
 </footer>
+
+
 
 </body>
 

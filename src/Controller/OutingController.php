@@ -46,22 +46,20 @@ class OutingController extends AbstractController
     }
 
 
-    /**
-     * Fonction pour mettre à jour nos états de sorties selon la date du jour.
+    /**     * Fonction pour mettre à jour nos états de sorties selon la date du jour.
      * @param EntityManagerInterface $em
      * @return Response
      */
-    #[Route('/updtateOuting', name : 'update_outing')]
+    #[Route('/updateState', name : 'update_state')]
     public function updateState(EntityManagerInterface $em): Response
     {
         $dateNow = new \DateTime('now');
-        //On convertit en secondes.
+        //On convertis en secondes.
         $dateNowStamp = $dateNow->getTimestamp();
 
         $repository = $em->getRepository(Outing::class);
         $listOutings = $repository->findAll();
         $repositoryS = $em->getRepository(State::class);
-
 
         //Reprendre les etats dans la base de données
         //Terminée
@@ -89,34 +87,27 @@ class OutingController extends AbstractController
             'label' => 'Clôturée'
         ]);
 
-
         //Pour chaque sorties dans la base de données, on change l'état selon sa date.
         foreach ($listOutings as $outing) {
-
             $state = $outing->getState();
             $duration = $outing->getDuration();
             //On convertis en secondes
             $durationSeconds = $duration->getTimeStamp();
 
-
             $startingDate = $outing->getStartingDateTime();
             //On convertis la date de début en timestamp
             $startingDateStamp = $startingDate->getTimeStamp();
 
-
             $dateRegistration = $outing->getRegistrationDeadLine();
             $registrationStamp = $dateRegistration->getTimeStamp();
 
-
             $durationAndStartingDate = $startingDateStamp + $durationSeconds;
-
             //on prend la date d'aujourd'hui
             $archiveNow =$startingDate;
             $interval = new \DateInterval('P30D');
             //on la convertis en timestamp
             $archiveAddMonth = $archiveNow->add(interval: $interval );
             $archiveStamp = $archiveAddMonth->getTimestamp();
-
 
             //Si la date d'aujourd'hui est inférieure à la date de début
             //Si la date d'aujourd'hui est inférieure à la date de fin d'inscriptions
@@ -127,7 +118,6 @@ class OutingController extends AbstractController
                 && $state != $creation) {
                 $outing->setState($open);
             }
-
 
             //Si la date d'aujourd'hui est supérieure à la date de début
             //et inférieure à la durée + date de début et que l'état n'est pas en création
@@ -141,7 +131,6 @@ class OutingController extends AbstractController
                 && $state != $creation) {
                 $outing->setState($started);
             }
-
             //Si la date d'aujourd'hui est supérieure à la date de fin d'inscriptions
             //et supérieure à la date de début de la sortie
             //et qu'elle ne depasse pas la date d'archive d'1 mois
@@ -152,7 +141,6 @@ class OutingController extends AbstractController
                 && $dateNowStamp>$startingDateStamp
                 && $state != $creation) {
                 $outing->setState($finished);
-
             }
             //Si la date d'aujourd'hui est supérieure à la date de fin d'inscriptions
             //et inférieure à la date de début de la sortie
@@ -163,9 +151,7 @@ class OutingController extends AbstractController
                 && $dateNowStamp<$startingDateStamp
                 && $state != $creation) {
                 $outing->setState($closed);
-
             }
-
 
             //Si la date d'aujourd'hui est supérieure à la date de début
             //et supérieur à la durée + date de début et que l'état n'est pas en création
@@ -182,7 +168,6 @@ class OutingController extends AbstractController
             }
             $em->persist($outing);
             $em->flush();
-
 
         }
         return $this->redirectToRoute('user_home');

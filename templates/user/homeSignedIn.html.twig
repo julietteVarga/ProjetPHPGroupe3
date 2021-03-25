@@ -12,7 +12,7 @@
      <h3 class="filter_title">Filtrer les sorties :</h3>
 
 
-     <div class="form">
+     <div class="form form_homepage">
 
 
          <div class="notCheckbox_group">
@@ -81,6 +81,7 @@
      <div class="listOuting">
 
          <table class="tableau_home">
+             <thead>
              <tr>
                  <th>Nom de la sortie</th>
                  <th>Date de la sortie</th>
@@ -91,24 +92,26 @@
                  <th>Organisateur</th>
                  <th>Actions</th>
              </tr>
+             </thead>
+             <tbody>
              {% for title in filterOutings|batch(8) %}
                  <tr>
                      {% for outing in title %}
-                         <td>{{ outing.name }}</td>
-                         <td>{{ outing.startingDateTime|date("d/m/y") }}</td>
-                         <td>{{ outing.registrationDeadLine|date("d/m/y") }}</td>
-                         <td>{{ outing.participants|length }}/{{ outing.maxNumberRegistration }}</td>
-                         <td>{{ outing.state }}</td>
-                         <td>
+                         <td data-label="Nom de la sortie">{{ outing.name }}</td>
+                         <td data-label="Date de la sortie">{{ outing.startingDateTime|date("d/m/y") }}</td>
+                         <td data-label="Date de clotûre">{{ outing.registrationDeadLine|date("d/m/y") }}</td>
+                         <td data-label="nb d'inscrits/places max">{{ outing.participants|length }}/{{ outing.maxNumberRegistration }}</td>
+                         <td data-label="Etat de la sortie">{{ outing.state }}</td>
+                         <td data-label="Inscrit(e) ?">
                              {% if app.user in outing.participants %}
                              <p>X</p>
                              {% endif %}
                          </td>
-                         <td><a href="{{ url('user_show_organizer', {'id':outing.getOrganizer().getId()}) }}">{{ outing.organizer.username }}</a>
+                         <td data-label="Organisateur"><a href="{{ url('user_show_organizer', {'id':outing.getOrganizer().getId()}) }}">{{ outing.organizer.username }}</a>
 
 
                          </td>
-                         <td>
+                         <td data-label="Actions">
                              {# TODO :: gérer l'affichage des liens en fonction des inscriptions de l'utilisateur !! et de son statut organisateur ou non #}
 
                              {% if outing.state == 'En création' %}
@@ -133,17 +136,16 @@
                                      <a href="{{ url('user_sign_up_outing', {'id':outing.getId()}) }}">S'inscrire</a>
                                     {% endif %}
                              {% endif %}
-                            {# TODO : Se désister ? Si organisateur ... ? #}
                              {% if outing.state == 'Clôturée' %}
-                             <a href="{{  url('outing_show', {'id':outing.getId()}) }}">Afficher</a> - <a href="#">Se désister</a>
+                             <a href="{{  url('outing_show', {'id':outing.getId()}) }}">Afficher</a> - <a href="{{ url('user_sign_out_outing', {'id':outing.getId()}) }}">Se désinscrire</a>
                              {% endif %}
 
                              {% if outing.state == 'Terminée' or outing.state == 'En cours' %}
                                  <a href="{{  url('outing_show', {'id':outing.getId()}) }}">Afficher</a>
                              {% endif %}
 
-                             {% if outing.state == 'Annulée' %}
-                             <p>Annulée</p>
+                             {% if outing.state == 'Archivée' %}
+                                 <a href="{{  url('outing_show', {'id':outing.getId()}) }}">Afficher</a>
                              {% endif %}
 
                          </td>
@@ -152,6 +154,7 @@
                      {% endfor %}
 
              {% endfor %}
+             </tbody>
          </table>
 
      </div>
