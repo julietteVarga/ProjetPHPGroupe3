@@ -6,7 +6,8 @@ namespace App\Data;
 
 use App\Entity\Campus;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints\Date;
+
 
 class SearchData
 {
@@ -27,13 +28,13 @@ class SearchData
 
 
     /**
-     * @var DateTime|null
+     *
      * Pour le filtre de recherche entre date min et date max
      */
-    public ?DateTime $mindate;
+    public $mindate;
 
     /**
-     * @var DateTime|null
+     *
      * Pour le filtre de recherche entre date min et date max
      */
     public $maxdate;
@@ -95,33 +96,33 @@ class SearchData
     }
 
     /**
-     * @return DateTime|null
+     *
      */
-    public function getMindate(): ?DateTime
+    public function getMindate()
     {
         return $this->mindate;
     }
 
     /**
-     * @param DateTime|null $mindate
+     *
      */
-    public function setMindate(?DateTime $mindate): void
+    public function setMindate($mindate)
     {
         $this->mindate = $mindate;
     }
 
     /**
-     * @return DateTime|null
+     *
      */
-    public function getMaxdate(): ?DateTime
+    public function getMaxdate()
     {
         return $this->maxdate;
     }
 
     /**
-     * @param DateTime|null $maxdate
+     *
      */
-    public function setMaxdate(?DateTime $maxdate): void
+    public function setMaxdate($maxdate)
     {
         $this->maxdate = $maxdate;
     }

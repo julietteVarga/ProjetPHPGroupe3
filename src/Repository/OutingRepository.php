@@ -56,24 +56,15 @@ class OutingRepository extends ServiceEntityRepository
                 ->setParameter('campus', $search->campus);
         }
 
-        //TODO : gérer les filtres date !
-
         if(!empty($search->mindate) && !empty($search->maxdate) && ($search->maxdate) > ($search->mindate)) {
             $query = $query
                 ->andWhere('o.startingDateTime BETWEEN :mindate AND :maxdate')
-                ->setParameter('mindate', $search->mindate->format('Y-m-d'))
-                ->setParameter('maxdate', $search->maxdate->format('Y-m-d'))
+                ->setParameter('mindate', $search->mindate)
+                ->setParameter('maxdate', $search->maxdate)
             ;
 
         }
 
-
-        if(!empty($search->mindate)) {
-            $query = $query
-                ->andWhere('o.startingDateTime >= :mindate')
-                ->setParameter('min', $search->mindate)
-                ;
-        }
 
         if(!empty($search->organizer)) {
             $query = $query

@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -22,6 +23,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      */
     private $password;
 
@@ -62,7 +64,7 @@ class User implements UserInterface
 
     /**
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="App\Entity\Outing", inversedBy="participants", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Outing", inversedBy="participants")
      */
     private $outingsParticipants;
     public function __construct()
@@ -214,9 +216,9 @@ class User implements UserInterface
     }
 
     /**
-     * @param array $roles
+     * @param $roles
      */
-    public function setRoles(array $roles): self
+    public function setRoles($roles): self
     {
         $this->roles = $roles;
 

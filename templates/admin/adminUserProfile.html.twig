@@ -9,29 +9,38 @@ Profil de {{ user.username }} :
     <p>
         Prénom : {{ user.name }} <br>
         Nom : {{ user.surname }} <br>
+        pseudo : {{ user.username }} <br>
         Email : {{ user.email }} <br>
         Téléphone : {{ user.tel }}
     </p>
 
-    <p>
-        Campus de rattachement : {{ user.campus }}
-    </p>
+    <div class="form">
+    {{ form_start (userAdminModifyForm) }}
+    <div class="form_groupe">
+        {{ form_label (userAdminModifyForm.campus) }}
+        {{ form_widget (userAdminModifyForm.campus) }}
+        {{ form_errors (userAdminModifyForm.campus) }}
+    </div>
+    <div class="form_groupe">
+        {{ form_label (userAdminModifyForm.isActive) }}
+        {{ form_widget (userAdminModifyForm.isActive) }}
+        {{ form_errors (userAdminModifyForm.isActive) }}
+    </div>
+    <div class="form_groupe">
+        {{ form_label (userAdminModifyForm.roles) }}
+        {{ form_widget (userAdminModifyForm.roles) }}
+        {{ form_errors (userAdminModifyForm.roles) }}
+    </div>
 
-    <p>
-        Etudiant actif :
-        {% if user.isActive %}
-        oui
-        {% else %}
-        non
-        {% endif %}
-    </p>
-    <p><em>
-        Rôle :
-        {% if user.hasRole('ROLE_ADMIN') %}
-        Administrateur
-        {% else %}
-        Simple utilisateur
-        {% endif %}
-        </em></p>
+        <button type="submit">Modifier le profil de {{ user.username }}</button>
+    <div class="button">
+        <a href="{{ url('admin_delete_profile', {'id':user.getId()}) }}">Supprimer l'utilisateur</a>
+    </div>
+        <div class="button">
+            <a href="{{ url('admin_users_list') }}">Retour</a>
+        </div>
+        {{ form_end (userAdminModifyForm) }}
+    </div>
+
 
 {% endblock %}

@@ -26,7 +26,8 @@ class SignUpType extends AbstractType
             ->add('tel')
             ->add('email')
             ->add('isActive', CheckboxType::class, [
-                'label' => 'Etudiant actif'
+                'label' => 'Etudiant actif',
+                'required' => false
             ])
             ->add('roles', ChoiceType::class, [
                 'required' => true,

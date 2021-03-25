@@ -60,7 +60,7 @@ class Outing
 
     /**
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="outingsParticipants", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="outingsParticipants")
      */
     private $participants;
 

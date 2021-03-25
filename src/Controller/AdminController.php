@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Campus;
 use App\Entity\City;
 use App\Entity\User;
+use App\Form\AdminModifyProfileType;
 use App\Form\CampusType;
 use App\Form\CityType;
 use App\Form\SignUpType;
+use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,21 +33,21 @@ class AdminController extends AbstractController
             $userName = $newUser->getUsername();
             $userExist = $userRepository->findOneByUserName($userName);
 
-            if(!$userExist) {
-            //On encode le mot de passe :
-            $password = $passwordEncoder->encodePassword($newUser, $newUser->getPassword());
-            $newUser->setPassword($password);
+            if (!$userExist) {
+                //On encode le mot de passe :
+                $password = $passwordEncoder->encodePassword($newUser, $newUser->getPassword());
+                $newUser->setPassword($password);
 
-            // tell Doctrine you want to eventually save the product (no queries yet) :
-            $em->persist($newUser);
-            // actually executes the queries (i.e. the INSERT query)
-            $em->flush();
+                // tell Doctrine you want to eventually save the product (no queries yet) :
+                $em->persist($newUser);
+                // actually executes the queries (i.e. the INSERT query)
+                $em->flush();
 
-            $this->addFlash("success", "New User successfully saved !");
-            return $this->redirectToRoute('admin_users_list', [
-                'newUser' => $newUser
-            ]);
-            }else {
+                $this->addFlash("success", "New User successfully saved !");
+                return $this->redirectToRoute('admin_users_list', [
+                    'newUser' => $newUser
+                ]);
+            } else {
                 $this->addFlash("notice", "Utilisateur déjà existant !");
             }
         }
@@ -70,10 +72,27 @@ class AdminController extends AbstractController
         $repository = $em->getRepository(User::class);
         $user = $repository->find($id);
 
+        $userAdminModifyForm = $this->createForm(AdminModifyProfileType::class, $user);
+        $userAdminModifyForm->handleRequest($request);
+
+        if ($userAdminModifyForm->isSubmitted() && $userAdminModifyForm->isValid()) {
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Utilisateur modifié !');
+
+            return $this->redirectToRoute('admin_user_profile', [
+                'id' => $user->getId()
+            ]);
+
+        }
         return $this->render('admin/adminUserProfile.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'userAdminModifyForm' => $userAdminModifyForm->createView(),
         ]);
     }
+
 
     #[Route('/admin/campus', name: 'admin_campus')]
     public function campus(EntityManagerInterface $em, Request $request): Response
@@ -143,6 +162,23 @@ class AdminController extends AbstractController
         return $this->render('admin/addCity.html.twig', [
             "newCityForm" => $newCityForm->createView()
         ]);
+    }
+
+
+    #[Route('/admin/deleteProfile/{id}', name: 'admin_delete_profile')]
+    public function deleteProfile(Request $request, EntityManagerInterface $em, int $id): Response
+    {
+        $repository = $em->getRepository(User::class);
+        $userToDelete = $repository->find($id);
+
+            // tell Doctrine you want to eventually delete the product (no queries yet) :
+            $em->remove($userToDelete);
+            // actually executes the queries (i.e. the DELETE query)
+            $em->flush();
+
+            $this->addFlash("success", "Utilisateur supprimé !");
+            return $this->redirectToRoute('admin_users_list');
+
     }
 
 

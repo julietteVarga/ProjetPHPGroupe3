@@ -8,12 +8,10 @@
         <link rel="stylesheet" href="{{ asset("css/style.css") }}">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Chango&family=Montserrat&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
     {% endblock %}
 
-    {% block javascripts %}
-        <script src="{{ asset("js/jquery-3.5.1.js") }}"></script>
-        <script src="{{ asset("js/script.js") }}"></script>
-    {% endblock %}
+
 
 </head>
 
@@ -83,7 +81,7 @@
 <main>
     {% for label, messages in app.flashes %}
         {% for message in messages %}
-            <div class="flash-{{ label }}">
+            <div class="flash flash-{{ label }}">
                 <p>{{ message }}</p>
             </div>
         {% endfor %}
@@ -116,7 +114,20 @@
     </p>
 </footer>
 
+{% block javascripts %}
+    <script src="{{ asset("js/jquery-3.5.1.js") }}"></script>
+    <script src="{{ asset("js/script.js") }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
 
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+        } );
+    </script>
+{% endblock %}
 
 </body>
 

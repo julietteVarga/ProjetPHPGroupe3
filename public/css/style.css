@@ -3,19 +3,21 @@
     --text-color : black;
     --title-color : black;
     --input-color: rgb(16, 88, 121);
-    --link-color : rgb(33, 79, 90);
+    --link-navbar-color: #BFC0C0;
+    --link-color : #0e9594;
     --link-hover-color : rgba(16, 88, 121, 0.8);
-    --bg-nav-color : rgb(231, 202, 151);
-    --bg-login-page : rgba(220, 178, 82, 0.6);
+    --bg-nav-color : #456990;
+    --bg-login-page : rgba(69, 105, 144, 0.6);
     --bg-tab-corps : rgba(220, 178, 82, 0.5);
     --bg-tab-title : rgba(220, 178, 82, 0.8);
     --tab-title-color : black;
 
 
     --archive-title: #5592FF;
+    --archive-link: rgb(33, 79, 90);
     --archive-tabtitle : #2e3136;
     --archive-tabcorps : rgba(130,130,130,0.5);
-    --archive-nav-bg : rgba(220, 178, 82, 0.8);
+    --archive-nav-bg : rgb(231, 202, 151);
 }
 
 body {
@@ -99,6 +101,10 @@ footer {
     flex-direction: row;
     margin-top : 5%;
     background-color: var(--bg-nav-color);
+}
+
+footer a {
+    color: var(--link-navbar-color);
 }
 
 .group_buttons_index {
@@ -223,7 +229,7 @@ a {
 
 header nav a, .navbar_responsive a, .login_logout_msg {
     text-decoration: none;
-    color: var(--link-color);
+    color: var(--link-navbar-color);
     font-weight: bold;
     font-size: 19px;
 }
@@ -241,6 +247,10 @@ header nav a, .navbar_responsive a, .login_logout_msg {
 header nav a:hover, header .navbar_responsive a:hover, .login_logout_msg a:hover {
     color:  var(--link-hover-color);
     text-shadow: 3px 3px 3px #719ca0;
+}
+
+.flash {
+    background-color: #F5DFBB;
 }
 
 /**
@@ -366,3 +376,8 @@ MEDIAQUERIES smartphones et tablettes
     }
 
 }
+/**
+**************************************
+FIN de MEDIAQUERIES smartphones et tablettes
+**************************************
+ */

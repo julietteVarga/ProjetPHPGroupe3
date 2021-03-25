@@ -45,21 +45,18 @@ class SearchOutingType extends AbstractType
                 'choice_label' => 'campusName'
             ])
 
-            //TODO filtre dates !
-           ->add('mindate', DateTimeType::class, [
-               'date_label' => 'Date minimum',
-               'date_widget'=> 'single_text',
-               'required' => false,
-               'with_minutes' => false,
-               'input' => 'datetime',
-           ])
+           ->add('mindate', DateType::class, [
+                'label' => 'Date entre le :',
+               'widget' => 'single_text',
+                'html5' => 'false',
+                'attr' => ['class' => 'js-datepicker'],
+            ])
 
-            ->add('maxdate', DateTimeType::class, [
-                'date_label' => 'Date maximum',
-                'date_widget' => 'single_text',
-                'required' => false,
-                'with_minutes' => false,
-                'input' => 'datetime'
+            ->add('maxdate', DateType::class, [
+                'label' => 'et le :',
+                'widget' => 'single_text',
+                'html5' => 'false',
+                'attr' => ['class' => 'js-datepicker'],
             ])
 
             ->add('organizer', CheckboxType::class, [
@@ -81,7 +78,12 @@ class SearchOutingType extends AbstractType
                 'label' => 'Sorties passées',
                 'required' => false
             ])
-;
+
+
+        ;
+        dump($builder);
+
+
     }
 
 
