@@ -34,7 +34,7 @@ class SignUpType extends AbstractType
             ->add('tel', TextType::class, array('label' => 'Téléphone : '))
             ->add('email', EmailType::class, array('label' => 'Email : '))
             ->add('isActive', CheckboxType::class, [
-                'label' => 'Etudiant en formation : '
+                'label' => 'Etudiant en formation'
             ])
             ->add('roles', ChoiceType::class, [
                 'label' => 'Role : ',

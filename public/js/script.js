@@ -2,7 +2,7 @@ $(document).ready(function(){
     $(".open-btn").click(function(){
         $(".navbar_responsive").css("display", "flex");
         $(".open-btn").css("display", "none");
-        $("header").css("background-color", "rgb(231, 202, 151)");
+        $("header").css("background-color", "var( --bg-nav-color)");
         $("header").css("justify-content", "center");
         $(".header_blockleft").css("display", "none");
     })
