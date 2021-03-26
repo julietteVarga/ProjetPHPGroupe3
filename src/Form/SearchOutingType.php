@@ -46,6 +46,7 @@ class SearchOutingType extends AbstractType
             ])
 
            ->add('mindate', DateType::class, [
+               'required' => false,
                 'label' => 'Date entre le :',
                'widget' => 'single_text',
                 'html5' => 'false',
@@ -53,6 +54,7 @@ class SearchOutingType extends AbstractType
             ])
 
             ->add('maxdate', DateType::class, [
+                'required' => false,
                 'label' => 'et le :',
                 'widget' => 'single_text',
                 'html5' => 'false',
@@ -81,9 +83,6 @@ class SearchOutingType extends AbstractType
 
 
         ;
-        dump($builder);
-
-
     }
 
 

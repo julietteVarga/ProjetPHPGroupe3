@@ -50,11 +50,7 @@ class UserController extends AbstractController
         $form = $this->createForm(SearchOutingType::class, $data);
         $form->handleRequest($request);
 
-        dump($data);
-
         $filterOutings = $outingRepository->findSearch($data, $userInSession);
-
-        dump($filterOutings);
 
         return $this->render('user/homeSignedIn.html.twig', [
             'filterOutings' => $filterOutings,

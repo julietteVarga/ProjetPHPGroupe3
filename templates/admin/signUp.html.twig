@@ -11,7 +11,7 @@
      <div class="form">
          {{ form_start (newUserForm) }}
 
-         <div class="form_groupe">
+         <div class="form_groupe form_checkbox">
              {{ form_widget (newUserForm.isActive) }}
              {{ form_label (newUserForm.isActive) }}
              {{ form_errors (newUserForm.isActive) }}
@@ -76,8 +76,11 @@
 
 
          <br>
-         <button type="submit">Envoyer !</button>
-         {{ form_end (newUserForm) }}
+         <div class="group_buttons">
+             <button type="submit">Envoyer !</button>
+             {{ form_end (newUserForm) }}
+         </div>
+
 
      </div>
      </div>

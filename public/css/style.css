@@ -1,23 +1,23 @@
 :root {
-    --bg-color : white;
-    --text-color : black;
-    --title-color : black;
+    --bg-color: white;
+    --text-color: black;
+    --title-color: black;
     --input-color: rgb(16, 88, 121);
     --link-navbar-color: #BFC0C0;
-    --link-color : #0e9594;
-    --link-hover-color : rgba(16, 88, 121, 0.8);
-    --bg-nav-color : #456990;
-    --bg-login-page : rgba(69, 105, 144, 0.6);
-    --bg-tab-corps : rgba(220, 178, 82, 0.5);
-    --bg-tab-title : rgba(220, 178, 82, 0.8);
-    --tab-title-color : black;
+    --link-color: #456990;
+    --link-hover-color: rgb(231, 202, 151);
+    --bg-nav-color: #456990;
+    --bg-login-page: rgba(69, 105, 144, 0.6);
+    --bg-tab-corps: rgba(220, 178, 82, 0.5);
+    --bg-tab-title: rgba(220, 178, 82, 0.8);
+    --tab-title-color: black;
 
 
     --archive-title: #5592FF;
     --archive-link: rgb(33, 79, 90);
-    --archive-tabtitle : #2e3136;
-    --archive-tabcorps : rgba(130,130,130,0.5);
-    --archive-nav-bg : rgb(231, 202, 151);
+    --archive-tabtitle: #2e3136;
+    --archive-tabcorps: rgba(130, 130, 130, 0.5);
+    --archive-nav-bg: rgb(231, 202, 151);
 }
 
 body {
@@ -45,7 +45,7 @@ h2 {
 
 main {
     flex-grow: 1;
-    margin: 1% 3% 1% 3% ;
+    margin: 1% 3% 1% 3%;
 
 }
 
@@ -53,10 +53,10 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: var(--bg-nav-color) ;
+    background-color: var(--bg-nav-color);
     padding: 3px;
     position: sticky;
-    top:0%;
+    top: 0%;
 }
 
 .header_blockleft {
@@ -71,7 +71,7 @@ header nav {
 }
 
 .header_blockleft h1 {
-    padding-left: 1% ;
+    padding-left: 1%;
 }
 
 header img {
@@ -99,7 +99,7 @@ footer {
     display: flex;
     justify-content: space-evenly;
     flex-direction: row;
-    margin-top : 5%;
+    margin-top: 5%;
     background-color: var(--bg-nav-color);
 }
 
@@ -107,35 +107,80 @@ footer a {
     color: var(--link-navbar-color);
 }
 
-.group_buttons_index {
+.group_buttons {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.buttonForm {
     display: flex;
 }
 
-.button, form button {
+
+button, .button {
     background-color: black;
     color: white;
-    margin: 5px;
-    height: 5vh;
-    width: 200px;
+    height: 50px;
+    min-width: 100px;
+    max-width: 250px;
+    width: 30vw;
     text-align: center;
     border-radius: 30px;
     box-shadow: 5px 5px 10px 3px grey;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    border: inset var(--link-hover-color) 4px;
+    margin-right: 2%;
+    cursor: pointer;
 }
 
-.button {
-    display: flex;
-    align-items: center;
-}
 
-.button a, form button {
+.button a {
     text-decoration: none;
     color: white;
+    margin: 0;
+    padding: 0;
+
 }
+
+.button, .buttonForm {
+    line-height: 47px;
+    height: 45px;
+}
+
 
 .hometitle {
     text-align: end;
     margin: 2% 1% 5% 0;
 }
+
+.tableau_home {
+    --border-radius-tab-home: 15px;
+    border-collapse: separate;
+    border-spacing: 1px;
+    border-radius: 10px;
+    margin-top: 5%;
+}
+
+.tableau_home th:first-child {
+    border-top-left-radius: var(--border-radius-tab-home);
+}
+
+.tableau_home th:last-child {
+    border-top-right-radius: var(--border-radius-tab-home);
+}
+
+.tableau_home tr:last-child > td:first-child {
+    border-bottom-left-radius: var(--border-radius-tab-home);
+}
+
+.tableau_home tr:last-child > td:last-child {
+    border-bottom-right-radius: var(--border-radius-tab-home);
+}
+
 
 .tableau_home td {
     width: 10vw;
@@ -160,15 +205,37 @@ footer a {
 
 }
 
-.form_groupe input, #user_campus, form input, #campus {
+.form_groupe input, #user_campus, form input, #campus, select, textarea {
     border-radius: 10px;
-    width: 30%;
+    width: 35%;
+    min-width: 300px;
     font-size: 16px;
     color: var(--input-color);
 }
 
+.form_checkbox input {
+    min-width: 40px;
+    width: auto;
+
+}
+
+#outing_startingDateTime_time_hour, #outing_startingDateTime_time_minute {
+    width: 5%;
+    min-width: 50px;
+
+}
+
+
 .form_groupe label, form label {
     margin-right: 15px;
+}
+
+
+.form {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
 }
 
 .form_checkbox {
@@ -176,11 +243,8 @@ footer a {
     flex-direction: row;
 }
 
-.form {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-evenly;
+#sign_up_isActive {
+    width: 3%;
 }
 
 .form_homepage, .notCheckbox_group input, .notCheckbox_group, .checkbox_group {
@@ -206,7 +270,7 @@ footer a {
 
 @keyframes animLogo {
     0% {
-        opacity : 0;
+        opacity: 0;
         transform: rotate(45deg);
         top: -5%;
         right: -10%;
@@ -218,8 +282,9 @@ footer a {
     }
 }
 
-.rememberme_checkbox {
-    width: 15%;
+.rememberme_checkbox input {
+    width: 1%;
+    min-width: unset;
 }
 
 a {
@@ -234,10 +299,14 @@ header nav a, .navbar_responsive a, .login_logout_msg {
     font-size: 19px;
 }
 
+.navbar_responsive a {
+    font-size: 16px;
+}
+
 .login_logout_msg a {
     font-weight: bold;
     font-size: 16px;
-    color: var(--text-color);
+    color: var(--link-hover-color);
 }
 
 .login_logout_msg {
@@ -245,13 +314,25 @@ header nav a, .navbar_responsive a, .login_logout_msg {
 }
 
 header nav a:hover, header .navbar_responsive a:hover, .login_logout_msg a:hover {
-    color:  var(--link-hover-color);
+    color: var(--link-hover-color);
     text-shadow: 3px 3px 3px #719ca0;
 }
 
 .flash {
     background-color: #F5DFBB;
+    margin: 2%;
+    height: 50px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3vw;
+    border-radius: 20px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 }
+
 
 /**
 **************************************
@@ -271,10 +352,12 @@ MEDIAQUERIES smartphones et tablettes
         justify-content: center;
         align-items: center;
         height: 50vh;
+        padding: 0;
+        width: 100%;
     }
 
     .login_logout_msg {
-        display:none;
+        display: none;
     }
 
     p {
@@ -314,7 +397,7 @@ MEDIAQUERIES smartphones et tablettes
     }
 
     .tableau_home td:before {
-        content:attr(data-label);
+        content: attr(data-label);
         float: left;
         font-weight: bold;
     }
@@ -330,7 +413,7 @@ MEDIAQUERIES smartphones et tablettes
         width: 45vw;
     }
 
-    .open-btn{
+    .open-btn {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -343,13 +426,13 @@ MEDIAQUERIES smartphones et tablettes
         margin-right: 2%;
         cursor: pointer;
     }
-    
+
     .open-btn .open-btn-bar {
         background-color: black;
         height: 5px;
         width: 100%;
     }
-    
+
     .close-btn {
         display: flex;
         flex-direction: column;
@@ -376,6 +459,29 @@ MEDIAQUERIES smartphones et tablettes
     }
 
 }
+
+
+@media screen and (max-width: 600px) {
+
+    .group_buttons, .buttonForm {
+        flex-direction: column;
+    }
+
+   button, .button, .buttonForm button {
+       width: 100%;
+       max-width: none;
+       margin-bottom:3%;
+   }
+
+   .checkbox_group {
+       margin-bottom: 15%;
+   }
+
+   .tableau_home {
+       margin-top: 20%;
+   }
+}
+
 /**
 **************************************
 FIN de MEDIAQUERIES smartphones et tablettes
