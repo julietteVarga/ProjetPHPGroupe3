@@ -42,6 +42,7 @@ h2 {
     font-size: 1.6vw;
 }
 
+
 main {
     flex-grow: 1;
     margin: 1% 3% 1% 3%;
@@ -156,7 +157,7 @@ button, .button {
     margin: 2% 1% 5% 0;
 }
 
-.tableau_home {
+.tableau_home,.userlist {
     --border-radius-tab-home: 15px;
     border-collapse: separate;
     border-spacing: 1px;
@@ -164,24 +165,24 @@ button, .button {
     margin-top: 5%;
 }
 
-.tableau_home th:first-child {
+.tableau_home th:first-child , .userlist th:first-child{
     border-top-left-radius: var(--border-radius-tab-home);
 }
 
-.tableau_home th:last-child {
+.tableau_home th:last-child,.userlist th:last-child{
     border-top-right-radius: var(--border-radius-tab-home);
 }
 
-.tableau_home tr:last-child > td:first-child {
+.tableau_home tr:last-child > td:first-child, .userlist tr:last-child > td:first-child {
     border-bottom-left-radius: var(--border-radius-tab-home);
 }
 
-.tableau_home tr:last-child > td:last-child {
+.tableau_home tr:last-child > td:last-child,.userlist tr:last-child > td:last-child {
     border-bottom-right-radius: var(--border-radius-tab-home);
 }
 
 
-.tableau_home td {
+.tableau_home td, .userlist td{
     width: 10vw;
     min-width: 100px;
     text-align: center;
@@ -189,7 +190,7 @@ button, .button {
     background-color: var(--bg-tab-corps);
 }
 
-.tableau_home th {
+.tableau_home th,.userlist th{
     background-color: var(--bg-tab-title);
     font-size: 20px;
     color: var(--tab-title-color);
@@ -333,6 +334,10 @@ header nav a:hover, header .navbar_responsive a:hover, .login_logout_msg a:hover
 }
 .image_profile img{
     height: 20vh;
+}
+.userlist{
+    margin-top: 0;
+    margin-bottom: 30px;
 }
 
 

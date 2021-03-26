@@ -12,16 +12,16 @@
     {% endif %}
 
     <p>
-        Prénom : {{ user.name }} <br>
-        Nom : {{ user.surname }} <br>
-        Email : {{ user.email }} <br>
-        Téléphone : {{ user.tel }}
+        <b>Prénom :</b> {{ user.name }} <br><br>
+        <b> Nom :</b> {{ user.surname }} <br><br>
+        <b> Email :</b> {{ user.email }} <br><br>
+        <b>Téléphone :</b> {{ user.tel }}
     </p>
 
     <p>
-        Campus de rattachement : {{ user.campus }}
+        <b>Campus de rattachement : </b>{{ user.campus }}<br>
     </p>
-
+<br>
     <div class="button">
         <a href="{{ url('main_index') }}">Retour</a>
     </div>

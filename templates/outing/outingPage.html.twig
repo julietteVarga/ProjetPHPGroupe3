@@ -7,29 +7,29 @@
 {% block main %}
 
     <div class="block1">
-        ETAT : {{ outing.state }}<br>
-        Nom de la sortie : {{ outing.name }}<br>
-        Date et heure de la sortie : {{ outing.startingDateTime|date('d/m/y') }}
-        - {{ outing.startingDateTime|date('h:m') }}<br>
-        Date limite d'inscription : {{ outing.registrationDeadLine|date('d/m/y') }}<br>
-        Nombre de places : {{ outing.maxNumberRegistration }}<br>
-        Durée : {{ outing.duration|date('h') }} h {{ outing.duration|date('m') }} min <br>
-        Description et infos : {{ outing.outingInfos }}<br>
+        <b> ETAT :</b> {{ outing.state }}<br><br>
+        <b>Nom de la sortie :</b> {{ outing.name }}<br><br>
+        <b>Date et heure de la sortie :</b> {{ outing.startingDateTime|date('d/m/y') }}
+        - {{ outing.startingDateTime|date('h:m') }}<br><br>
+        <b> Date limite d'inscription : </b>{{ outing.registrationDeadLine|date('d/m/y') }}<br><br>
+        <b> Nombre de places :</b> {{ outing.maxNumberRegistration }}<br><br>
+        <b> Durée :</b> {{ outing.duration|date('h') }} h {{ outing.duration|date('m') }} min <br><br>
+        <b>Description et infos :</b> {{ outing.outingInfos }}<br><br>
     </div>
 
     <div class="block2">
-        Ville organisatrice : {{ outing.campusOrganizer }}<br>
-        Lieu : {{ outing.location }}<br>
-        Rue : {{ outing.location.street }}<br>
-        Code postal : {{ outing.location.city.postalCode }}<br>
-        Latitude : {{ outing.location.latitude }}<br>
-        Longitude : {{ outing.location.longitude }}<br>
+        <b>Ville organisatrice :</b> {{ outing.campusOrganizer }}<br><br>
+        <b> Lieu : </b>{{ outing.location }}<br><br>
+        <b> Rue :</b> {{ outing.location.street }}<br><br>
+        <b> Code postal :</b> {{ outing.location.city.postalCode }}<br><br>
+        <b>Latitude :</b> {{ outing.location.latitude }}<br><br>
+        <b> Longitude :</b> {{ outing.location.longitude }}<br><br>
     </div>
 
     <div class="outingpage_userlist">
         <h2>Liste des participants :</h2>
 
-        <table class="tableau_home userlist">
+        <table class="userlist">
 
             <tr>
                 <th>Pseudo</th>
