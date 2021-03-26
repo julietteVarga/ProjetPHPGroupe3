@@ -46,20 +46,22 @@
 
             {% else %}
 
-                <tr>
+
 
                     {% for title in outing.participants|batch(2) %}
                         {% for participant in title %}
-
+                            <tr>
                             <td>
-                                {{ participant.username }}
+                               <a href="{{ url('user_show_organizer', {'id':participant.getId()}) }}"> {{ participant.username }}</a>
                             </td>
                             <td>
                                 {{ participant.name }} {{ participant.surname }}
                             </td>
+                            </tr>
                         {% endfor %}
+
                     {% endfor %}
-                </tr>
+
             {% endif %}
         </table>
 

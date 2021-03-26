@@ -88,8 +88,10 @@ class OutingRepository extends ServiceEntityRepository
 
         if (!empty($search->pastOutings)) {
             $query = $query
-                ->andWhere('s.label = :s')
-                ->setParameter('s', 'Fermée');
+                ->andWhere('s.label = :a')
+                ->orWhere('s.label = :t')
+                ->setParameter('a', 'Archivée')
+                ->setParameter('t','Terminée');
         }
 
         return $query->getQuery()->getResult();

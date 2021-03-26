@@ -121,7 +121,9 @@
                          <td data-label="Etat de la sortie">{{ outing.state }}</td>
                          <td data-label="Inscrit(e) ?">
                              {% if app.user in outing.participants %}
-                                 <p>X</p>
+                                 <p>Oui</p>
+                                 {% else %}
+                                 <p>Non</p>
                              {% endif %}
                          </td>
                          <td data-label="Organisateur"><a
@@ -133,8 +135,12 @@
                              {% if outing.state == 'En création' %}
                                  {% if app.user == outing.organizer %}
                                      <a href="{{ url('modify_outing', {'id':outing.getId()}) }}">Modifier/Publier</a>
+                                     {% else %}
+                                     <p>Aucune action possible</p>
                                  {% endif %}
+
                              {% endif %}
+
 
                              {% if  outing.state == 'Ouverte' %}
                                  <a href="{{ url('outing_show', {'id':outing.getId()}) }}">Afficher</a> -
@@ -156,7 +162,7 @@
                                  {% endif %}
                              {% endif %}
                              {% if outing.state == 'Clôturée' %}
-                                 <a href="{{ url('outing_show', {'id':outing.getId()}) }}">Afficher</a> -
+                                 <a href="{{ url('outing_show', {'id':outing.getId()}) }}">Afficher</a>-
                                  {% if app.user in outing.participants %}
                                      <a href="{{ url('user_sign_out_outing', {'id':outing.getId()}) }}">Se
                                          désinscrire</a>

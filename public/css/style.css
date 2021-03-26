@@ -331,7 +331,9 @@ header nav a:hover, header .navbar_responsive a:hover, .login_logout_msg a:hover
     align-content: center;
     align-items: center;
 }
-
+.image_profile img{
+    height: 20vh;
+}
 
 
 
