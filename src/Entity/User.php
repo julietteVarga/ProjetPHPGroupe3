@@ -100,7 +100,7 @@ private $salt;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy= "organizer")
+     * @ORM\OneToMany(targetEntity="App\Entity\Outing", mappedBy= "organizer", cascade={"remove"})
      */
     private $outingsOrganizer;
 
