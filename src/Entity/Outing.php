@@ -72,7 +72,7 @@ class Outing
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="outingsOrganizer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="outingsOrganizer", cascade={"remove"})
      */
     private User $organizer;
 
