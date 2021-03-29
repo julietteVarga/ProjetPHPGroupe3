@@ -1,4 +1,4 @@
-# ProjetPHPGroupe3
+# SORTIR.COM
 Voici notre projet PHP - Symfony réalisé à l'ENI école informatique de Rennes, dans le cadre de notre formation BAC+2 Développement web et web mobile (D2WM)
 
 GIRE Emilie  -  LE TALLEC Antoine  -  VARGA Juliette
