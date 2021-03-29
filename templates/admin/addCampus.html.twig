@@ -1,0 +1,29 @@
+{% extends('./base.html.twig') %}
+
+{% block Pagetitle %}
+Ajouter un Campus
+{% endblock %}
+
+ {% block main %}
+
+<div class="block1">
+
+    <div class="form">
+        {{ form_start (newCampusForm) }}
+
+       <div class="form_groupe">
+
+            {{ form_label (newCampusForm.campusName) }}
+            {{ form_widget (newCampusForm.campusName) }}
+            {{ form_errors (newCampusForm.campusName) }}
+
+        </div>
+
+       <button type="submit">Envoyer !</button>
+        {{ form_end (newCampusForm) }}
+
+    </div>
+</div>
+
+
+ {% endblock %}

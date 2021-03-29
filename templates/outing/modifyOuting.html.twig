@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block Pagetitle %}
+    Modifier une sortie :
+{% endblock %}
+
+{% block main %}
+
+    {% if app.user %}
+
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash flash-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+
+        <div class="form">
+            {{ form_start (modifyForm) }}
+            <div class="form_groupe">
+                {{ form_label (modifyForm.name) }}
+                {{ form_widget (modifyForm.name) }}
+                {{ form_errors (modifyForm.name) }}
+            </div>
+            <div class="form_groupe">
+                {{ form_label (modifyForm.startingDateTime) }}
+                {{ form_widget (modifyForm.startingDateTime) }}
+                {{ form_errors (modifyForm.startingDateTime) }}
+            </div>
+            <div class="form_groupe">
+                {{ form_label (modifyForm.duration) }}
+                {{ form_widget (modifyForm.duration) }}
+                {{ form_errors (modifyForm.duration) }}
+            </div>
+            <div class="form_groupe">
+                {{ form_label (modifyForm.registrationDeadLine) }}
+                {{ form_widget (modifyForm.registrationDeadLine) }}
+                {{ form_errors (modifyForm.registrationDeadLine) }}
+            </div>
+            <div class="form_groupe">
+                {{ form_label (modifyForm.maxNumberRegistration) }}
+                {{ form_widget (modifyForm.maxNumberRegistration) }}
+                {{ form_errors (modifyForm.maxNumberRegistration) }}
+            </div>
+            <div class="form_groupe">
+                {{ form_label (modifyForm.outingInfos) }}
+                {{ form_widget (modifyForm.outingInfos) }}
+                {{ form_errors (modifyForm.outingInfos) }}
+            </div>
+
+            <div class="form_groupe">
+                {{ form_label (modifyForm.location) }}
+                {{ form_widget (modifyForm.location) }}
+                {{ form_errors (modifyForm.location) }}
+            </div>
+
+            <p> Ville organisatrice : {{ app.user.getCampus }}</p>
+            <br>
+
+            <div class="button">
+                <a href="{{ url('create_location') }}">Ajouter un lieu</a>
+            </div>
+
+            <div class="button">
+                <a href="{{ url('cancel_outing', {'id':outing.getId()}) }}">Supprimer la sortie</a>
+            </div>
+
+            {{ form_end (modifyForm) }}
+
+
+        </div>
+
+    {% else %}
+        <h2>Vous devez être connecté pour accéder à cette page.</h2>
+    {% endif %}
+
+
+{% endblock %}

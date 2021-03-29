@@ -1,0 +1,499 @@
+:root {
+    --bg-color: white;
+    --text-color: black;
+    --title-color: black;
+    --input-color: rgb(16, 88, 121);
+    --link-navbar-color: #BFC0C0;
+    --link-color: #456990;
+    --link-hover-color: rgb(231, 202, 151);
+    --bg-nav-color: #456990;
+    --bg-login-page: rgba(69, 105, 144, 0.6);
+    --bg-tab-corps: rgba(220, 178, 82, 0.5);
+    --bg-tab-title: rgba(220, 178, 82, 0.8);
+    --tab-title-color: black;
+
+    --archive-title: #5592FF;
+    --archive-link: rgb(33, 79, 90);
+    --archive-tabtitle: #2e3136;
+    --archive-tabcorps: rgba(130, 130, 130, 0.5);
+    --archive-nav-bg: rgb(231, 202, 151);
+}
+
+body {
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 95vh;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color);
+}
+
+.navbar_responsive {
+    display: none;
+}
+
+h1 {
+    font-family: 'Chango', cursive;
+    color: var(--title-color);
+}
+
+h2 {
+    font-family: 'Chango', cursive;
+    font-size: 1.6vw;
+}
+
+
+main {
+    flex-grow: 1;
+    margin: 1% 3% 1% 3%;
+
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--bg-nav-color);
+    padding: 3px;
+    position: sticky;
+    top: 0%;
+}
+
+.header_blockleft {
+    display: flex;
+    flex-direction: row;
+    margin-right: 15%;
+
+}
+
+header nav {
+    width: 50%;
+}
+
+.header_blockleft h1 {
+    padding-left: 1%;
+}
+
+header img {
+    height: 80px;
+}
+
+header ul {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    justify-content: end;
+}
+
+header li {
+    color: black;
+    padding: 1%;
+}
+
+header .login_logout_msg {
+    width: 100%;
+}
+
+
+footer {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    margin-top: 5%;
+    background-color: var(--bg-nav-color);
+}
+
+footer a {
+    color: var(--link-navbar-color);
+}
+
+.group_buttons {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.buttonForm {
+    display: flex;
+}
+
+
+button, .button {
+    background-color: black;
+    color: white;
+    height: 50px;
+    min-width: 100px;
+    max-width: 250px;
+    width: 30vw;
+    text-align: center;
+    border-radius: 30px;
+    box-shadow: 5px 5px 10px 3px grey;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    border: inset var(--link-hover-color) 4px;
+    margin-right: 2%;
+    cursor: pointer;
+}
+
+
+.button a {
+    text-decoration: none;
+    color: white;
+    margin: 0;
+    padding: 0;
+
+}
+
+.button, .buttonForm {
+    line-height: 47px;
+    height: 45px;
+}
+
+
+.hometitle {
+    text-align: end;
+    margin: 2% 1% 5% 0;
+}
+
+.tableau_home,.userlist {
+    --border-radius-tab-home: 15px;
+    border-collapse: separate;
+    border-spacing: 1px;
+    border-radius: 10px;
+    margin-top: 5%;
+}
+
+.tableau_home th:first-child , .userlist th:first-child{
+    border-top-left-radius: var(--border-radius-tab-home);
+}
+
+.tableau_home th:last-child,.userlist th:last-child{
+    border-top-right-radius: var(--border-radius-tab-home);
+}
+
+.tableau_home tr:last-child > td:first-child, .userlist tr:last-child > td:first-child {
+    border-bottom-left-radius: var(--border-radius-tab-home);
+}
+
+.tableau_home tr:last-child > td:last-child,.userlist tr:last-child > td:last-child {
+    border-bottom-right-radius: var(--border-radius-tab-home);
+}
+
+
+.tableau_home td, .userlist td{
+    width: 10vw;
+    min-width: 100px;
+    text-align: center;
+    font-size: 18px;
+    background-color: var(--bg-tab-corps);
+}
+
+.tableau_home th,.userlist th{
+    background-color: var(--bg-tab-title);
+    font-size: 20px;
+    color: var(--tab-title-color);
+    height: 40px;
+}
+
+.form_groupe, form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 100%;
+
+}
+
+.form_groupe input, #user_campus, form input, #campus, select, textarea {
+    border-radius: 10px;
+    width: 35%;
+    min-width: 300px;
+    font-size: 16px;
+    color: var(--input-color);
+}
+
+.form_checkbox input {
+    min-width: 40px;
+    width: auto;
+
+}
+
+#outing_startingDateTime_time_hour, #outing_startingDateTime_time_minute {
+    width: 5%;
+    min-width: 50px;
+
+}
+
+
+.form_groupe label, form label {
+    margin-right: 15px;
+}
+
+
+.form {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.form_checkbox {
+    display: flex;
+    flex-direction: row;
+}
+
+#sign_up_isActive {
+    width: 3%;
+}
+
+.form_homepage, .notCheckbox_group input, .notCheckbox_group, .checkbox_group {
+    width: 100%;
+}
+
+.filter_title {
+    margin-bottom: 2%;
+}
+
+.login_page, .login_form {
+    background-color: var(--bg-login-page);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login_logo {
+    opacity: 0%;
+    animation: animLogo 2s ease-out 0.2s forwards;
+}
+
+@keyframes animLogo {
+    0% {
+        opacity: 0;
+        transform: rotate(45deg);
+        top: -5%;
+        right: -10%;
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotate(0);
+    }
+}
+
+.rememberme_checkbox input {
+    width: 1%;
+    min-width: unset;
+}
+
+a {
+    color: var(--link-color);
+    font-weight: bold;
+}
+
+header nav a, .navbar_responsive a, .login_logout_msg {
+    text-decoration: none;
+    color: var(--link-navbar-color);
+    font-weight: bold;
+    font-size: 19px;
+}
+
+.navbar_responsive a {
+    font-size: 16px;
+}
+
+.login_logout_msg a {
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--link-hover-color);
+}
+
+.login_logout_msg {
+    text-align: center;
+}
+
+header nav a:hover, header .navbar_responsive a:hover, .login_logout_msg a:hover {
+    color: var(--link-hover-color);
+    text-shadow: 3px 3px 3px #719ca0;
+}
+
+.flash {
+    background-color: #F5DFBB;
+    margin: 2%;
+    height: 50px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3vw;
+    border-radius: 20px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.image_profile img{
+    height: 20vh;
+}
+.userlist{
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+
+
+
+
+/**
+**************************************
+MEDIAQUERIES smartphones et tablettes
+**************************************
+ */
+
+@media screen and (max-width: 1040px) {
+
+    .navbar_classic {
+        display: none;
+    }
+
+    .navbar_responsive {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 50vh;
+        padding: 0;
+        width: 100%;
+    }
+
+    .login_logout_msg {
+        display: none;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: 4vw;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    .form_homepage {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .notCheckbox_group, .checkbox_group {
+        width: 100%;
+        align-items: center;
+    }
+
+    .tableau_home thead {
+        display: none;
+    }
+
+    .tableau_home tr {
+        display: block;
+        margin-bottom: 40px;
+    }
+
+    .tableau_home td {
+        display: block;
+        text-align: right;
+    }
+
+    .tableau_home td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+    }
+
+    .tableau_home td, table {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .login_logo {
+        opacity: 100%;
+        animation: none;
+        width: 45vw;
+    }
+
+    .open-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 5vw;
+        min-width: 35px;
+        height: 50px;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        margin-right: 2%;
+        cursor: pointer;
+    }
+
+    .open-btn .open-btn-bar {
+        background-color: black;
+        height: 5px;
+        width: 100%;
+    }
+
+    .close-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        width: 30px;
+        height: 30px;
+        transform: rotate(45deg);
+        cursor: pointer;
+    }
+
+    .close-btn .close-btn-bar {
+        background-color: white;
+        height: 5px;
+        width: 100%;
+    }
+
+    .close-btn-bar-rotate {
+        transform: rotate(90deg);
+        margin-bottom: -5px;
+    }
+
+}
+
+
+@media screen and (max-width: 600px) {
+
+    .group_buttons, .buttonForm {
+        flex-direction: column;
+    }
+
+   button, .button, .buttonForm button {
+       width: 100%;
+       max-width: none;
+       margin-bottom:3%;
+   }
+
+   .checkbox_group {
+       margin-bottom: 15%;
+   }
+
+   .tableau_home {
+       margin-top: 20%;
+   }
+}
+
+/**
+**************************************
+FIN de MEDIAQUERIES smartphones et tablettes
+**************************************
+ */

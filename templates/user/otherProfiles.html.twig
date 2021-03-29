@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block Pagetitle %}
+    Profil de {{ user.username }} :
+{% endblock %}
+
+{% block main %}
+    {% if user.profilePic %}
+    <div class="image_profile">
+        <img src=" {{asset('uploads/profile_pics/'~ user.profilePic.name) }}" alt="photo de profil">
+    </div>
+    {% endif %}
+
+    <p>
+        <b>Prénom :</b> {{ user.name }} <br><br>
+        <b> Nom :</b> {{ user.surname }} <br><br>
+        <b> Email :</b> {{ user.email }} <br><br>
+        <b>Téléphone :</b> {{ user.tel }}
+    </p>
+
+    <p>
+        <b>Campus de rattachement : </b>{{ user.campus }}<br>
+    </p>
+<br>
+    <div class="button">
+        <a href="{{ url('main_index') }}">Retour</a>
+    </div>
+
+
+{% endblock %}

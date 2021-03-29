@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block Pagetitle %}
+Mon profil
+{% endblock %}
+{% block main %}
+ {% if app.user %}
+     {% if app.user.profilePic %}
+     <div class="image_profile">
+         <img src=" {{asset('uploads/profile_pics/'~ app.user.profilePic.name) }}" alt="photo de profil">
+     </div>
+     {% endif %}
+    <div class="form form_oneblock">
+        {{ form_start (userModifyForm) }}
+        <div class="form_groupe">
+            {{ form_label (userModifyForm.name) }}
+            {{ form_widget (userModifyForm.name) }}
+            {{ form_errors (userModifyForm.name) }}
+        </div>
+        <div class="form_groupe">
+            {{ form_label (userModifyForm.surname) }}
+            {{ form_widget (userModifyForm.surname) }}
+           {{ form_errors (userModifyForm.surname) }}
+        </div>
+        <div class="form_groupe">
+           {{ form_label (userModifyForm.username) }}
+           {{ form_widget (userModifyForm.username) }}
+           {{ form_errors (userModifyForm.username) }}
+        </div>
+        <div class="form_groupe">
+            {{ form_label(userModifyForm.password.first) }}
+            {{ form_widget(userModifyForm.password.first) }}
+            {{ form_errors(userModifyForm.password.first) }}
+        </div>
+        <div class="form_groupe">
+            {{ form_label(userModifyForm.password.second) }}
+            {{ form_widget(userModifyForm.password.second) }}
+            {{ form_errors(userModifyForm.password.second) }}
+        </div>
+
+        <div class="form_groupe">
+            {{ form_label (userModifyForm.tel) }}
+            {{ form_widget (userModifyForm.tel) }}
+            {{ form_errors (userModifyForm.tel) }}
+        </div>
+        <div class="form_groupe">
+            {{ form_label (userModifyForm.email) }}
+            {{ form_widget (userModifyForm.email) }}
+            {{ form_errors (userModifyForm.email) }}
+        </div>
+
+        <div class="form_groupe">
+            {{ form_label (userModifyForm.campus,'ville de rattachement') }}
+            {{ form_widget (userModifyForm.campus) }}
+            {{ form_errors (userModifyForm.campus) }}
+        </div>
+
+
+        <div class="form_groupe">
+            {{ form_label (userModifyForm.profilePic) }}
+            {{ form_widget (userModifyForm.profilePic) }}
+            {{ form_errors (userModifyForm.profilePic) }}
+        </div>
+        <br>
+        <button type="submit">Envoyer !</button>
+        {{ form_end (userModifyForm) }}
+    </div>
+     {% else %}
+     <h1>Vous devez etre connectés pour acceder à cette page</h1>
+
+{% endif %}
+{% endblock %}
+

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block Pagetitle %}
+    Profil de {{ user.username }} :
+{% endblock %}
+
+{% block main %}
+
+    <p>
+        Prénom : {{ user.name }} <br>
+        Nom : {{ user.surname }} <br>
+        pseudo : {{ user.username }} <br>
+        Email : {{ user.email }} <br>
+        Téléphone : {{ user.tel }}
+    </p>
+
+    <div class="form">
+        {{ form_start (userAdminModifyForm) }}
+        <div class="form_groupe">
+            {{ form_label (userAdminModifyForm.campus) }}
+            {{ form_widget (userAdminModifyForm.campus) }}
+            {{ form_errors (userAdminModifyForm.campus) }}
+        </div>
+        <div class="form_groupe">
+            {{ form_label (userAdminModifyForm.isActive) }}
+            {{ form_widget (userAdminModifyForm.isActive) }}
+            {{ form_errors (userAdminModifyForm.isActive) }}
+        </div>
+        <div class="form_groupe">
+            {{ form_label (userAdminModifyForm.roles) }}
+            {{ form_widget (userAdminModifyForm.roles) }}
+            {{ form_errors (userAdminModifyForm.roles) }}
+        </div>
+
+        <div class="group_buttons">
+            <button type="submit">Modifier le profil de {{ user.username }}</button>
+            <div class="button">
+                <a href="{{ url('admin_delete_profile', {'id':user.getId()}) }}">Supprimer l'utilisateur</a>
+            </div>
+            <div class="button">
+                <a href="{{ url('admin_users_list') }}">Retour</a>
+            </div>
+
+        </div>
+
+
+        {{ form_end (userAdminModifyForm) }}
+    </div>
+
+
+{% endblock %}

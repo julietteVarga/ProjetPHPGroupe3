@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block Pagetitle %}
+    Sortie "{{ outing.name }}"
+{% endblock %}
+
+{% block main %}
+
+    <div class="block1">
+        <b> ETAT :</b> {{ outing.state }}<br><br>
+        <b>Nom de la sortie :</b> {{ outing.name }}<br><br>
+        <b>Date et heure de la sortie :</b> {{ outing.startingDateTime|date('d/m/y') }}
+        - {{ outing.startingDateTime|date('h:m') }}<br><br>
+        <b> Date limite d'inscription : </b>{{ outing.registrationDeadLine|date('d/m/y') }}<br><br>
+        <b> Nombre de places :</b> {{ outing.maxNumberRegistration }}<br><br>
+        <b> Durée :</b> {{ outing.duration|date('h') }} h {{ outing.duration|date('m') }} min <br><br>
+        <b>Description et infos :</b> {{ outing.outingInfos }}<br><br>
+    </div>
+
+    <div class="block2">
+        <b>Ville organisatrice :</b> {{ outing.campusOrganizer }}<br><br>
+        <b> Lieu : </b>{{ outing.location }}<br><br>
+        <b> Rue :</b> {{ outing.location.street }}<br><br>
+        <b> Code postal :</b> {{ outing.location.city.postalCode }}<br><br>
+        <b>Latitude :</b> {{ outing.location.latitude }}<br><br>
+        <b> Longitude :</b> {{ outing.location.longitude }}<br><br>
+    </div>
+
+    <div class="outingpage_userlist">
+        <h2>Liste des participants :</h2>
+
+        <table class="userlist">
+
+            <tr>
+                <th>Pseudo</th>
+                <th>Nom</th>
+            </tr>
+
+
+            {% if outing.participants is empty %}
+                <tr>
+                    <td colspan="2">
+                        <p>Aucun participant</p>
+                    </td>
+                </tr>
+
+            {% else %}
+
+
+
+                    {% for title in outing.participants|batch(2) %}
+                        {% for participant in title %}
+                            <tr>
+                            <td>
+                               <a href="{{ url('user_show_organizer', {'id':participant.getId()}) }}"> {{ participant.username }}</a>
+                            </td>
+                            <td>
+                                {{ participant.name }} {{ participant.surname }}
+                            </td>
+                            </tr>
+                        {% endfor %}
+
+                    {% endfor %}
+
+            {% endif %}
+        </table>
+
+    </div>
+    <br>
+    <div class="button">
+        <a href="{{ url('main_index') }}">Retour</a>
+    </div>
+
+{% endblock %}

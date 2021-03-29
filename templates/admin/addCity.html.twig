@@ -1,0 +1,37 @@
+{% extends('./base.html.twig') %}
+
+{% block Pagetitle %}
+    Ajouter une Ville
+{% endblock %}
+
+ {% block main %}
+
+     <div class="block1">
+
+         <div class="form">
+             {{ form_start (newCityForm) }}
+
+             <div class="form_groupe">
+
+                 {{ form_label (newCityForm.name) }}
+                 {{ form_widget (newCityForm.name) }}
+                 {{ form_errors (newCityForm.name) }}
+
+             </div>
+
+             <div class="form_groupe">
+
+                 {{ form_label (newCityForm.postalCode) }}
+                 {{ form_widget (newCityForm.postalCode) }}
+                 {{ form_errors (newCityForm.postalCode) }}
+
+             </div>
+
+             <button type="submit">Envoyer !</button>
+             {{ form_end (newCityForm) }}
+
+         </div>
+     </div>
+
+
+ {% endblock %}

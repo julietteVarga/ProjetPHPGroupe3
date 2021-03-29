@@ -1,0 +1,89 @@
+{% extends('./base.html.twig') %}
+
+ {% block Pagetitle %}
+     Inscrire un nouvel utilisateur
+ {% endblock %}
+
+ {% block main %}
+
+      <div class="block1">
+
+     <div class="form">
+         {{ form_start (newUserForm) }}
+
+         <div class="form_groupe form_checkbox">
+             {{ form_widget (newUserForm.isActive) }}
+             {{ form_label (newUserForm.isActive) }}
+             {{ form_errors (newUserForm.isActive) }}
+         </div>
+
+         <div class="form_groupe">
+
+             {{ form_label (newUserForm.name) }}
+             {{ form_widget (newUserForm.name) }}
+             {{ form_errors (newUserForm.name) }}
+
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label (newUserForm.surname) }}
+             {{ form_widget (newUserForm.surname) }}
+             {{ form_errors (newUserForm.surname) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label (newUserForm.username) }}
+             {{ form_widget (newUserForm.username) }}
+             {{ form_errors (newUserForm.username) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label(newUserForm.password.first) }}
+             {{ form_widget(newUserForm.password.first) }}
+             {{ form_errors(newUserForm.password.first) }}
+         </div>
+         <div class="form_groupe">
+             {{ form_label(newUserForm.password.second) }}
+             {{ form_widget(newUserForm.password.second) }}
+             {{ form_errors(newUserForm.password.second) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label (newUserForm.tel) }}
+             {{ form_widget (newUserForm.tel) }}
+             {{ form_errors (newUserForm.tel) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label (newUserForm.email) }}
+             {{ form_widget (newUserForm.email) }}
+             {{ form_errors (newUserForm.email) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label (newUserForm.campus) }}
+             {{ form_widget (newUserForm.campus) }}
+             {{ form_errors (newUserForm.campus) }}
+         </div>
+
+         <div class="form_groupe">
+             {{ form_label (newUserForm.roles) }}
+             {{ form_widget (newUserForm.roles) }}
+             {{ form_errors (newUserForm.roles) }}
+         </div>
+
+
+
+
+         <br>
+         <div class="group_buttons">
+             <button type="submit">Envoyer !</button>
+             {{ form_end (newUserForm) }}
+         </div>
+
+
+     </div>
+     </div>
+
+
+ {% endblock %}

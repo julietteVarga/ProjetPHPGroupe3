@@ -1,0 +1,195 @@
+{% extends('./base.html.twig') %}
+
+ {% block Pagetitle %}
+     <div class="hometitle">
+         Date du jour : {{ "now"|date("d/m/y") }}<br>
+         Participant(e) : {{ app.user.name }} {{ app.user.surname }}
+     </div>
+ {% endblock %}
+
+ {% block main %}
+
+     <h3 class="filter_title">Filtrer les sorties :</h3>
+
+
+     <div class="form form_homepage">
+
+
+         <div class="notCheckbox_group">
+             {{ form_start(form) }}
+
+             <div class="form_groupe">
+                 {{ form_label(form.q) }}
+                 {{ form_widget(form.q) }}
+                 {{ form_errors(form.q) }}
+             </div>
+
+             <div class="form_groupe">
+                 {{ form_label(form.campus) }}
+                 {{ form_widget(form.campus) }}
+                 {{ form_errors(form.campus) }}
+             </div>
+
+             <div class="blockDateFilter">
+                 <div class="form_groupe">
+                     {{ form_label(form.mindate) }}
+                     {{ form_widget(form.mindate) }}
+                 </div>
+
+
+                 <div class="form_groupe">
+                     {{ form_label(form.maxdate) }}
+                     {{ form_widget(form.maxdate) }}
+                 </div>
+
+             </div>
+
+         </div>
+         <div class="checkbox_group">
+
+             <div class="form_groupe form_checkbox">
+                 {{ form_widget(form.organizer) }}
+                 {{ form_label(form.organizer) }}
+                 {{ form_errors(form.organizer) }}
+             </div>
+
+             <div class="form_groupe form_checkbox">
+                 {{ form_widget(form.participant) }}
+                 {{ form_label(form.participant) }}
+                 {{ form_errors(form.participant) }}
+             </div>
+
+             <div class="form_groupe form_checkbox">
+                 {{ form_widget(form.notParticipant) }}
+                 {{ form_label(form.notParticipant) }}
+                 {{ form_errors(form.notParticipant) }}
+             </div>
+
+             <div class="form_groupe form_checkbox">
+                 {{ form_widget(form.pastOutings) }}
+                 {{ form_label(form.pastOutings) }}
+                 {{ form_errors(form.pastOutings) }}
+             </div>
+
+         </div>
+     </div>
+
+
+     <div class="group_buttons buttonForm">
+             <button type="submit" class="button">Filtrer</button>
+         <div class="button buttonResetDate">
+             <a href="{{ url('main_index') }}">Reinitialiser</a>
+         </div>
+
+         </div>
+
+         {{ form_end(form) }}
+
+
+
+
+
+
+     <div class="listOuting">
+
+         <table class="tableau_home">
+             <thead>
+             <tr>
+                 <th>Nom de la sortie</th>
+                 <th>Date de la sortie</th>
+                 <th>Clotûre des inscriptions</th>
+                 <th>Inscrits/places</th>
+                 <th>Etat</th>
+                 <th>Inscrit</th>
+                 <th>Organisateur</th>
+                 <th>Actions</th>
+             </tr>
+             </thead>
+             <tbody>
+             {% for title in filterOutings|batch(8) %}
+                 <tr>
+                 {% for outing in title %}
+
+                     {% if (app.user != outing.organizer and is_granted('ROLE_ADMIN') == false)
+                         and (outing.state == 'En création'or outing.state == 'Annulée') %}
+                     {% else %}
+                         <td data-label="Nom de la sortie">{{ outing.name }}</td>
+                         <td data-label="Date de la sortie">{{ outing.startingDateTime|date("d/m/y") }}</td>
+                         <td data-label="Date de clotûre">{{ outing.registrationDeadLine|date("d/m/y") }}</td>
+                         <td data-label="nb d'inscrits/places max">{{ outing.participants|length }}
+                             /{{ outing.maxNumberRegistration }}</td>
+                         <td data-label="Etat de la sortie">{{ outing.state }}</td>
+                         <td data-label="Inscrit(e) ?">
+                             {% if app.user in outing.participants %}
+                                 <p>Oui</p>
+                                 {% else %}
+                                 <p>Non</p>
+                             {% endif %}
+                         </td>
+                         <td data-label="Organisateur"><a
+                                     href="{{ url('user_show_organizer', {'id':outing.getOrganizer().getId()}) }}">{{ outing.organizer.username }}</a>
+
+
+                         </td>
+                         <td data-label="Actions">
+                             {% if outing.state == 'En création' %}
+                                 {% if app.user == outing.organizer %}
+                                     <a href="{{ url('modify_outing', {'id':outing.getId()}) }}">Modifier/Publier</a>
+                                     {% else %}
+                                     <p>Aucune action possible</p>
+                                 {% endif %}
+
+                             {% endif %}
+
+
+                             {% if  outing.state == 'Ouverte' %}
+                                 <a href="{{ url('outing_show', {'id':outing.getId()}) }}">Afficher</a> -
+                                 {% if outing.maxNumberRegistration <= outing.participants|length %}
+                                     <p>Complet</p> -
+                                     {% if app.user in outing.participants %}
+                                         <a href="{{ url('user_sign_out_outing', {'id':outing.getId()}) }}">Se
+                                             désinscrire</a>
+                                     {% endif %}
+                                 {% elseif outing.state == 'Ouverte' and outing.maxNumberRegistration > outing.participants|length
+                                     and app.user in outing.participants %}
+                                     <a href="{{ url('user_sign_out_outing', {'id':outing.getId()}) }}">Se
+                                         désinscrire</a>
+                                 {% else %}
+                                     <a href="{{ url('user_sign_up_outing', {'id':outing.getId()}) }}">S'inscrire</a>
+                                     {% if app.user == outing.organizer or is_granted('ROLE_ADMIN') %}
+                                         - <a href="{{ url('cancel_outing', {'id':outing.getId()}) }}">Annuler</a>
+                                     {% endif %}
+                                 {% endif %}
+                             {% endif %}
+                             {% if outing.state == 'Clôturée' %}
+                                 <a href="{{ url('outing_show', {'id':outing.getId()}) }}">Afficher</a>-
+                                 {% if app.user in outing.participants %}
+                                     <a href="{{ url('user_sign_out_outing', {'id':outing.getId()}) }}">Se
+                                         désinscrire</a>
+                                 {% endif %}
+                                 {% if app.user == outing.organizer or is_granted('ROLE_ADMIN') %}
+                                     <a href="{{ url('cancel_outing', {'id':outing.getId()}) }}">Annuler</a>
+                                 {% endif %}
+                             {% endif %}
+
+
+                             {% if outing.state == 'Terminée' or outing.state == 'En cours' %}
+                                 <a href="{{ url('outing_show', {'id':outing.getId()}) }}">Afficher</a>
+                             {% endif %}
+
+                             {% if outing.state == 'Archivée' %}
+                                 <a href="{{ url('outing_show', {'id':outing.getId()}) }}">Afficher</a>
+                             {% endif %}
+
+                         </td>
+                     {% endif %}
+                     </tr>
+                 {% endfor %}
+
+             {% endfor %}
+             </tbody>
+         </table>
+
+     </div>
+
+ {% endblock %}
